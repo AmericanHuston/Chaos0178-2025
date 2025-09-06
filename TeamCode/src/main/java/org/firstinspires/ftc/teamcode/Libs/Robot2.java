@@ -126,6 +126,13 @@ public class Robot2 {
         leftLEDGreen = hardwareMap.get(LED.class, "leftLEDGreen");
     }
 
+    public static void setLastPose(Pose savePose){
+        lastPose = savePose;
+    }
+    public static Pose getLastPose(){
+        return lastPose;
+    }
+
     public double getClawPosition(){
         return claw.getPosition();
     }
