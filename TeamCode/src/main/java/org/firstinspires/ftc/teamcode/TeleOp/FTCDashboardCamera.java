@@ -60,15 +60,22 @@ public class FTCDashboardCamera extends LinearOpMode {
 
         new VisionPortal.Builder()
                 .addProcessor(processor)
-                .setCamera(hardwareMap.get(WebcamName.class, "Webcam"))//uses webcam rather than internal camera (android)
+                .setCamera(hardwareMap.get(WebcamName.class, "Webcam 1"))//uses webcam rather than internal camera (android)
                 .build();
 
         FtcDashboard.getInstance().startCameraStream(processor, 0);
 
         waitForStart();
 
-        while (opModeIsActive()) {
-            sleep(100L);
+        if (opModeIsActive()) {
+            sleep(10);
+
+            new VisionPortal.Builder()
+                    .addProcessor(processor)
+                    .setCamera(hardwareMap.get(WebcamName.class, "Webcam 1"))//uses webcam rather than internal camera (android)
+                    .build();
+
+            FtcDashboard.getInstance().startCameraStream(processor, 0);
         }
     }
 }
