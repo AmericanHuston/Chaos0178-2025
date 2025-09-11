@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.TeleOp;
 
 import com.pedropathing.follower.Follower;
-import org.firstinspires.ftc.teamcode.pedroPathing.constants.Constants;
+import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
