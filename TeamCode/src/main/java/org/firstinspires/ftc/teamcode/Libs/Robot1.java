@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.Libs;
 
 
 import com.acmerobotics.dashboard.config.Config;
-import com.pedropathing.localization.Pose;
+import com.pedropathing.geometry.Pose;
 import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.DcMotor;

@@ -1,31 +1,24 @@
 package org.firstinspires.ftc.teamcode.TeleOp;
 
 import com.pedropathing.follower.Follower;
-import com.pedropathing.localization.Pose;
-import com.pedropathing.util.Constants;
+import org.firstinspires.ftc.teamcode.pedroPathing.constants.Constants;
+import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-
 import org.firstinspires.ftc.teamcode.Libs.Robot1;
-import org.firstinspires.ftc.teamcode.Libs.Robot2;
-import org.firstinspires.ftc.teamcode.pedroPathing.constants.FConstants;
-import org.firstinspires.ftc.teamcode.pedroPathing.constants.LConstants;
 
 @TeleOp(name = "ShootyShootyBangBang", group = "TeleOp")
 public class ShootyShootyBangBang extends OpMode {
 
     private Follower follower;
-    private final Pose startPose = new Pose(8, 72, 0);
-
 
     Robot1 robot = new Robot1();
 
     @Override
     public void init() {
         robot.init(hardwareMap);
-        Constants.setConstants(FConstants.class, LConstants.class);
-        follower = new Follower(hardwareMap);
-        follower.setStartingPose(Robot2.getLastPose());
+        follower = Constants.createFollower(hardwareMap);//new follower creator
+        follower.setStartingPose(Robot1.getLastPose());
     }
 
     @Override
@@ -34,7 +27,7 @@ public class ShootyShootyBangBang extends OpMode {
 
     @Override
     public void loop() {
-        follower.setTeleOpMovementVectors(-gamepad1.left_stick_y/2, -gamepad1.left_stick_x/2, -gamepad1.right_stick_x/2, false);
+        follower.setTeleOpDrive(-gamepad1.left_stick_y/2, -gamepad1.left_stick_x/2, -gamepad1.right_stick_x/2, false);
         follower.update();
         //Driving------------------
 
@@ -42,11 +35,11 @@ public class ShootyShootyBangBang extends OpMode {
             follower.startTeleopDrive();
         }
         if (gamepad1.left_trigger > 0.01){
-            follower.setTeleOpMovementVectors(-gamepad1.left_stick_y/4, -gamepad1.left_stick_x/4, -gamepad1.right_stick_x/4, false);
+            follower.setTeleOpDrive(-gamepad1.left_stick_y/4, -gamepad1.left_stick_x/4, -gamepad1.right_stick_x/4, false);
             follower.update();
         }
         if (gamepad1.right_trigger > 0.01){
-            follower.setTeleOpMovementVectors(-gamepad1.left_stick_y, -gamepad1.left_stick_x, -gamepad1.right_stick_x, false);
+            follower.setTeleOpDrive(-gamepad1.left_stick_y, -gamepad1.left_stick_x, -gamepad1.right_stick_x, false);
             follower.update();
         }
         //Driving----------------
