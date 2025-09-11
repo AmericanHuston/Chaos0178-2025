@@ -13,22 +13,24 @@ public class ShootyShootyBangBang extends OpMode {
     private Follower follower;
 
     Robot1 robot = new Robot1();
+    public Pose startingPose = new Pose(5,72, Math.toRadians(0));
 
     @Override
     public void init() {
         robot.init(hardwareMap);
         follower = Constants.createFollower(hardwareMap);//new follower creator
-        follower.setStartingPose(Robot1.getLastPose());
     }
 
     @Override
     public void start() {
-        follower.startTeleopDrive();}
+        follower.startTeleopDrive();
+    }
 
     @Override
     public void loop() {
+        follower.setStartingPose(startingPose);
         follower.setTeleOpDrive(-gamepad1.left_stick_y/2, -gamepad1.left_stick_x/2, -gamepad1.right_stick_x/2, false);
-        follower.update();
+        follower.updateDrivetrain();
         //Driving------------------
 
         if (gamepad1.left_stick_button || gamepad1.right_stick_button) {
