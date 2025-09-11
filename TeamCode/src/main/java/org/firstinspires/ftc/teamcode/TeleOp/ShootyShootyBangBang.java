@@ -32,10 +32,9 @@ public class ShootyShootyBangBang extends OpMode {
 
     @Override
     public void loop() {
+        follower.update(); //MUST COME BEFORE SET TELE OP DRIVE
         follower.setTeleOpDrive(-gamepad1.left_stick_y/2, -gamepad1.left_stick_x/2, -gamepad1.right_stick_x/2, false);
-        follower.updateDrivetrain();
-        follower.update();
-        //Driving------------------
+        follower.updateDrivetrain();//Driving------------------
 
         if (gamepad1.left_stick_button || gamepad1.right_stick_button) {
             follower.startTeleopDrive();
