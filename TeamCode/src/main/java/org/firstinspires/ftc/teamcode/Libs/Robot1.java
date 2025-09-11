@@ -25,7 +25,6 @@ public class Robot1 {
     DcMotor frontRightMotor;
     DcMotor backRightMotor;
     GoBildaPinpointDriver pinpoint;
-    Rev2mDistanceSensor Distancer;
 
     public void init(HardwareMap hardwareMap) {
 
@@ -40,7 +39,6 @@ public class Robot1 {
         imu.initialize(parameters);
         frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        Distancer = hardwareMap.get(Rev2mDistanceSensor.class, "FrontDistanceSensor");
     }
 
     public static void setLastPose(Pose savePose){
@@ -50,9 +48,6 @@ public class Robot1 {
         return lastPose;
     }
 
-    public double getDistanceFromSensor(){
-        return Distancer.getDistance(DistanceUnit.MM);
-    }
 
 
     public void resetIMU() {
