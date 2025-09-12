@@ -24,6 +24,7 @@ public class Robot1 {
     DcMotor backLeftMotor;
     DcMotor frontRightMotor;
     DcMotor backRightMotor;
+    DcMotor flywheelMotor;
     GoBildaPinpointDriver pinpoint;
 
     public void init(HardwareMap hardwareMap) {
@@ -33,12 +34,14 @@ public class Robot1 {
         backLeftMotor = hardwareMap.dcMotor.get("backLeft");
         frontRightMotor = hardwareMap.dcMotor.get("frontRight");
         backRightMotor = hardwareMap.dcMotor.get("backRight");
+        flywheelMotor = hardwareMap.dcMotor.get("flywheelMotor");
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
                 RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,
                 RevHubOrientationOnRobot.UsbFacingDirection.UP));
         imu.initialize(parameters);
         frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        flywheelMotor.setDirection(DcMotorSimple.Direction.FORWARD);
     }
 
     public static void setLastPose(Pose savePose){
@@ -52,6 +55,10 @@ public class Robot1 {
     public void resetIMU() {
         imu.resetYaw();
         pinpoint.resetPosAndIMU();
+    }
+
+    public void spinFlywheel(){
+        flywheelMotor.setPower(1.0);
     }
 
 }
