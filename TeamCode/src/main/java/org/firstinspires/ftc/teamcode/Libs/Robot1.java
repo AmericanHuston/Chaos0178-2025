@@ -16,7 +16,6 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 @Config
 public class Robot1 {
 
-
     private static Pose lastPose = new Pose(24,24, Math.toRadians(0));
 
     IMU imu;
@@ -26,6 +25,8 @@ public class Robot1 {
     DcMotor backRightMotor;
     DcMotor flywheelMotor;
     GoBildaPinpointDriver pinpoint;
+
+    private boolean isFlywheelOn = false;
 
     public void init(HardwareMap hardwareMap) {
 
@@ -42,6 +43,7 @@ public class Robot1 {
         frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         flywheelMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        flywheelMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     public static void setLastPose(Pose savePose){
@@ -59,6 +61,15 @@ public class Robot1 {
 
     public void spinFlywheel(){
         flywheelMotor.setPower(1.0);
+        isFlywheelOn = true;
     }
 
+    public void stopFlywheel(){
+        flywheelMotor.setPower(0.0);
+        isFlywheelOn = false;
+    }
+
+    public boolean getIsFlywheelOn(){
+        return isFlywheelOn;
+    }
 }

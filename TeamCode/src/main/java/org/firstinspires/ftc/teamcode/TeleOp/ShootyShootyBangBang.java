@@ -39,13 +39,21 @@ public class ShootyShootyBangBang extends OpMode {
         if (gamepad1.left_stick_button || gamepad1.right_stick_button) {
             follower.startTeleopDrive();
         }
+
         if (gamepad1.left_trigger > 0.01){
             follower.setTeleOpDrive(-gamepad1.left_stick_y/4, -gamepad1.left_stick_x/4, -gamepad1.right_stick_x/4, false);
             follower.update();
         }
+
         if (gamepad1.right_trigger > 0.01){
             follower.setTeleOpDrive(-gamepad1.left_stick_y, -gamepad1.left_stick_x, -gamepad1.right_stick_x, false);
             follower.update();
+        }
+
+        if (gamepad2.a && robot.getIsFlywheelOn()){
+            robot.stopFlywheel();
+        } else if (gamepad2.a && !robot.getIsFlywheelOn()) {
+            robot.stopFlywheel();
         }
         //Driving----------------
 
