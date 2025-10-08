@@ -53,14 +53,12 @@ public class Robot1 {
         return lastPose;
     }
 
-
     public void resetIMU() {
         imu.resetYaw();
         pinpoint.resetPosAndIMU();
     }
-
-    public void spinFlywheel(){
-        flywheelMotor.setPower(1.0);
+    public void spinFlywheel(double flyPower){
+        flywheelMotor.setPower(flyPower);
         isFlywheelOn = true;
     }
 

@@ -13,6 +13,7 @@ public class ShootyShootyBangBang extends OpMode {
     private Follower follower;
 
     Robot1 robot = new Robot1();
+    double flyVel = 1.0;
     public Pose startingPose = new Pose(5,72, 0);
 
     @Override
@@ -50,10 +51,17 @@ public class ShootyShootyBangBang extends OpMode {
             follower.update();
         }
 
+        //flywheel
         if (gamepad2.a && robot.getIsFlywheelOn()){
-            robot.stopFlywheel();
+            robot.spinFlywheel(flyVel);
         } else if (gamepad2.a && !robot.getIsFlywheelOn()) {
             robot.stopFlywheel();
+        }
+        if (gamepad1.b){
+            flyVel = flyVel - 0.01;
+        }
+        if (gamepad2.y){
+            flyVel = flyVel + 0.01;
         }
         //Driving----------------
 
