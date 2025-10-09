@@ -17,6 +17,12 @@ import org.firstinspires.ftc.vision.opencv.PredominantColorProcessor;
 import java.util.List;
 
 public class Robot3 {
+    
+    double desiredFrontRight;
+    double desiredFrontLeft;
+    double desiredBackRight;
+    double desiredBackLeft;
+    double desiredFlywheel;
 
     private static Pose lastPose = new Pose(24,24, Math.toRadians(0));
     private static Pose startingPose1 = new Pose(0,0,0); //TODO Populate Data
@@ -24,17 +30,17 @@ public class Robot3 {
     private static Pose startingPose3 = new Pose(0,0,0); //TODO Populate Data
     private static Pose startingPose4 = new Pose(0,0,0); //TODO Populate Data
 
-    IMU imu;
-    DcMotor frontLeftMotor;
-    DcMotor backLeftMotor;
-    DcMotor frontRightMotor;
-    DcMotor backRightMotor;
-    GoBildaPinpointDriver pinpoint;
-    AprilTagProcessor aprilTag;
+    IMU IMU;
+    DcMotor Flywheel;
+    DcMotor FrontLeftMotor;
+    DcMotor BackLeftMotor;
+    DcMotor FrontRightMotor;
+    DcMotor BackRightMotor;
+    GoBildaPinpointDriver Pinpoint;
+    AprilTagProcessor AprilTag;
     VisionPortal visionPortal;
 
     public void init(HardwareMap hardwareMap) {
-
         PredominantColorProcessor colorSensor = new PredominantColorProcessor.Builder()
             .setRoi(ImageRegion.asUnityCenterCoordinates(-0.1, 0.1, 0.1, -0.1))
             .setSwatches(
@@ -47,19 +53,20 @@ public class Robot3 {
                 PredominantColorProcessor.Swatch.WHITE)
             .build();
 
-        imu = hardwareMap.get(IMU.class, "imu");
-        frontLeftMotor = hardwareMap.dcMotor.get("frontLeft");
-        backLeftMotor = hardwareMap.dcMotor.get("backLeft");
-        frontRightMotor = hardwareMap.dcMotor.get("frontRight");
-        backRightMotor = hardwareMap.dcMotor.get("backRight");
+        IMU = hardwareMap.get(IMU.class, "imu");
+        Flywheel = hardwareMap.dcMotor.get("flywheel");
+        FrontLeftMotor = hardwareMap.dcMotor.get("frontLeft");
+        BackLeftMotor = hardwareMap.dcMotor.get("backLeft");
+        FrontRightMotor = hardwareMap.dcMotor.get("frontRight");
+        BackRightMotor = hardwareMap.dcMotor.get("backRight");
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
                 RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,
                 RevHubOrientationOnRobot.UsbFacingDirection.UP));
-        imu.initialize(parameters);
-        frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        aprilTag = AprilTagProcessor.easyCreateWithDefaults();
-        visionPortal = VisionPortal.easyCreateWithDefaults(hardwareMap.get(WebcamName.class, "Webcam 1"), aprilTag);
+        IMU.initialize(parameters);
+        FrontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        BackRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        AprilTag = AprilTagProcessor.easyCreateWithDefaults();
+        visionPortal = VisionPortal.easyCreateWithDefaults(hardwareMap.get(WebcamName.class, "Webcam 1"), AprilTag);
     }
 
     public static void setLastPose(Pose savePose){
@@ -71,11 +78,37 @@ public class Robot3 {
     }
 
     public void resetIMU() {
-        imu.resetYaw();
-        pinpoint.resetPosAndIMU();
+        IMU.resetYaw();
+        Pinpoint.resetPosAndIMU();
     }
 
     public List<AprilTagDetection> getAprilTags(){
-        return aprilTag.getDetections();
+        return AprilTag.getDetections();
+    }
+
+    public void setDesiredBackLeft(double desiredBackLeft) {
+        this.desiredBackLeft = desiredBackLeft;
+    }
+
+    public void setDesiredBackRight(double desiredBackRight) {
+        this.desiredBackRight = desiredBackRight;
+    }
+
+    public void setDesiredFrontLeft(double desiredFrontLeft) {
+        this.desiredFrontLeft = desiredFrontLeft;
+    }
+
+    public void setDesiredFrontRight(double desiredFrontRight) {
+        this.desiredFrontRight = desiredFrontRight;
+    }
+
+    public void setDesiredFlywheel(double desiredFlywheelSpeed) {
+        this.desiredFlywheel = desiredFlywheelSpeed;
+    }  public void actMotors(){
+        FrontRightMotor.setPower(desiredFrontRight);
+        FrontLeftMotor.setPower(desiredFrontLeft);
+        BackRightMotor.setPower(desiredBackRight);
+        BackLeftMotor.setPower(desiredBackLeft);
+        Flywheel.setPower(desiredFlywheel);
     }
 }
