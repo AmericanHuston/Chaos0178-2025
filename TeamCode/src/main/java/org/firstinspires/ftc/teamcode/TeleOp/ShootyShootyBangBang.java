@@ -50,11 +50,11 @@ public class ShootyShootyBangBang extends OpMode {
             follower.update();
         }
 
-        if (gamepad2.a && robot.getIsFlywheelOn()){
-            robot.stopFlywheel();
-        } else if (gamepad2.a && !robot.getIsFlywheelOn()) {
-            robot.stopFlywheel();
-        }
+//        if (gamepad2.a && robot.getIsFlywheelOn()){
+//            robot.stopFlywheel();
+//        } else if (gamepad2.a && !robot.getIsFlywheelOn()) {
+//            robot.stopFlywheel();
+//        }
         //Driving----------------
 
         //Rewrite below----------

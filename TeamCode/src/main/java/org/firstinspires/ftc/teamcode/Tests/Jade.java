@@ -12,7 +12,7 @@ public class Jade extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap);
         waitForStart();
-        robot.setDesiredFlywheel(((double) 1 /6));
+//        robot.setDesiredFlywheel(((double) 1 /6));
         robot.actMotors();
     }
 }

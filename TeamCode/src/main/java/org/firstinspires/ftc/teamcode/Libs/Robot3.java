@@ -22,7 +22,7 @@ public class Robot3 {
     double desiredFrontLeft;
     double desiredBackRight;
     double desiredBackLeft;
-    double desiredFlywheel;
+//    double desiredFlywheel;
 
     private static Pose lastPose = new Pose(24,24, Math.toRadians(0));
     private static Pose startingPose1 = new Pose(0,0,0); //TODO Populate Data
@@ -31,7 +31,7 @@ public class Robot3 {
     private static Pose startingPose4 = new Pose(0,0,0); //TODO Populate Data
 
     IMU IMU;
-    DcMotor Flywheel;
+//    DcMotor Flywheel;
     DcMotor FrontLeftMotor;
     DcMotor BackLeftMotor;
     DcMotor FrontRightMotor;
@@ -54,7 +54,7 @@ public class Robot3 {
             .build();
 
         IMU = hardwareMap.get(IMU.class, "imu");
-        Flywheel = hardwareMap.dcMotor.get("flywheel");
+//        Flywheel = hardwareMap.dcMotor.get("flywheel");
         FrontLeftMotor = hardwareMap.dcMotor.get("frontLeft");
         BackLeftMotor = hardwareMap.dcMotor.get("backLeft");
         FrontRightMotor = hardwareMap.dcMotor.get("frontRight");
@@ -102,13 +102,14 @@ public class Robot3 {
         this.desiredFrontRight = desiredFrontRight;
     }
 
-    public void setDesiredFlywheel(double desiredFlywheelSpeed) {
-        this.desiredFlywheel = desiredFlywheelSpeed;
-    }  public void actMotors(){
+//    public void setDesiredFlywheel(double desiredFlywheelSpeed) {
+//        this.desiredFlywheel = desiredFlywheelSpeed;
+//    }
+    public void actMotors(){
         FrontRightMotor.setPower(desiredFrontRight);
         FrontLeftMotor.setPower(desiredFrontLeft);
         BackRightMotor.setPower(desiredBackRight);
         BackLeftMotor.setPower(desiredBackLeft);
-        Flywheel.setPower(desiredFlywheel);
+//        Flywheel.setPower(desiredFlywheel);
     }
 }
