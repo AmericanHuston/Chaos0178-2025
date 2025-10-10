@@ -23,7 +23,7 @@ public class Robot1 {
     DcMotor backLeftMotor;
     DcMotor frontRightMotor;
     DcMotor backRightMotor;
-    DcMotor flywheelMotor;
+    //DcMotor flywheelMotor;
     GoBildaPinpointDriver pinpoint;
 
     private boolean isFlywheelOn = false;
@@ -35,15 +35,15 @@ public class Robot1 {
         backLeftMotor = hardwareMap.dcMotor.get("backLeft");
         frontRightMotor = hardwareMap.dcMotor.get("frontRight");
         backRightMotor = hardwareMap.dcMotor.get("backRight");
-        flywheelMotor = hardwareMap.dcMotor.get("flywheelMotor");
+        //flywheelMotor = hardwareMap.dcMotor.get("flywheelMotor");
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
                 RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,
                 RevHubOrientationOnRobot.UsbFacingDirection.UP));
         imu.initialize(parameters);
         frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        flywheelMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        flywheelMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //flywheelMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        //flywheelMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     public static void setLastPose(Pose savePose){
@@ -57,15 +57,15 @@ public class Robot1 {
         imu.resetYaw();
         pinpoint.resetPosAndIMU();
     }
-    public void spinFlywheel(double flyPower){
-        flywheelMotor.setPower(flyPower);
-        isFlywheelOn = true;
-    }
-
-    public void stopFlywheel(){
-        flywheelMotor.setPower(0.0);
-        isFlywheelOn = false;
-    }
+//    public void spinFlywheel(double flyPower){
+//        flywheelMotor.setPower(flyPower);
+//        isFlywheelOn = true;
+//    }
+//
+//    public void stopFlywheel(){
+//        flywheelMotor.setPower(0.0);
+//        isFlywheelOn = false;
+//    }
 
     public boolean getIsFlywheelOn(){
         return isFlywheelOn;
