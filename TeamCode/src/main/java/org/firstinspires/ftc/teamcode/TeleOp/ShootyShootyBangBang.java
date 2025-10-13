@@ -50,11 +50,23 @@ public class ShootyShootyBangBang extends OpMode {
             follower.update();
         }
 
-//        if (gamepad2.a && robot.getIsFlywheelOn()){
-//            robot.stopFlywheel();
-//        } else if (gamepad2.a && !robot.getIsFlywheelOn()) {
-//            robot.stopFlywheel();
-//        }
+        if (gamepad2.a && robot.getIsFlywheelOn()){
+            robot.stopFlywheel();
+        } else if (gamepad2.a && !robot.getIsFlywheelOn()) {
+            robot.stopFlywheel();
+        }
+        if(gamepad2.dpad_up){
+            robot.spinFlywheel(1.0);
+        }
+        if(gamepad2.dpad_right){
+            robot.spinFlywheel(0.75);
+        }
+        if(gamepad2.dpad_left){
+            robot.spinFlywheel(0.5);
+        }
+        if(gamepad2.dpad_down){
+            robot.spinFlywheel(0.25);
+        }
         //Driving----------------
 
         //Rewrite below----------
