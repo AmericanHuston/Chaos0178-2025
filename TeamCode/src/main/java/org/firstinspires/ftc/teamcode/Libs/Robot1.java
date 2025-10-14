@@ -42,7 +42,7 @@ public class Robot1 {
         imu.initialize(parameters);
         frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        flywheelMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        flywheelMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         flywheelMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
