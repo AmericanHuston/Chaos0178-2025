@@ -14,6 +14,7 @@ public class ShootyShootyBangBang extends OpMode {
 
     Robot1 robot = new Robot1();
     public Pose startingPose = new Pose(5,72, 0);
+    public double flyVel = 0.0;
 
     @Override
     public void init() {
@@ -55,17 +56,21 @@ public class ShootyShootyBangBang extends OpMode {
         } else if (gamepad2.a && !robot.getIsFlywheelOn()) {
             robot.stopFlywheel();
         }
-        if(gamepad2.dpad_up){
-            robot.spinFlywheel(1.0);
+        if(gamepad2.dpadUpWasReleased()){
+            flyVel = flyVel + 0.05;
+            robot.spinFlywheel(flyVel);
         }
         if(gamepad2.dpad_right){
-            robot.spinFlywheel(0.75);
+            flyVel = 0.5;
+            robot.spinFlywheel(flyVel);
         }
         if(gamepad2.dpad_left){
-            robot.spinFlywheel(0.5);
+            flyVel = 0.0;
+            robot.spinFlywheel(flyVel);
         }
-        if(gamepad2.dpad_down){
-            robot.spinFlywheel(0.25);
+        if(gamepad2.dpadDownWasReleased()){
+            flyVel = flyVel - 0.05;
+            robot.spinFlywheel(flyVel);
         }
         //Driving----------------
 
@@ -81,6 +86,7 @@ public class ShootyShootyBangBang extends OpMode {
         telemetry.addData("X", follower.getPose().getX());
         telemetry.addData("Y", follower.getPose().getY());
         telemetry.addData("Heading in Degrees", Math.toDegrees(follower.getPose().getHeading()));
+        telemetry.addData("flyVel", flyVel);
 
         /* Update Telemetry to the Driver Hub */
         telemetry.update();
