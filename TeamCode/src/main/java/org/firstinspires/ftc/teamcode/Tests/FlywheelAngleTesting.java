@@ -20,6 +20,14 @@ public class FlywheelAngleTesting extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap);
         waitForStart();
+        robot.setAllLEDOff();
+        robot.setGreenLED(true);
+        while (!gamepad1.aWasReleased()){
+            telemetry.addData("Press", "A to Start");
+            telemetry.update();
+        }
+        robot.setAllLEDOff();
+        robot.setGreenLED(true);
         while (opModeIsActive()) {
             if (gamepad1.aWasReleased()) {
                 if (mode == flywheelAdjustMode.TRIGGER) {
@@ -39,6 +47,9 @@ public class FlywheelAngleTesting extends LinearOpMode {
             if (gamepad1.dpadUpWasReleased() && mode == flywheelAdjustMode.DPAD) {
                 flywheelPower += 0.05;
             }
+            if (gamepad1.xWasReleased()) {
+                flywheelPower = 0.0;
+            }
             while (gamepad1.b){
                 robot.setFlywheelVelocity(gamepad1.left_trigger * 6000);
                 telemetry.addData("Power", robot.getFlywheelActualPower());
@@ -46,13 +57,23 @@ public class FlywheelAngleTesting extends LinearOpMode {
                 telemetry.addData("Mode", "VELOCITY");
                 telemetry.update();
             }
+            if (robot.getFlywheelVelocity() * 17.6470588 > 5000) {
+                robot.setGreenLED(true);
+                robot.setRedLED(false);
+                telemetry.addData("LED", "GREEN");
+            } else {
+                robot.setRedLED(true);
+                robot.setGreenLED(false);
+                telemetry.addData("LED", "RED");
+            }
             robot.setDesiredFlywheel(flywheelPower);
             robot.actMotors();
             telemetry.addData("Power", flywheelPower);
             telemetry.addData("Speed", (robot.getFlywheelVelocity() * 17.6470588) + " RPM (Approx)"); //Approx RPM
             telemetry.addData("Mode", mode.toString());
             telemetry.update();
-            if (gamepad1.left_bumper){
+            if (isStopRequested()){
+                robot.setAllLEDOff();
                 stop();
             }
         }
