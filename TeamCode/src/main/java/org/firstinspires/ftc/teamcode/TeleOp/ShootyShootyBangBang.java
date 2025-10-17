@@ -1,18 +1,25 @@
 package org.firstinspires.ftc.teamcode.TeleOp;
 
 import com.pedropathing.follower.Follower;
+
+import org.firstinspires.ftc.teamcode.Libs.Robot3;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
+import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
+
+import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
+import com.pedropathing.paths.Path;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import org.firstinspires.ftc.teamcode.Libs.Robot1;
+
+import java.util.List;
 
 @TeleOp(name = "ShootyShootyBangBang", group = "TeleOp")
 public class ShootyShootyBangBang extends OpMode {
 
     private Follower follower;
 
-    Robot1 robot = new Robot1();
+    Robot3 robot = new Robot3();
     public Pose startingPose = new Pose(5,72, 0);
     public double flyVel = 0.0;
 
@@ -71,6 +78,18 @@ public class ShootyShootyBangBang extends OpMode {
         if(gamepad2.dpadDownWasReleased()){
             flyVel = flyVel - 0.05;
             robot.spinFlywheel(flyVel);
+        }
+        if (gamepad2.b) {
+            List<AprilTagDetection> currentDetections = robot.getAprilTags();
+            if (currentDetections.isEmpty()) {
+                telemetry.addData("AprilTagDetections", "No tags detectd");
+            } else {
+                telemetry.addData("AprilTagDetections", "Tags were detected");
+                double headingOfTagFromRobot = robot.getHeading();
+                Pose currentPose = follower.getPose();
+                Path rotationPath = new Path(new BezierLine(currentPose, currentPose.setHeading(currentPose.getHeading() + headingOfTagFromRobot)));
+                follower.followPath(rotationPath);
+            }
         }
         //Driving----------------
 

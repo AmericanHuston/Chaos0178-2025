@@ -14,6 +14,7 @@ import com.qualcomm.robotcore.hardware.IMU;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 @Config
+@Deprecated
 public class Robot1 {
 
     private static Pose lastPose = new Pose(24,24, Math.toRadians(0));

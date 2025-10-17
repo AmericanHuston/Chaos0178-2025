@@ -17,6 +17,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 
 @Config
+@Deprecated
 public class Robot2 {
     public DcMotorEx SliderLeft;
     public DcMotorEx SliderRight;

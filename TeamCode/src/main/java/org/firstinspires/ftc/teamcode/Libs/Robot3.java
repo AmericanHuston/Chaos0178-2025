@@ -13,6 +13,7 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 import org.firstinspires.ftc.vision.opencv.ImageRegion;
 import org.firstinspires.ftc.vision.opencv.PredominantColorProcessor;
+import org.firstinspires.ftc.teamcode.Libs.getHeadingOfTag;
 
 import java.util.List;
 
@@ -22,7 +23,8 @@ public class Robot3 {
     double desiredFrontLeft;
     double desiredBackRight;
     double desiredBackLeft;
-//    double desiredFlywheel;
+
+    private boolean isFlywheelOn = false;
 
     private static Pose lastPose = new Pose(24,24, Math.toRadians(0));
     private static Pose startingPose1 = new Pose(0,0,0); //TODO Populate Data
@@ -36,6 +38,7 @@ public class Robot3 {
     DcMotor BackLeftMotor;
     DcMotor FrontRightMotor;
     DcMotor BackRightMotor;
+    DcMotor FlywheelMotor;
     GoBildaPinpointDriver Pinpoint;
     AprilTagProcessor AprilTag;
     VisionPortal visionPortal;
@@ -59,14 +62,21 @@ public class Robot3 {
         BackLeftMotor = hardwareMap.dcMotor.get("backLeft");
         FrontRightMotor = hardwareMap.dcMotor.get("frontRight");
         BackRightMotor = hardwareMap.dcMotor.get("backRight");
+        FlywheelMotor = hardwareMap.dcMotor.get("flywheelMotor");
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
                 RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,
                 RevHubOrientationOnRobot.UsbFacingDirection.UP));
         IMU.initialize(parameters);
         FrontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         BackRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        FlywheelMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        FlywheelMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         AprilTag = AprilTagProcessor.easyCreateWithDefaults();
         visionPortal = VisionPortal.easyCreateWithDefaults(hardwareMap.get(WebcamName.class, "Webcam 1"), AprilTag);
+    }
+
+    public double getHeading(){
+        return getHeadingOfTag.getHeading(visionPortal, AprilTag);
     }
 
     public static void setLastPose(Pose savePose){
@@ -75,6 +85,10 @@ public class Robot3 {
 
     public static Pose getLastPose(){
         return lastPose;
+    }
+
+    public boolean getIsFlywheelOn(){
+        return isFlywheelOn;
     }
 
     public void resetIMU() {
@@ -102,9 +116,15 @@ public class Robot3 {
         this.desiredFrontRight = desiredFrontRight;
     }
 
-//    public void setDesiredFlywheel(double desiredFlywheelSpeed) {
-//        this.desiredFlywheel = desiredFlywheelSpeed;
-//    }
+    public void spinFlywheel(double power){
+        FlywheelMotor.setPower(power);
+        isFlywheelOn = true;
+    }
+
+    public void stopFlywheel(){
+        FlywheelMotor.setPower(0.0);
+        isFlywheelOn = false;
+    }
     public void actMotors(){
         FrontRightMotor.setPower(desiredFrontRight);
         FrontLeftMotor.setPower(desiredFrontLeft);
