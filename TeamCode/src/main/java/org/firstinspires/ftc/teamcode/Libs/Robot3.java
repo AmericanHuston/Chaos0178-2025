@@ -33,7 +33,6 @@ public class Robot3 {
     private static Pose startingPose4 = new Pose(0,0,0); //TODO Populate Data
 
     IMU IMU;
-//    DcMotor Flywheel;
     DcMotor FrontLeftMotor;
     DcMotor BackLeftMotor;
     DcMotor FrontRightMotor;
@@ -57,7 +56,6 @@ public class Robot3 {
             .build();
 
         IMU = hardwareMap.get(IMU.class, "imu");
-//        Flywheel = hardwareMap.dcMotor.get("flywheel");
         FrontLeftMotor = hardwareMap.dcMotor.get("frontLeft");
         BackLeftMotor = hardwareMap.dcMotor.get("backLeft");
         FrontRightMotor = hardwareMap.dcMotor.get("frontRight");
@@ -67,9 +65,8 @@ public class Robot3 {
                 RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,
                 RevHubOrientationOnRobot.UsbFacingDirection.UP));
         IMU.initialize(parameters);
-        FrontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        BackRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        FlywheelMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        FrontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        BackLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         FlywheelMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         AprilTag = AprilTagProcessor.easyCreateWithDefaults();
         visionPortal = VisionPortal.easyCreateWithDefaults(hardwareMap.get(WebcamName.class, "Webcam 1"), AprilTag);
