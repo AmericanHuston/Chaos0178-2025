@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
@@ -43,6 +44,7 @@ public class Robot3 {
     VisionPortal visionPortal;
 
     public void init(HardwareMap hardwareMap) {
+        Pinpoint = hardwareMap.get(GoBildaPinpointDriver.class, "pinpoint");
         PredominantColorProcessor colorSensor = new PredominantColorProcessor.Builder()
             .setRoi(ImageRegion.asUnityCenterCoordinates(-0.1, 0.1, 0.1, -0.1))
             .setSwatches(
@@ -65,8 +67,11 @@ public class Robot3 {
                 RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,
                 RevHubOrientationOnRobot.UsbFacingDirection.UP));
         IMU.initialize(parameters);
+        Pinpoint.setOffsets(0, 155, DistanceUnit.MM);
         FrontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         BackLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        FrontRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        BackRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         FlywheelMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         AprilTag = AprilTagProcessor.easyCreateWithDefaults();
         visionPortal = VisionPortal.easyCreateWithDefaults(hardwareMap.get(WebcamName.class, "Webcam 1"), AprilTag);
