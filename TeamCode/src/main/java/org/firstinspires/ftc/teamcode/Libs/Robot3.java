@@ -39,12 +39,12 @@ public class Robot3 {
     DcMotor FrontRightMotor;
     DcMotor BackRightMotor;
     DcMotor FlywheelMotor;
-    GoBildaPinpointDriver Pinpoint;
+    //GoBildaPinpointDriver Pinpoint;
     AprilTagProcessor AprilTag;
     VisionPortal visionPortal;
 
     public void init(HardwareMap hardwareMap) {
-        Pinpoint = hardwareMap.get(GoBildaPinpointDriver.class, "pinpoint");
+        //Pinpoint = hardwareMap.get(GoBildaPinpointDriver.class, "pinpoint");
         PredominantColorProcessor colorSensor = new PredominantColorProcessor.Builder()
             .setRoi(ImageRegion.asUnityCenterCoordinates(-0.1, 0.1, 0.1, -0.1))
             .setSwatches(
@@ -67,7 +67,7 @@ public class Robot3 {
                 RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,
                 RevHubOrientationOnRobot.UsbFacingDirection.UP));
         IMU.initialize(parameters);
-        Pinpoint.setOffsets(0, 155, DistanceUnit.MM);
+        //Pinpoint.setOffsets(0, 155, DistanceUnit.MM);
         FrontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         BackLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         FrontRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -95,7 +95,7 @@ public class Robot3 {
 
     public void resetIMU() {
         IMU.resetYaw();
-        Pinpoint.resetPosAndIMU();
+        //Pinpoint.resetPosAndIMU();
     }
 
     public List<AprilTagDetection> getAprilTags(){
