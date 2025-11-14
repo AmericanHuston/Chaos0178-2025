@@ -4,7 +4,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Libs.NoahHubRobot;
-import org.firstinspires.ftc.teamcode.Libs.Robot3;
 
 @TeleOp(name = "FlywheelAngleTesting", group = "tests")
 public class FlywheelAngleTesting extends LinearOpMode {
@@ -12,6 +11,8 @@ public class FlywheelAngleTesting extends LinearOpMode {
         DPAD,
         TRIGGER
     }
+
+    double increments = 0.01;
     flywheelAdjustMode mode = flywheelAdjustMode.DPAD;
     double flywheelPower = 0.00;
     NoahHubRobot robot = new NoahHubRobot();
@@ -42,13 +43,19 @@ public class FlywheelAngleTesting extends LinearOpMode {
                 flywheelPower = 0;
             }
             if (gamepad1.dpadDownWasReleased() && mode == flywheelAdjustMode.DPAD) {
-                flywheelPower -= 0.05;
+                flywheelPower -= increments;
             }
             if (gamepad1.dpadUpWasReleased() && mode == flywheelAdjustMode.DPAD) {
-                flywheelPower += 0.05;
+                flywheelPower += increments;
             }
             if (gamepad1.xWasReleased()) {
                 flywheelPower = 0.0;
+            }
+            if (gamepad1.leftBumperWasReleased()){
+                increments += 0.01;
+            }
+            if (gamepad1.rightBumperWasReleased()){
+                increments -= 0.01;
             }
             while (gamepad1.b){
                 robot.setFlywheelVelocity(gamepad1.left_trigger * 6000);
@@ -71,6 +78,7 @@ public class FlywheelAngleTesting extends LinearOpMode {
             telemetry.addData("Power", flywheelPower);
             telemetry.addData("Speed", (robot.getFlywheelVelocity() * 17.6470588) + " RPM (Approx)"); //Approx RPM
             telemetry.addData("Mode", mode.toString());
+            telemetry.addData("Increments", increments);
             telemetry.update();
             if (isStopRequested()){
                 robot.setAllLEDOff();
