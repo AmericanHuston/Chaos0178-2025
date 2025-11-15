@@ -22,6 +22,7 @@ public class ShootyShootyBangBang extends OpMode {
     Robot3 robot = new Robot3();
     public Pose startingPose = new Pose(5,72, 0);
     public double flyVel = 0.0;
+    public double intakeVel = 0.0;
 
     @Override
     public void init() {
@@ -41,7 +42,7 @@ public class ShootyShootyBangBang extends OpMode {
     @Override
     public void loop() {
         follower.update(); //MUST COME BEFORE SET TELE OP DRIVE
-        follower.setTeleOpDrive(-gamepad1.left_stick_y/2, -gamepad1.left_stick_x/2, -gamepad1.right_stick_x/2, false);
+        follower.setTeleOpDrive(-gamepad1.left_stick_y/2, gamepad1.left_stick_x/2, -gamepad1.right_stick_x/2, false);
         follower.updateDrivetrain();//Driving------------------
 
         if (gamepad1.left_stick_button || gamepad1.right_stick_button) {
@@ -49,12 +50,12 @@ public class ShootyShootyBangBang extends OpMode {
         }
 
         if (gamepad1.left_trigger > 0.01){
-            follower.setTeleOpDrive(-gamepad1.left_stick_y/4, -gamepad1.left_stick_x/4, -gamepad1.right_stick_x/4, false);
+            follower.setTeleOpDrive(-gamepad1.left_stick_y/4, gamepad1.left_stick_x/4, -gamepad1.right_stick_x/4, false);
             follower.update();
         }
 
         if (gamepad1.right_trigger > 0.01){
-            follower.setTeleOpDrive(-gamepad1.left_stick_y, -gamepad1.left_stick_x, -gamepad1.right_stick_x, false);
+            follower.setTeleOpDrive(-gamepad1.left_stick_y, gamepad1.left_stick_x, -gamepad1.right_stick_x, false);
             follower.update();
         }
 
@@ -90,6 +91,14 @@ public class ShootyShootyBangBang extends OpMode {
                 Path rotationPath = new Path(new BezierLine(currentPose, currentPose.setHeading(currentPose.getHeading() + headingOfTagFromRobot)));
                 follower.followPath(rotationPath);
             }
+        }
+        if(gamepad2.rightBumperWasReleased()){
+            intakeVel = 0.5;
+            robot.intake(intakeVel);
+        }
+        if(gamepad2.leftBumperWasReleased()){
+            intakeVel = 0.0;
+            robot.intake(intakeVel);
         }
         //Driving----------------
 

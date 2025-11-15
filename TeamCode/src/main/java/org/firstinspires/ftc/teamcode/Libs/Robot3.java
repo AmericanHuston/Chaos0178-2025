@@ -39,6 +39,7 @@ public class Robot3 {
     DcMotor FrontRightMotor;
     DcMotor BackRightMotor;
     DcMotor FlywheelMotor;
+    DcMotor IntakeMotor;
     //GoBildaPinpointDriver Pinpoint;
     AprilTagProcessor AprilTag;
     VisionPortal visionPortal;
@@ -63,6 +64,7 @@ public class Robot3 {
         FrontRightMotor = hardwareMap.dcMotor.get("frontRight");
         BackRightMotor = hardwareMap.dcMotor.get("backRight");
         FlywheelMotor = hardwareMap.dcMotor.get("flywheelMotor");
+        IntakeMotor = hardwareMap.dcMotor.get("intakeMotor");
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
                 RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,
                 RevHubOrientationOnRobot.UsbFacingDirection.UP));
@@ -126,6 +128,9 @@ public class Robot3 {
     public void stopFlywheel(){
         FlywheelMotor.setPower(0.0);
         isFlywheelOn = false;
+    }
+    public void intake(double power){
+        IntakeMotor.setPower(power);
     }
     public void actMotors(){
         FrontRightMotor.setPower(desiredFrontRight);
