@@ -23,6 +23,7 @@ public class ShootyShootyBangBang extends OpMode {
     public Pose startingPose = new Pose(5,72, 0);
     public double flyVel = 0.0;
     public double intakeVel = 0.0;
+    public double transferVel = 0.5;
 
     @Override
     public void init() {
@@ -42,22 +43,25 @@ public class ShootyShootyBangBang extends OpMode {
     @Override
     public void loop() {
         follower.update(); //MUST COME BEFORE SET TELE OP DRIVE
+        //Okay, if something is reversed in the driving, try swapping the polarity here
         follower.setTeleOpDrive(-gamepad1.left_stick_y/2, gamepad1.left_stick_x/2, -gamepad1.right_stick_x/2, false);
-        follower.updateDrivetrain();//Driving------------------
+        follower.updateDrivetrain();
+        //Driving------------------
 
-        if (gamepad1.left_stick_button || gamepad1.right_stick_button) {
+        if (gamepad1.left_stick_button || gamepad1.right_stick_button) { //For when we code auto points in Teleop
             follower.startTeleopDrive();
         }
 
-        if (gamepad1.left_trigger > 0.01){
+        if (gamepad1.left_trigger > 0.01){ //Quarter speed
             follower.setTeleOpDrive(-gamepad1.left_stick_y/4, gamepad1.left_stick_x/4, -gamepad1.right_stick_x/4, false);
             follower.update();
         }
 
-        if (gamepad1.right_trigger > 0.01){
+        if (gamepad1.right_trigger > 0.01){ //Full speed
             follower.setTeleOpDrive(-gamepad1.left_stick_y, gamepad1.left_stick_x, -gamepad1.right_stick_x, false);
             follower.update();
         }
+        //Driving----------------
 
         if (gamepad2.a && robot.getIsFlywheelOn()){
             robot.stopFlywheel();
@@ -92,15 +96,22 @@ public class ShootyShootyBangBang extends OpMode {
                 follower.followPath(rotationPath);
             }
         }
-        if(gamepad2.rightBumperWasReleased()){
-            intakeVel = 0.5;
+        if(gamepad2.rightBumperWasReleased()){ //Intake on
+            intakeVel = 0.6;
             robot.intake(intakeVel);
         }
-        if(gamepad2.leftBumperWasReleased()){
+        if(gamepad2.leftBumperWasReleased()){ //Intake off
             intakeVel = 0.0;
             robot.intake(intakeVel);
         }
-        //Driving----------------
+        if(gamepad2.yWasReleased()){ //Servo out
+            transferVel = 0.0;
+            robot.transfer(transferVel);
+        }
+        if(gamepad2.xWasReleased()){ //Servo in
+            transferVel = 1.0;
+            robot.transfer(transferVel);
+        }
 
         //Rewrite below----------
         if (gamepad1.back) {
