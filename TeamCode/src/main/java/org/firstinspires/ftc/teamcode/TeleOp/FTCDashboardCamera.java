@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -21,7 +22,7 @@ import org.opencv.android.Utils;
 import org.opencv.core.Mat;
 
 import java.util.concurrent.atomic.AtomicReference;
-
+@Disabled
 @TeleOp(name = "HEEHAW", group = "TeleOp")
 public class FTCDashboardCamera extends LinearOpMode {
     public static class CameraStreamProcessor implements VisionProcessor, CameraStreamSource {

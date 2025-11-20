@@ -1,11 +1,12 @@
 package org.firstinspires.ftc.teamcode.TeleOp;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.Libs.Robot3;
-
+@Disabled
 @TeleOp(name = "TestMotors", group = "Tests")
 public class TestMotors extends LinearOpMode {
 

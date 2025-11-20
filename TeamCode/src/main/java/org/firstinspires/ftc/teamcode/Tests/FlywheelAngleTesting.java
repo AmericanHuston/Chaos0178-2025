@@ -1,10 +1,11 @@
 package org.firstinspires.ftc.teamcode.Tests;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Libs.NoahHubRobot;
-
+@Disabled
 @TeleOp(name = "FlywheelAngleTesting", group = "tests")
 public class FlywheelAngleTesting extends LinearOpMode {
     enum flywheelAdjustMode {
