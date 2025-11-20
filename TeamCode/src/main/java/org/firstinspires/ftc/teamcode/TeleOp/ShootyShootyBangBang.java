@@ -20,7 +20,7 @@ public class ShootyShootyBangBang extends OpMode {
     private Follower follower;
 
     Robot3 robot = new Robot3();
-    public Pose startingPose = new Pose(5,72, 0);
+    public Pose startingPose = new Pose(56,8, 0);
     public double flyVel = 0.0;
     public double intakeVel = 0.0;
     public double transferVel = 0.5;

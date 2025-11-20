@@ -70,14 +70,10 @@ public class Robot3 {
         IntakeMotor = hardwareMap.dcMotor.get("intakeMotor");
         TransferServo = hardwareMap.crservo.get("Mr.Servo");
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-                RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,
+                RevHubOrientationOnRobot.LogoFacingDirection.LEFT,
                 RevHubOrientationOnRobot.UsbFacingDirection.UP));
         IMU.initialize(parameters);
-        //Pinpoint.setOffsets(0, 155, DistanceUnit.MM);
-        FrontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        BackLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        FrontRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        BackRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+//        //Pinpoint.setOffsets(0, 155, DistanceUnit.MM);
         FlywheelMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         AprilTag = AprilTagProcessor.easyCreateWithDefaults();
         visionPortal = VisionPortal.easyCreateWithDefaults(hardwareMap.get(WebcamName.class, "Webcam 1"), AprilTag);
