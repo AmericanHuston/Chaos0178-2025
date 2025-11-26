@@ -5,19 +5,18 @@ import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.PathChain;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.Libs.Robot3;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
-@Autonomous(name = "OffTheLine", group = "Tests")
-public class OffTheLine extends OpMode {
+@Autonomous(name = "DiagonalOff", group = "Tests")
+public class DiagonalOff extends OpMode {
     Robot3 robot = new Robot3();
     private Follower follower;
 
-    private final Pose StartingPose = new Pose(48,7, Math.toRadians(0));
-    private final Pose EndingPose = new Pose(52,7, Math.toRadians(0));
+    private final Pose StartingPose = new Pose(22,124, Math.toRadians(-37));
+    private final Pose EndingPose = new Pose(60,110, Math.toRadians(0));
 
     private PathChain Forward;
 
@@ -25,7 +24,7 @@ public class OffTheLine extends OpMode {
     public void init() {
         robot.init(hardwareMap);
         follower = Constants.createFollower(hardwareMap);
-        follower.setStartingPose(new Pose(48,7, Math.toRadians(0)));
+        follower.setStartingPose(new Pose(22,124, Math.toRadians(-37)));
 
         Forward = follower.pathBuilder()
                 .addPath(new BezierLine(StartingPose, EndingPose))
