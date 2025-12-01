@@ -131,10 +131,10 @@ public class Robot3 {
     }
     public void intake(double power){
         IntakeMotor.setPower(power);
-    }
+    } //runs the intake
     public void transfer(double power){
         TransferServo.setPower(power);
-    }
+    } //runs the transfer
     public void actMotors(){
         FrontRightMotor.setPower(desiredFrontRight);
         FrontLeftMotor.setPower(desiredFrontLeft);

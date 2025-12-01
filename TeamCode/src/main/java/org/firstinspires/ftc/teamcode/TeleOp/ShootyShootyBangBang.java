@@ -44,7 +44,7 @@ public class ShootyShootyBangBang extends OpMode {
     public void loop() {
         follower.update(); //MUST COME BEFORE SET TELE OP DRIVE
         //Okay, if something is reversed in the driving, try swapping the polarity here
-        follower.setTeleOpDrive(-gamepad1.left_stick_y/2, gamepad1.left_stick_x/2, -gamepad1.right_stick_x/2, false);
+        follower.setTeleOpDrive(-gamepad1.left_stick_y/2, -gamepad1.left_stick_x/2, -gamepad1.right_stick_x/2, false);
         follower.updateDrivetrain();
         //Driving------------------
 
@@ -53,12 +53,12 @@ public class ShootyShootyBangBang extends OpMode {
         }
 
         if (gamepad1.left_trigger > 0.01){ //Quarter speed
-            follower.setTeleOpDrive(-gamepad1.left_stick_y/4, gamepad1.left_stick_x/4, -gamepad1.right_stick_x/4, false);
+            follower.setTeleOpDrive(-gamepad1.left_stick_y/4, -gamepad1.left_stick_x/4, -gamepad1.right_stick_x/4, false);
             follower.update();
         }
 
         if (gamepad1.right_trigger > 0.01){ //Full speed
-            follower.setTeleOpDrive(-gamepad1.left_stick_y, gamepad1.left_stick_x, -gamepad1.right_stick_x, false);
+            follower.setTeleOpDrive(-gamepad1.left_stick_y, -gamepad1.left_stick_x, -gamepad1.right_stick_x, false);
             follower.update();
         }
         //Driving----------------
@@ -87,7 +87,7 @@ public class ShootyShootyBangBang extends OpMode {
         if (gamepad2.b) {
             List<AprilTagDetection> currentDetections = robot.getAprilTags();
             if (currentDetections.isEmpty()) {
-                telemetry.addData("AprilTagDetections", "No tags detectd");
+                telemetry.addData("AprilTagDetections", "No tags detected");
             } else {
                 telemetry.addData("AprilTagDetections", "Tags were detected");
                 double headingOfTagFromRobot = robot.getHeading();
