@@ -129,6 +129,9 @@ public class Robot3 {
         FlywheelMotor.setPower(0.0);
         isFlywheelOn = false;
     }
+    public void motorTest(DcMotor motor, double power){
+        motor.setPower(power);
+    }
     public void intake(double power){
         IntakeMotor.setPower(power);
     } //runs the intake

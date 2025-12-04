@@ -9,6 +9,7 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.Path;
+import com.pedropathing.paths.PathChain;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -20,10 +21,13 @@ public class ShootyShootyBangBang extends OpMode {
     private Follower follower;
 
     Robot3 robot = new Robot3();
-    public Pose startingPose = new Pose(56,8, 0);
+    public Pose startingPose = new Pose(8,56, 0);
+    public Pose fourPoint = new Pose(86, 60, 55);
     public double flyVel = 0.0;
     public double intakeVel = 0.0;
     public double transferVel = 0.5;
+
+    private PathChain pointFour;
 
     @Override
     public void init() {
@@ -63,17 +67,37 @@ public class ShootyShootyBangBang extends OpMode {
         }
         //Driving----------------
 
+        //Wheel tests and auto points
+        if(gamepad1.aWasReleased()){
+            Pose i_am_here = follower.getPose();
+            telemetry.addData("i_am_here", i_am_here);
+            follower.holdPoint(i_am_here);
+        }
+        if(gamepad1.b){
+            robot.setDesiredBackRight(1.0);
+            robot.actMotors();
+        }
+        if(gamepad1.y){
+            robot.setDesiredFrontLeft(1.0);
+            robot.actMotors();
+        }
+        if(gamepad1.x){
+            robot.setDesiredBackLeft(1.0);
+            robot.actMotors();
+        }
+        //Wheel tests
+
         if (gamepad2.a && robot.getIsFlywheelOn()){
             robot.stopFlywheel();
         } else if (gamepad2.a && !robot.getIsFlywheelOn()) {
             robot.stopFlywheel();
         }
         if(gamepad2.dpadUpWasReleased()){
-            flyVel = flyVel + 0.05;
+            flyVel = flyVel - 0.05;
             robot.spinFlywheel(flyVel);
         }
         if(gamepad2.dpad_right){
-            flyVel = 0.5;
+            flyVel = -0.5;
             robot.spinFlywheel(flyVel);
         }
         if(gamepad2.dpad_left){
@@ -81,7 +105,7 @@ public class ShootyShootyBangBang extends OpMode {
             robot.spinFlywheel(flyVel);
         }
         if(gamepad2.dpadDownWasReleased()){
-            flyVel = flyVel - 0.05;
+            flyVel = flyVel + 0.05;
             robot.spinFlywheel(flyVel);
         }
         if (gamepad2.b) {
@@ -97,7 +121,7 @@ public class ShootyShootyBangBang extends OpMode {
             }
         }
         if(gamepad2.rightBumperWasReleased()){ //Intake on
-            intakeVel = 0.6;
+            intakeVel = 1.0;
             robot.intake(intakeVel);
         }
         if(gamepad2.leftBumperWasReleased()){ //Intake off
@@ -109,7 +133,7 @@ public class ShootyShootyBangBang extends OpMode {
             robot.transfer(transferVel);
         }
         if(gamepad2.xWasReleased()){ //Servo in
-            transferVel = 1.0;
+            transferVel = -1.0;
             robot.transfer(transferVel);
         }
 
