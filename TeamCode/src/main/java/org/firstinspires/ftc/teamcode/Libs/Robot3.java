@@ -43,6 +43,7 @@ public class Robot3 {
     DcMotor FlywheelMotor;
     DcMotor IntakeMotor;
     CRServo TransferServo;
+    CRServo ServoTransfer;
     //GoBildaPinpointDriver Pinpoint;
     AprilTagProcessor AprilTag;
     VisionPortal visionPortal;
@@ -69,6 +70,7 @@ public class Robot3 {
         FlywheelMotor = hardwareMap.dcMotor.get("flywheelMotor");
         IntakeMotor = hardwareMap.dcMotor.get("intakeMotor");
         TransferServo = hardwareMap.crservo.get("Mr.Servo");
+        ServoTransfer = hardwareMap.crservo.get("Mrs.Servo");
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
                 RevHubOrientationOnRobot.LogoFacingDirection.LEFT,
                 RevHubOrientationOnRobot.UsbFacingDirection.UP));
@@ -135,9 +137,10 @@ public class Robot3 {
     public void intake(double power){
         IntakeMotor.setPower(power);
     } //runs the intake
-    public void transfer(double power){
+    public void transfer1(double power){
         TransferServo.setPower(power);
     } //runs the transfer
+    public void transfer2(double power){TransferServo.setPower(power);}
     public void actMotors(){
         FrontRightMotor.setPower(desiredFrontRight);
         FrontLeftMotor.setPower(desiredFrontLeft);

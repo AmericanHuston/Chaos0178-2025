@@ -4,11 +4,8 @@ import com.pedropathing.follower.Follower;
 
 import org.firstinspires.ftc.teamcode.Libs.Robot3;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
-import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 
-import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
-import com.pedropathing.paths.Path;
 import com.pedropathing.paths.PathChain;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -108,18 +105,18 @@ public class ShootyShootyBangBang extends OpMode {
             flyVel = flyVel + 0.05;
             robot.spinFlywheel(flyVel);
         }
-        if (gamepad2.b) {
-            List<AprilTagDetection> currentDetections = robot.getAprilTags();
-            if (currentDetections.isEmpty()) {
-                telemetry.addData("AprilTagDetections", "No tags detected");
-            } else {
-                telemetry.addData("AprilTagDetections", "Tags were detected");
-                double headingOfTagFromRobot = robot.getHeading();
-                Pose currentPose = follower.getPose();
-                Path rotationPath = new Path(new BezierLine(currentPose, currentPose.setHeading(currentPose.getHeading() + headingOfTagFromRobot)));
-                follower.followPath(rotationPath);
-            }
-        }
+//        if (gamepad2.b) {
+//            List<AprilTagDetection> currentDetections = robot.getAprilTags();
+//            if (currentDetections.isEmpty()) {
+//                telemetry.addData("AprilTagDetections", "No tags detected");
+//            } else {
+//                telemetry.addData("AprilTagDetections", "Tags were detected");
+//                double headingOfTagFromRobot = robot.getHeading();
+//                Pose currentPose = follower.getPose();
+//                Path rotationPath = new Path(new BezierLine(currentPose, currentPose.setHeading(currentPose.getHeading() + headingOfTagFromRobot)));
+//                follower.followPath(rotationPath);
+//            }
+//        }
         if(gamepad2.rightBumperWasReleased()){ //Intake on
             intakeVel = 1.0;
             robot.intake(intakeVel);
@@ -130,11 +127,19 @@ public class ShootyShootyBangBang extends OpMode {
         }
         if(gamepad2.yWasReleased()){ //Servo stop
             transferVel = 0.0;
-            robot.transfer(transferVel);
+            robot.transfer1(transferVel);
         }
         if(gamepad2.xWasReleased()){ //Servo start
             transferVel = -1.0;
-            robot.transfer(transferVel);
+            robot.transfer1(transferVel);
+        }
+        if(gamepad2.aWasReleased()){ //Servo stop
+            transferVel = 0.0;
+            robot.transfer2(transferVel);
+        }
+        if(gamepad2.bWasReleased()){ //Servo start
+            transferVel = -1.0;
+            robot.transfer2(transferVel);
         }
 
         //Rewrite below----------
