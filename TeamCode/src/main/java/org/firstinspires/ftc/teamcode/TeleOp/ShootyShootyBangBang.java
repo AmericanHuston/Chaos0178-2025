@@ -87,11 +87,11 @@ public class ShootyShootyBangBang extends OpMode {
         }
         //Wheel tests
 
-        if (gamepad2.a && robot.getIsFlywheelOn()){
-            robot.stopFlywheel();
-        } else if (gamepad2.a && !robot.getIsFlywheelOn()) {
-            robot.stopFlywheel();
-        }
+//        if (gamepad2.a && robot.getIsFlywheelOn()){
+//            robot.stopFlywheel();
+//        } else if (gamepad2.a && !robot.getIsFlywheelOn()) {
+//            robot.stopFlywheel();
+//        }
         if(gamepad2.dpadUpWasReleased()){
             flyVel = flyVel - 0.05;
             robot.spinFlywheel(flyVel);
@@ -128,11 +128,11 @@ public class ShootyShootyBangBang extends OpMode {
             intakeVel = 0.0;
             robot.intake(intakeVel);
         }
-        if(gamepad2.yWasReleased()){ //Servo out
+        if(gamepad2.yWasReleased()){ //Servo stop
             transferVel = 0.0;
             robot.transfer(transferVel);
         }
-        if(gamepad2.xWasReleased()){ //Servo in
+        if(gamepad2.xWasReleased()){ //Servo start
             transferVel = -1.0;
             robot.transfer(transferVel);
         }
