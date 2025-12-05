@@ -138,7 +138,7 @@ public class ShootyShootyBangBang extends OpMode {
             robot.transfer2(transferVel);
         }
         if(gamepad2.bWasReleased()){ //Servo start
-            transferVel = -1.0;
+            transferVel = 1.0;
             robot.transfer2(transferVel);
         }
 

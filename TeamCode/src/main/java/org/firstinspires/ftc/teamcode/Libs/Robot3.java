@@ -140,7 +140,7 @@ public class Robot3 {
     public void transfer1(double power){
         TransferServo.setPower(power);
     } //runs the transfer
-    public void transfer2(double power){TransferServo.setPower(power);}
+    public void transfer2(double power){ServoTransfer.setPower(power);}
     public void actMotors(){
         FrontRightMotor.setPower(desiredFrontRight);
         FrontLeftMotor.setPower(desiredFrontLeft);
