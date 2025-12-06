@@ -30,9 +30,9 @@ public class ShootyShootyBangBang extends OpMode {
     public void init() {
         robot.init(hardwareMap);
         follower = Constants.createFollower(hardwareMap);//new follower creator
-        telemetry.addData("heading", follower.getHeading());
+        telemetry.addData("heading", robot.getLastPose().getHeading());
         follower.setStartingPose(robot.getLastPose());
-        telemetry.addData("checking pose", startingPose);
+        telemetry.addData("checking pose", robot.getLastPose());
         telemetry.update();
     }
 
