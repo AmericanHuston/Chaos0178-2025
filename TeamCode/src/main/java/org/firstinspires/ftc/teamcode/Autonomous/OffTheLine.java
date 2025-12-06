@@ -21,11 +21,13 @@ public class OffTheLine extends OpMode {
 
     private PathChain Forward;
 
+    int x = 1;
+
     @Override
     public void init() {
         robot.init(hardwareMap);
         follower = Constants.createFollower(hardwareMap);
-        follower.setStartingPose(new Pose(48,7, Math.toRadians(0)));
+        follower.setStartingPose(StartingPose);
 
         Forward = follower.pathBuilder()
                 .addPath(new BezierLine(StartingPose, EndingPose))
@@ -35,8 +37,12 @@ public class OffTheLine extends OpMode {
     @Override
     public void loop() {
         follower.update();
-        if (!follower.isBusy()){
-            follower.followPath(Forward);
+        robot.setLastPose(follower.getPose());
+        if (x==1) {
+            if (!follower.isBusy()){
+                follower.followPath(Forward);
+                x=x+1;
+            }
         }
     }
 }

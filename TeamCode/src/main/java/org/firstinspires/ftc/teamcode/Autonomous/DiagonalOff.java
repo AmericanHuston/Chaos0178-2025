@@ -20,11 +20,14 @@ public class DiagonalOff extends OpMode {
 
     private PathChain Forward;
 
+    int x = 1;
+
     @Override
     public void init() {
         robot.init(hardwareMap);
         follower = Constants.createFollower(hardwareMap);
-        follower.setStartingPose(new Pose(22,124, Math.toRadians(-37)));
+        follower.setStartingPose(StartingPose);
+
 
         Forward = follower.pathBuilder()
                 .addPath(new BezierLine(StartingPose, EndingPose))
@@ -34,8 +37,12 @@ public class DiagonalOff extends OpMode {
     @Override
     public void loop() {
         follower.update();
-        if (!follower.isBusy()){
-            follower.followPath(Forward);
+        robot.setLastPose(follower.getPose());
+        if (x==1) {
+            if (!follower.isBusy()){
+                follower.followPath(Forward);
+                x=x+1;
+            }
         }
     }
 }
