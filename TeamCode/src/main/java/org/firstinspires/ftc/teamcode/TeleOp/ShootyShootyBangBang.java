@@ -159,7 +159,9 @@ public class ShootyShootyBangBang extends OpMode {
 
         if (gamepad2.right_trigger >= 0.01){
             robot.spinFlywheel(gamepad2.right_trigger);
-        }else{
+        }else if (gamepad2.dpadDownWasPressed()){
+            robot.setFlywheelVelocity(robot.getLastSuccessfulSpeed()); //NOTE TO SARAH/NATHAN: This should now work, please test
+        }else {
             robot.stopFlywheel();
         }
 
