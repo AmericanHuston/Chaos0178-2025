@@ -90,11 +90,11 @@ public class ShootyShootyBangBang extends OpMode {
 //            robot.stopFlywheel();
 //        }
         if(gamepad2.dpadUpWasReleased()){
-            flyVel = flyVel - 0.05;
+            flyVel = flyVel + 0.05;
             robot.spinFlywheel(flyVel);
         }
         if(gamepad2.dpad_right){
-            flyVel = -0.5;
+            flyVel = + 0.6;
             robot.spinFlywheel(flyVel);
         }
         if(gamepad2.dpad_left){
@@ -102,7 +102,7 @@ public class ShootyShootyBangBang extends OpMode {
             robot.spinFlywheel(flyVel);
         }
         if(gamepad2.dpadDownWasReleased()){
-            flyVel = flyVel + 0.05;
+            flyVel = flyVel - 0.05;
             robot.spinFlywheel(flyVel);
         }
 
@@ -129,21 +129,34 @@ public class ShootyShootyBangBang extends OpMode {
             intakeVel = 0.0;
             robot.intake(intakeVel);
         }
-        if(gamepad2.yWasReleased()){ //Servo stop
-            transferVel = 0.0;
-            robot.transfer1(transferVel);
+//        if(gamepad2.yWasReleased()){ //Servo stop
+//            transferVel = 0.0;
+//            robot.transfer1(transferVel);
+//        }
+//        if(gamepad2.xWasReleased()){ //Servo start
+//            transferVel = -1.0;
+//            robot.transfer1(transferVel);
+//        }
+//        if(gamepad2.aWasReleased()){ //Servo stop
+//            transferVel = 0.0;
+//            robot.transfer2(transferVel);
+//        }
+//        if(gamepad2.bWasReleased()){ //Servo start
+//            transferVel = 1.0;
+//            robot.transfer2(transferVel);
+//        }
+        if (gamepad2.aWasReleased()){
+            if (robot.getIsTransferOn()){
+                robot.transfer1(0.0);
+            }else{
+                robot.transfer1(1.0);
+            }
         }
-        if(gamepad2.xWasReleased()){ //Servo start
-            transferVel = -1.0;
-            robot.transfer1(transferVel);
-        }
-        if(gamepad2.aWasReleased()){ //Servo stop
-            transferVel = 0.0;
-            robot.transfer2(transferVel);
-        }
-        if(gamepad2.bWasReleased()){ //Servo start
-            transferVel = 1.0;
-            robot.transfer2(transferVel);
+
+        if (gamepad2.right_trigger >= 0.01){
+            robot.spinFlywheel(gamepad2.right_trigger);
+        }else{
+            robot.stopFlywheel();
         }
 
         //Rewrite below----------

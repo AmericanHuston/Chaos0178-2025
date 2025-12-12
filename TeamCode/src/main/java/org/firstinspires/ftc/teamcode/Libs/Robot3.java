@@ -7,16 +7,13 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
-import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 import org.firstinspires.ftc.vision.opencv.ImageRegion;
 import org.firstinspires.ftc.vision.opencv.PredominantColorProcessor;
-import org.firstinspires.ftc.teamcode.Libs.getHeadingOfTag;
 
 import java.util.List;
 
@@ -28,6 +25,8 @@ public class Robot3 {
     double desiredBackLeft;
 
     private boolean isFlywheelOn = false;
+    private boolean isIntakeOn = false;
+    private boolean isTransferOn = false;
 
     private static Pose lastPose = new Pose(24,24, Math.toRadians(0));
     private static Pose startingPose1 = new Pose(0,0,0); //TODO Populate Data
@@ -77,6 +76,7 @@ public class Robot3 {
         IMU.initialize(parameters);
 //        //Pinpoint.setOffsets(0, 155, DistanceUnit.MM);
         FlywheelMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        FlywheelMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         AprilTag = AprilTagProcessor.easyCreateWithDefaults();
         visionPortal = VisionPortal.easyCreateWithDefaults(hardwareMap.get(WebcamName.class, "Webcam 1"), AprilTag);
     }
@@ -91,6 +91,14 @@ public class Robot3 {
 
     public static Pose getLastPose(){
         return lastPose;
+    }
+
+    public boolean getIsTransferOn(){
+        return isTransferOn;
+    }
+
+    public boolean isIntakeOn() {
+        return isIntakeOn;
     }
 
     public boolean getIsFlywheelOn(){
@@ -136,9 +144,11 @@ public class Robot3 {
     }
     public void intake(double power){
         IntakeMotor.setPower(power);
+        isIntakeOn = !isIntakeOn;
     } //runs the intake
     public void transfer1(double power){
         TransferServo.setPower(power);
+        isTransferOn = !isTransferOn;
     } //runs the transfer
     public void transfer2(double power){ServoTransfer.setPower(power);}
     public void actMotors(){
