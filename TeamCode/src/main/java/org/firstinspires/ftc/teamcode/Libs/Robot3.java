@@ -4,11 +4,13 @@ import com.pedropathing.geometry.Pose;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
@@ -23,6 +25,8 @@ public class Robot3 {
     double desiredFrontLeft;
     double desiredBackRight;
     double desiredBackLeft;
+
+    double lastSuccessfulSpeed;
 
     private boolean isFlywheelOn = false;
     private boolean isIntakeOn = false;
@@ -39,7 +43,7 @@ public class Robot3 {
     DcMotor BackLeftMotor;
     DcMotor FrontRightMotor;
     DcMotor BackRightMotor;
-    DcMotor FlywheelMotor;
+    DcMotorEx FlywheelMotor;
     DcMotor IntakeMotor;
     CRServo TransferServo;
     CRServo ServoTransfer;
@@ -66,7 +70,7 @@ public class Robot3 {
         BackLeftMotor = hardwareMap.dcMotor.get("backLeft");
         FrontRightMotor = hardwareMap.dcMotor.get("frontRight");
         BackRightMotor = hardwareMap.dcMotor.get("backRight");
-        FlywheelMotor = hardwareMap.dcMotor.get("flywheelMotor");
+        FlywheelMotor = hardwareMap.get(DcMotorEx.class, "flywheelMotor");
         IntakeMotor = hardwareMap.dcMotor.get("intakeMotor");
         TransferServo = hardwareMap.crservo.get("Mr.Servo");
         ServoTransfer = hardwareMap.crservo.get("Mrs.Servo");
@@ -75,7 +79,7 @@ public class Robot3 {
                 RevHubOrientationOnRobot.UsbFacingDirection.UP));
         IMU.initialize(parameters);
 //        //Pinpoint.setOffsets(0, 155, DistanceUnit.MM);
-        FlywheelMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        FlywheelMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         FlywheelMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         AprilTag = AprilTagProcessor.easyCreateWithDefaults();
         visionPortal = VisionPortal.easyCreateWithDefaults(hardwareMap.get(WebcamName.class, "Webcam 1"), AprilTag);
@@ -105,9 +109,35 @@ public class Robot3 {
         return isFlywheelOn;
     }
 
+    public double getFlywheelSpeed(){
+        return FlywheelMotor.getVelocity(AngleUnit.RADIANS);
+    }
+
+    public void setLastSuccessfulSpeed(double speed){
+        this.lastSuccessfulSpeed = speed;
+    }
+
+    public double getLastSuccessfulSpeed(){
+        return lastSuccessfulSpeed;
+    }
+
+    public void setFlywheelVelocity(double velocity){
+        FlywheelMotor.setVelocity(velocity, AngleUnit.RADIANS);
+    }
+
+    public void stopFlywheelVelocity(){
+        FlywheelMotor.setVelocity(0.0);
+    }
+
+    public double getFlywheelSpeedRPM(){
+        return (this.getFlywheelSpeed() * 17.6470588);
+    }
+
+    public double getFlywheelPower(){
+        return FlywheelMotor.getPower();
+    }
     public void resetIMU() {
         IMU.resetYaw();
-        //Pinpoint.resetPosAndIMU();
     }
 
     public List<AprilTagDetection> getAprilTags(){
@@ -150,7 +180,10 @@ public class Robot3 {
         TransferServo.setPower(power);
         isTransferOn = !isTransferOn;
     } //runs the transfer
-    public void transfer2(double power){ServoTransfer.setPower(power);}
+    public void transfer2(double power){
+        ServoTransfer.setPower(power);
+        isTransferOn = !isTransferOn;
+    }
     public void actMotors(){
         FrontRightMotor.setPower(desiredFrontRight);
         FrontLeftMotor.setPower(desiredFrontLeft);

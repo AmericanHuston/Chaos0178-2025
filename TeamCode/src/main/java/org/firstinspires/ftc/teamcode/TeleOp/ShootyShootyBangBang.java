@@ -5,7 +5,9 @@ import com.pedropathing.follower.Follower;
 import org.firstinspires.ftc.teamcode.Libs.Robot3;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
+import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
+import com.pedropathing.paths.Path;
 import com.pedropathing.paths.PathChain;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -25,14 +27,16 @@ public class ShootyShootyBangBang extends OpMode {
     public double transferVel = 0.5;
 
     private PathChain pointFour;
+    private PathChain goToShoot;
 
     @Override
     public void init() {
         robot.init(hardwareMap);
         follower = Constants.createFollower(hardwareMap);//new follower creator
-        telemetry.addData("heading", robot.getLastPose().getHeading());
-        follower.setStartingPose(robot.getLastPose());
-        telemetry.addData("checking pose", robot.getLastPose());
+//        telemetry.addData("heading", robot.getLastPose().getHeading());
+//        follower.setStartingPose(robot.getLastPose());
+        follower.setStartingPose(new Pose(93, 10));
+        telemetry.addData("Current Pose", follower.getPose());
         telemetry.update();
     }
 
@@ -70,18 +74,25 @@ public class ShootyShootyBangBang extends OpMode {
             telemetry.addData("i_am_here", i_am_here);
             follower.holdPoint(i_am_here);
         }
-        if(gamepad1.b){
-            robot.setDesiredBackRight(1.0);
-            robot.actMotors();
+        if (gamepad1.bWasReleased()){
+            robot.resetIMU();
         }
-        if(gamepad1.y){
-            robot.setDesiredFrontLeft(1.0);
-            robot.actMotors();
+        if (gamepad1.rightBumperWasReleased()){
+            Paths(follower);
+            follower.followPath(goToShoot);
         }
-        if(gamepad1.x){
-            robot.setDesiredBackLeft(1.0);
-            robot.actMotors();
-        }
+//        if(gamepad1.b){
+//            robot.setDesiredBackRight(1.0);
+//            robot.actMotors();
+//        }
+//        if(gamepad1.y){
+//            robot.setDesiredFrontLeft(1.0);
+//            robot.actMotors();
+//        }
+//        if(gamepad1.x){
+//            robot.setDesiredBackLeft(1.0);
+//            robot.actMotors();
+//        }
         //Wheel tests
 
 //        if (gamepad2.a && robot.getIsFlywheelOn()){
@@ -90,20 +101,13 @@ public class ShootyShootyBangBang extends OpMode {
 //            robot.stopFlywheel();
 //        }
         if(gamepad2.dpadUpWasReleased()){
-            flyVel = flyVel + 0.05;
-            robot.spinFlywheel(flyVel);
+            robot.setLastSuccessfulSpeed(robot.getFlywheelSpeed());
         }
-        if(gamepad2.dpad_right){
-            flyVel = + 0.6;
-            robot.spinFlywheel(flyVel);
+        if (gamepad2.dpadDownWasPressed()){
+            robot.setFlywheelVelocity(robot.getLastSuccessfulSpeed());
         }
-        if(gamepad2.dpad_left){
-            flyVel = 0.0;
-            robot.spinFlywheel(flyVel);
-        }
-        if(gamepad2.dpadDownWasReleased()){
-            flyVel = flyVel - 0.05;
-            robot.spinFlywheel(flyVel);
+        if (gamepad2.dpadLeftWasPressed()){
+            robot.stopFlywheelVelocity();
         }
 
         if (gamepad2.right_trigger >= 0.01){
@@ -147,9 +151,9 @@ public class ShootyShootyBangBang extends OpMode {
 //        }
         if (gamepad2.aWasReleased()){
             if (robot.getIsTransferOn()){
-                robot.transfer1(0.0);
+                robot.transfer2(0.0);
             }else{
-                robot.transfer1(1.0);
+                robot.transfer2(1.0);
             }
         }
 
@@ -172,6 +176,10 @@ public class ShootyShootyBangBang extends OpMode {
         telemetry.addData("Y", follower.getPose().getY());
         telemetry.addData("Heading in Degrees", Math.toDegrees(follower.getPose().getHeading()));
         telemetry.addData("flyVel", flyVel);
+        telemetry.addData("Flywheel Speed", robot.getFlywheelSpeedRPM());
+        telemetry.addData("Flywheel Power", robot.getFlywheelPower());
+        telemetry.addData("Transfer is On", robot.getIsTransferOn());
+        telemetry.addData("Last Successful Shot Speed", robot.getLastSuccessfulSpeed());
 
         /* Update Telemetry to the Driver Hub */
         telemetry.update();
@@ -180,5 +188,15 @@ public class ShootyShootyBangBang extends OpMode {
     public void stop() {
         telemetry.addLine("Stopped");
         telemetry.update();
+    }
+
+    public void Paths(Follower follower) {
+        goToShoot = follower
+                .pathBuilder()
+                .addPath(
+                        new BezierLine(follower.getPose(), new Pose(83.733, 92.667))
+                )
+                .setLinearHeadingInterpolation(follower.getHeading(), Math.toRadians(225))
+                .build();
     }
 }
