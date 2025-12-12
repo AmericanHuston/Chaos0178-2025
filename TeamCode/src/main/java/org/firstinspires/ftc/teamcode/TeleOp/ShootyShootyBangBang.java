@@ -105,6 +105,10 @@ public class ShootyShootyBangBang extends OpMode {
             flyVel = flyVel + 0.05;
             robot.spinFlywheel(flyVel);
         }
+
+        if (gamepad2.right_trigger >= 0.01){
+            robot.spinFlywheel(robot.calcPowerForFlywheel(follower.getPose()));
+        }
 //        if (gamepad2.b) {
 //            List<AprilTagDetection> currentDetections = robot.getAprilTags();
 //            if (currentDetections.isEmpty()) {

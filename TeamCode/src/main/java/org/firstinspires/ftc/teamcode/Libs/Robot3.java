@@ -148,4 +148,26 @@ public class Robot3 {
         BackLeftMotor.setPower(desiredBackLeft);
 //        Flywheel.setPower(desiredFlywheel);
     }
+
+    public double calcPowerForFlywheel(Pose currentPosition){
+        Pose GoalArea = new Pose(5, 140);
+
+        double distanceFrom = GoalArea.distanceFrom(currentPosition);
+
+        //Ramp Angle 120 deg
+        double maxDistance = 173.07;
+        double minDistance = 67.88;
+        double maxPower = 70;
+        double minPower =  50;
+
+        double ratio = (maxDistance - minDistance) / (maxPower - minPower);
+
+        double distanceFromGoal = (distanceFrom - minDistance);
+
+        if (distanceFromGoal < 0){
+            distanceFromGoal = 0;
+        }
+
+        return distanceFromGoal / ratio;
+    }
 }
