@@ -62,7 +62,7 @@ public class Outreach extends OpMode {
         //Driving----------------
 
         if(gamepad2.dpad_right){
-            flyVel = -0.5;
+            flyVel = 0.5;
             robot.spinFlywheel(flyVel);
         }
         if(gamepad2.dpad_left){
