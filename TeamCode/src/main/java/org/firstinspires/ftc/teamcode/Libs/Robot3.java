@@ -211,6 +211,6 @@ public class Robot3 {
             distanceFromGoal = 0;
         }
 
-        return distanceFromGoal / ratio;
+        return ( (distanceFromGoal / ratio) * 5 * 0.01 );
     }
 }

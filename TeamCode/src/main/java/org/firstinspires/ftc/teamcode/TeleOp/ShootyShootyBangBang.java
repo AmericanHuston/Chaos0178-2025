@@ -100,12 +100,12 @@ public class ShootyShootyBangBang extends OpMode {
 //        } else if (gamepad2.a && !robot.getIsFlywheelOn()) {
 //            robot.stopFlywheel();
 //        }
-        if(gamepad2.dpadUpWasReleased()){
-            robot.setLastSuccessfulSpeed(robot.getFlywheelSpeed());
-        }
-        if (gamepad2.dpadLeftWasPressed()){
-            robot.stopFlywheelVelocity();
-        }
+//        if(gamepad2.dpadUpWasReleased()){
+//            robot.setLastSuccessfulSpeed(robot.getFlywheelSpeed());
+//        }
+//        if (gamepad2.dpadLeftWasPressed()){
+//            robot.stopFlywheelVelocity();
+//        }
 
         if (gamepad2.right_trigger >= 0.01){
             robot.spinFlywheel(robot.calcPowerForFlywheel(follower.getPose()));
@@ -154,11 +154,25 @@ public class ShootyShootyBangBang extends OpMode {
             }
         }
 
-        if (gamepad2.right_trigger >= 0.01){
-            robot.spinFlywheel(gamepad2.right_trigger);
-        }else if (gamepad2.dpadDownWasPressed()){
-            robot.setFlywheelVelocity(robot.getLastSuccessfulSpeed()); //NOTE TO SARAH/NATHAN: This should now work, please test
+//        if (gamepad2.right_trigger >= 0.01){
+//            robot.spinFlywheel(gamepad2.right_trigger);
+//        }else if (gamepad2.dpadDownWasPressed()){
+//            robot.setFlywheelVelocity(robot.getLastSuccessfulSpeed()); //NOTE TO SARAH/NATHAN: This should now work, please test
+//        }
+        if (gamepad2.dpadUpWasPressed()){
+            flyVel += 0.05;
         }
+        if (gamepad2.dpadDownWasPressed()){
+            flyVel -= 0.05;
+        }
+        if (gamepad2.dpadLeftWasPressed()){
+            flyVel = 0;
+        }
+        if (gamepad2.dpadRightWasPressed()){
+            flyVel = 0.5;
+        }
+        robot.spinFlywheel(flyVel);
+
 
         //Rewrite below----------
         if (gamepad1.back) {
