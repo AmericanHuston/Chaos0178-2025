@@ -142,11 +142,25 @@ public class ShootyShootyBangBang extends OpMode {
 //            transferVel = 1.0;
 //            robot.transfer(transferVel);
 //        }
-        if (gamepad2.aWasReleased()){
+        if (gamepad2.aWasReleased()){ //This turns the transfer on/off
             if (robot.getIsTransferOn()){
                 robot.transfer(0.0);
             }else{
                 robot.transfer(1.0);
+            }
+        }
+        if (gamepad2.bWasReleased()){ //This turns the right feeder on/off
+            if(robot.isFeederROn()){
+                robot.feederR(0.0);
+            }else{
+                robot.feederR(1.0);
+            }
+        }
+        if (gamepad2.yWasReleased()){ //This turns the left feeder on/off
+            if(robot.isFeederLOn()){
+                robot.feederL(0.0);
+            }else{
+                robot.feederL(1.0);
             }
         }
 

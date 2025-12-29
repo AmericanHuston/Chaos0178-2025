@@ -109,6 +109,10 @@ public class Robot3 {
         return isIntakeOn;
     }
 
+    public boolean isFeederLOn() { return isFeederLOn; }
+
+    public boolean isFeederROn() { return isFeederROn; }
+
     public boolean getIsFlywheelOn(){
         return isFlywheelOn;
     }
