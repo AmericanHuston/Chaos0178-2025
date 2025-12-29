@@ -22,6 +22,7 @@ public class ShootyShootyBangBang extends OpMode {
     public double flyVel = 0.0;
     public double intakeVel = 0.0;
     public double transferVel = 0.5;
+    public double flywheelPower = 0.0;
 
     private PathChain pointFour;
     private PathChain goToShoot;
@@ -32,7 +33,7 @@ public class ShootyShootyBangBang extends OpMode {
         follower = Constants.createFollower(hardwareMap);//new follower creator
 //        telemetry.addData("heading", robot.getLastPose().getHeading());
 //        follower.setStartingPose(robot.getLastPose());
-        follower.setStartingPose(new Pose(93, 10));
+        follower.setStartingPose(robot.getLastPose());
         telemetry.addData("Current Pose", follower.getPose());
         telemetry.update();
     }
@@ -106,6 +107,8 @@ public class ShootyShootyBangBang extends OpMode {
 
         if (gamepad2.right_trigger >= 0.01){
             robot.spinFlywheel(robot.calcPowerForFlywheel(follower.getPose()));
+        }else{
+            robot.spinFlywheel(flyVel);
         }
 //        if (gamepad2.b) {
 //            List<AprilTagDetection> currentDetections = robot.getAprilTags();
@@ -149,14 +152,14 @@ public class ShootyShootyBangBang extends OpMode {
                 robot.transfer(1.0);
             }
         }
-        if (gamepad2.bWasReleased()){ //This turns the right feeder on/off
+        if (gamepad2.xWasReleased()){ //This turns the right feeder on/off
             if(robot.isFeederROn()){
                 robot.feederR(0.0);
             }else{
                 robot.feederR(1.0);
             }
         }
-        if (gamepad2.yWasReleased()){ //This turns the left feeder on/off
+        if (gamepad2.bWasReleased()){ //This turns the left feeder on/off
             if(robot.isFeederLOn()){
                 robot.feederL(0.0);
             }else{
@@ -181,7 +184,6 @@ public class ShootyShootyBangBang extends OpMode {
         if (gamepad2.dpadRightWasPressed()){
             flyVel = 0.5;
         }
-        robot.spinFlywheel(flyVel);
 
 
         //Rewrite below----------
@@ -198,7 +200,7 @@ public class ShootyShootyBangBang extends OpMode {
         telemetry.addData("Heading in Degrees", Math.toDegrees(follower.getPose().getHeading()));
         telemetry.addData("flyVel", flyVel);
         telemetry.addData("Flywheel Speed", robot.getFlywheelSpeedRPM());
-        telemetry.addData("Flywheel Power", robot.getFlywheelPower());
+        telemetry.addData("Flywheel Power", flywheelPower);
         telemetry.addData("Transfer is On", robot.getIsTransferOn());
         telemetry.addData("Last Successful Shot Speed", robot.getLastSuccessfulSpeed());
 
