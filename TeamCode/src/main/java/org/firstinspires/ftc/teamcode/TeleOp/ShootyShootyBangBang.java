@@ -7,12 +7,9 @@ import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
-import com.pedropathing.paths.Path;
 import com.pedropathing.paths.PathChain;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-
-import java.util.List;
 
 @TeleOp(name = "ShootyShootyBangBang", group = "TeleOp")
 public class ShootyShootyBangBang extends OpMode {
@@ -122,13 +119,12 @@ public class ShootyShootyBangBang extends OpMode {
 //                follower.followPath(rotationPath);
 //            }
 //        }
-        if(gamepad2.rightBumperWasReleased()){ //Intake on
-            intakeVel = 1.0;
-            robot.intake(intakeVel);
-        }
-        if(gamepad2.leftBumperWasReleased()){ //Intake off
-            intakeVel = 0.0;
-            robot.intake(intakeVel);
+        if(gamepad2.rightBumperWasReleased()){ //intake on and off
+            if(robot.isIntakeOn()){
+                robot.intake(0.0);
+            }else{
+                robot.intake(1.0);
+            }
         }
 //        if(gamepad2.yWasReleased()){ //Servo stop
 //            transferVel = 0.0;
@@ -140,17 +136,17 @@ public class ShootyShootyBangBang extends OpMode {
 //        }
 //        if(gamepad2.aWasReleased()){ //Servo stop
 //            transferVel = 0.0;
-//            robot.transfer2(transferVel);
+//            robot.transfer(transferVel);
 //        }
 //        if(gamepad2.bWasReleased()){ //Servo start
 //            transferVel = 1.0;
-//            robot.transfer2(transferVel);
+//            robot.transfer(transferVel);
 //        }
         if (gamepad2.aWasReleased()){
             if (robot.getIsTransferOn()){
-                robot.transfer2(0.0);
+                robot.transfer(0.0);
             }else{
-                robot.transfer2(1.0);
+                robot.transfer(1.0);
             }
         }
 

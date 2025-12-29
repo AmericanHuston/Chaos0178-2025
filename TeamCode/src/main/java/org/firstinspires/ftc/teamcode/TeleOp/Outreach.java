@@ -79,11 +79,11 @@ public class Outreach extends OpMode {
         }
         if(gamepad2.aWasReleased()){ //Servo stop
             transferVel = 0.0;
-            robot.transfer2(transferVel);
+            robot.transfer(transferVel);
         }
         if(gamepad2.bWasReleased()){ //Servo start
             transferVel = 1.0;
-            robot.transfer2(transferVel);
+            robot.transfer(transferVel);
         }
 
         /* Telemetry Outputs of our Follower */

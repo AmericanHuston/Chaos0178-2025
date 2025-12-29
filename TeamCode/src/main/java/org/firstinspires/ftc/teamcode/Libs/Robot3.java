@@ -31,6 +31,8 @@ public class Robot3 {
     private boolean isFlywheelOn = false;
     private boolean isIntakeOn = false;
     private boolean isTransferOn = false;
+    private boolean isFeederLOn = false;
+    private boolean isFeederROn = false;
 
     private static Pose lastPose = new Pose(24,24, Math.toRadians(0));
     private static Pose startingPose1 = new Pose(0,0,0); //TODO Populate Data
@@ -45,8 +47,9 @@ public class Robot3 {
     DcMotor BackRightMotor;
     DcMotorEx FlywheelMotor;
     DcMotor IntakeMotor;
-    CRServo TransferServo;
     CRServo ServoTransfer;
+    CRServo FeederL;
+    CRServo FeederR;
     //GoBildaPinpointDriver Pinpoint;
     AprilTagProcessor AprilTag;
     VisionPortal visionPortal;
@@ -72,8 +75,9 @@ public class Robot3 {
         BackRightMotor = hardwareMap.dcMotor.get("backRight");
         FlywheelMotor = hardwareMap.get(DcMotorEx.class, "flywheelMotor");
         IntakeMotor = hardwareMap.dcMotor.get("intakeMotor");
-        TransferServo = hardwareMap.crservo.get("Mr.Servo");
         ServoTransfer = hardwareMap.crservo.get("Mrs.Servo");
+        FeederL = hardwareMap.crservo.get("FeederL");
+        FeederR = hardwareMap.crservo.get("FeederR");
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
                 RevHubOrientationOnRobot.LogoFacingDirection.LEFT,
                 RevHubOrientationOnRobot.UsbFacingDirection.UP));
@@ -176,13 +180,17 @@ public class Robot3 {
         IntakeMotor.setPower(power);
         isIntakeOn = !isIntakeOn;
     } //runs the intake
-    public void transfer1(double power){
-        TransferServo.setPower(power);
-        isTransferOn = !isTransferOn;
-    } //runs the transfer
-    public void transfer2(double power){
+    public void transfer(double power){
         ServoTransfer.setPower(power);
         isTransferOn = !isTransferOn;
+    }
+    public void feederL(double power){
+        FeederL.setPower(power);
+        isFeederLOn = !isFeederLOn;
+    }
+    public void feederR(double power){
+        FeederR.setPower(power);
+        isFeederROn = !isFeederROn;
     }
     public void actMotors(){
         FrontRightMotor.setPower(desiredFrontRight);
