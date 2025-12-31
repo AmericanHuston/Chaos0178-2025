@@ -1,7 +1,10 @@
 package org.firstinspires.ftc.teamcode.TeleOp;
 
+import com.bylazar.telemetry.PanelsTelemetry;
+import com.bylazar.telemetry.TelemetryManager;
 import com.pedropathing.follower.Follower;
 
+import com.bylazar.panels.Panels;
 import org.firstinspires.ftc.teamcode.Libs.Robot3;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
@@ -15,6 +18,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 public class ShootyShootyBangBang extends OpMode {
 
     private Follower follower;
+
+    //private final TelemetryManager panelsTelemetry = PanelsTelemetry.getTelemetry();
 
     Robot3 robot = new Robot3();
     public Pose startingPose = new Pose(8,56, 0);
@@ -107,6 +112,7 @@ public class ShootyShootyBangBang extends OpMode {
 
         if (gamepad2.right_trigger >= 0.01){
             robot.spinFlywheel(robot.calcPowerForFlywheel(follower.getPose()));
+            flywheelPower = robot.calcPowerForFlywheel(follower.getPose());
         }else{
             robot.spinFlywheel(flyVel);
         }
@@ -206,6 +212,10 @@ public class ShootyShootyBangBang extends OpMode {
 
         /* Update Telemetry to the Driver Hub */
         telemetry.update();
+
+        //Panels Telemetry?
+        //panelsTelemetry.debug("Text");
+        //panelsTelemetry.update(telemetry);
     }
     @Override
     public void stop() {
