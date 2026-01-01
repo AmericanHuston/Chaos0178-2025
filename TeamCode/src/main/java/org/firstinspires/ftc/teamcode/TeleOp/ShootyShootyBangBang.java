@@ -1,5 +1,11 @@
 package org.firstinspires.ftc.teamcode.TeleOp;
 
+
+import static org.firstinspires.ftc.teamcode.pedroPathing.Tuning.drawCurrent;
+import static org.firstinspires.ftc.teamcode.pedroPathing.Tuning.drawCurrentAndHistory;
+import static org.firstinspires.ftc.teamcode.pedroPathing.Tuning.follower;
+
+import com.bylazar.configurables.annotations.IgnoreConfigurable;
 import com.bylazar.telemetry.PanelsTelemetry;
 import com.bylazar.telemetry.TelemetryManager;
 import com.pedropathing.follower.Follower;
@@ -7,10 +13,12 @@ import com.pedropathing.follower.Follower;
 import com.bylazar.panels.Panels;
 import org.firstinspires.ftc.teamcode.Libs.Robot3;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
+import org.firstinspires.ftc.teamcode.pedroPathing.Tuning;
 
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.PathChain;
+import com.pedropathing.util.PoseHistory;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -19,7 +27,13 @@ public class ShootyShootyBangBang extends OpMode {
 
     private Follower follower;
 
-    //private final TelemetryManager panelsTelemetry = PanelsTelemetry.getTelemetry();
+    @IgnoreConfigurable
+    static PoseHistory poseHistory;
+
+    @IgnoreConfigurable
+    static TelemetryManager telemetryM;
+
+    private final TelemetryManager panelsTelemetry = PanelsTelemetry.INSTANCE.getTelemetry();
 
     Robot3 robot = new Robot3();
     public Pose startingPose = new Pose(8,56, 0);
@@ -36,11 +50,12 @@ public class ShootyShootyBangBang extends OpMode {
     public void init() {
         robot.init(hardwareMap);
         follower = Constants.createFollower(hardwareMap);//new follower creator
-//        telemetry.addData("heading", robot.getLastPose().getHeading());
+        telemetry.addData("heading", robot.getLastPose().getHeading());
 //        follower.setStartingPose(robot.getLastPose());
         follower.setStartingPose(robot.getLastPose());
         telemetry.addData("Current Pose", follower.getPose());
         telemetry.update();
+        panelsTelemetry.update(telemetry);
     }
 
     @Override
@@ -214,8 +229,13 @@ public class ShootyShootyBangBang extends OpMode {
         telemetry.update();
 
         //Panels Telemetry?
-        //panelsTelemetry.debug("Text");
-        //panelsTelemetry.update(telemetry);
+        panelsTelemetry.debug("Text");
+        panelsTelemetry.addData("X", follower.getPose().getX());
+        panelsTelemetry.addData("Y", follower.getPose().getY());
+        panelsTelemetry.addData("Heading", Math.toDegrees(follower.getPose().getHeading()));
+        panelsTelemetry.update(telemetry);
+
+        Tuning.drawCurrentAndHistory(follower.getPoseHistory(), follower.getPose());
     }
     @Override
     public void stop() {
