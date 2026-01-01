@@ -1,8 +1,5 @@
 package org.firstinspires.ftc.teamcode.TeleOp;
 
-
-import static org.firstinspires.ftc.teamcode.pedroPathing.Tuning.drawCurrent;
-import static org.firstinspires.ftc.teamcode.pedroPathing.Tuning.drawCurrentAndHistory;
 import static org.firstinspires.ftc.teamcode.pedroPathing.Tuning.follower;
 
 import com.bylazar.configurables.annotations.IgnoreConfigurable;
@@ -36,6 +33,7 @@ public class ShootyShootyBangBang extends OpMode {
     private final TelemetryManager panelsTelemetry = PanelsTelemetry.INSTANCE.getTelemetry();
 
     Robot3 robot = new Robot3();
+    Tuning Tuning = new Tuning();
     public Pose startingPose = new Pose(8,56, 0);
     public Pose fourPoint = new Pose(86, 60, 55);
     public double flyVel = 0.0;
@@ -233,9 +231,12 @@ public class ShootyShootyBangBang extends OpMode {
         panelsTelemetry.addData("X", follower.getPose().getX());
         panelsTelemetry.addData("Y", follower.getPose().getY());
         panelsTelemetry.addData("Heading", Math.toDegrees(follower.getPose().getHeading()));
+        panelsTelemetry.addData("Flywheel Power", flywheelPower);
+        panelsTelemetry.addData("Distance to Goal", robot.DistanceFromGoal(follower.getPose()));
         panelsTelemetry.update(telemetry);
 
-        Tuning.drawCurrentAndHistory(follower.getPoseHistory(), follower.getPose());
+        robot.draw(follower);
+
     }
     @Override
     public void stop() {
