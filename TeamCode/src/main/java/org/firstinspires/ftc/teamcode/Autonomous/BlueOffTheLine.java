@@ -5,19 +5,18 @@ import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.PathChain;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.Libs.Robot3;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
-@Autonomous(name = "OffTheLine", group = "Tests")
-public class OffTheLine extends OpMode {
+@Autonomous(name = "BlueOffTheLine", group = "Tests")
+public class BlueOffTheLine extends OpMode {
     Robot3 robot = new Robot3();
     private Follower follower;
 
-    private final Pose StartingPose = new Pose(96,7, Math.toRadians(0));
-    private final Pose EndingPose = new Pose(110,7, Math.toRadians(0));
+    private final Pose StartingPose = new Pose(50,7, Math.toRadians(180));
+    private final Pose EndingPose = new Pose(28,7, Math.toRadians(180));
 
     private PathChain Forward;
 

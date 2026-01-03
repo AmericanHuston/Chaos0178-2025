@@ -8,6 +8,8 @@ import com.bylazar.telemetry.TelemetryManager;
 import com.pedropathing.follower.Follower;
 
 import com.bylazar.panels.Panels;
+
+import org.firstinspires.ftc.teamcode.Libs.ConstantChaos;
 import org.firstinspires.ftc.teamcode.Libs.Robot3;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 import org.firstinspires.ftc.teamcode.pedroPathing.Tuning;
@@ -36,6 +38,7 @@ public class ShootyShootyBangBang extends OpMode {
     Tuning Tuning = new Tuning();
     public Pose startingPose = new Pose(8,56, 0);
     public Pose fourPoint = new Pose(86, 60, 55);
+    public Pose Fire1 = new Pose(72, 24);
     public double flyVel = 0.0;
     public double intakeVel = 0.0;
     public double transferVel = 0.5;
@@ -51,6 +54,13 @@ public class ShootyShootyBangBang extends OpMode {
         telemetry.addData("heading", robot.getLastPose().getHeading());
 //        follower.setStartingPose(robot.getLastPose());
         follower.setStartingPose(robot.getLastPose());
+        if(ConstantChaos.isRed){
+            robot.GoalArea = ConstantChaos.RedGoalArea;
+            Fire1 = ConstantChaos.Red1Fire;
+        }else{
+            robot.GoalArea = ConstantChaos.BlueGoalArea;
+            Fire1 = ConstantChaos.Blue1Fire;
+        }
         telemetry.addData("Current Pose", follower.getPose());
         telemetry.update();
         panelsTelemetry.update(telemetry);
@@ -233,6 +243,7 @@ public class ShootyShootyBangBang extends OpMode {
         panelsTelemetry.addData("Flywheel RPM", robot.getFlywheelSpeedRPM());
         panelsTelemetry.addData("Distance to Goal", robot.DistanceFromGoal(follower.getPose()));
         panelsTelemetry.addData("CalcPowerForFlywheel", flywheelPower);
+        panelsTelemetry.addData("Ticks Per Second", robot.getFlywheelVelocity());
         panelsTelemetry.update(telemetry);
 
         robot.draw(follower);
@@ -248,9 +259,9 @@ public class ShootyShootyBangBang extends OpMode {
         goToShoot = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(follower.getPose(), new Pose(83.733, 92.667))
+                        new BezierLine(follower.getPose(), Fire1)
                 )
-                .setLinearHeadingInterpolation(follower.getHeading(), Math.toRadians(225))
+                .setLinearHeadingInterpolation(follower.getHeading(), Fire1.getHeading())
                 .build();
     }
 }

@@ -47,7 +47,8 @@ public class Robot3 {
     private static Pose startingPose2 = new Pose(0,0,0); //TODO Populate Data
     private static Pose startingPose3 = new Pose(0,0,0); //TODO Populate Data
     private static Pose startingPose4 = new Pose(0,0,0); //TODO Populate Data
-    Pose GoalArea = new Pose(5, 140);
+
+    public static Pose GoalArea = new Pose(72, 72);
 
     IMU IMU;
     DcMotor FrontLeftMotor;
@@ -155,6 +156,9 @@ public class Robot3 {
     public double getFlywheelPower(){
         return FlywheelMotor.getPower();
     }
+
+    public double getFlywheelVelocity(){ return FlywheelMotor.getVelocity(); }
+
     public void resetIMU() {
         IMU.resetYaw();
     }
@@ -219,9 +223,9 @@ public class Robot3 {
 
         double distanceFromGoal = GoalArea.distanceFrom(currentPosition);
 
-        double slope = (ConstantChaos.maxPower - ConstantChaos.minPower) / (ConstantChaos.maxDistance - ConstantChaos.minDistance);
+        double slope = (ConstantChaos.maxVelocity - ConstantChaos.minVelocity) / (ConstantChaos.maxDistance - ConstantChaos.minDistance);
 
-        double desiredPower = slope * (distanceFromGoal - ConstantChaos.minDistance) + ConstantChaos.minPower;
+        double desiredPower = slope * (distanceFromGoal - ConstantChaos.minDistance) + ConstantChaos.minVelocity;
 
         return desiredPower;
     }
@@ -242,6 +246,8 @@ public class Robot3 {
     public static void draw(Follower follower) {
         Drawing.drawDebug(follower);
     }
+
+
 }
 
 
