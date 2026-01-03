@@ -227,12 +227,12 @@ public class ShootyShootyBangBang extends OpMode {
         telemetry.update();
 
         //Panels Telemetry?
-        panelsTelemetry.debug("Text");
         panelsTelemetry.addData("X", follower.getPose().getX());
         panelsTelemetry.addData("Y", follower.getPose().getY());
         panelsTelemetry.addData("Heading", Math.toDegrees(follower.getPose().getHeading()));
-        panelsTelemetry.addData("Flywheel Power", flywheelPower);
+        panelsTelemetry.addData("Flywheel RPM", robot.getFlywheelSpeedRPM());
         panelsTelemetry.addData("Distance to Goal", robot.DistanceFromGoal(follower.getPose()));
+        panelsTelemetry.addData("CalcPowerForFlywheel", flywheelPower);
         panelsTelemetry.update(telemetry);
 
         robot.draw(follower);

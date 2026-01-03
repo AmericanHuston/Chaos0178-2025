@@ -4,7 +4,6 @@ import com.bylazar.field.FieldManager;
 import com.bylazar.field.PanelsField;
 import com.bylazar.field.Style;
 import com.pedropathing.follower.Follower;
-import com.pedropathing.follower.FollowerConstants;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.math.Vector;
 import com.pedropathing.paths.Path;
@@ -181,7 +180,7 @@ public class Robot3 {
     }
 
     public void spinFlywheel(double power){
-        FlywheelMotor.setPower(power);
+        FlywheelMotor.setVelocity(power);
         isFlywheelOn = true;
     }
 
@@ -218,19 +217,13 @@ public class Robot3 {
 
     public double calcPowerForFlywheel(Pose currentPosition){
 
-        double distanceFrom = GoalArea.distanceFrom(currentPosition);
+        double distanceFromGoal = GoalArea.distanceFrom(currentPosition);
 
-        //Ramp Angle 120 deg
+        double slope = (ConstantChaos.maxPower - ConstantChaos.minPower) / (ConstantChaos.maxDistance - ConstantChaos.minDistance);
 
-        double ratio = (ConstantChaos.maxDistance - ConstantChaos.minDistance) / (ConstantChaos.maxPower - ConstantChaos.minPower);
+        double desiredPower = slope * (distanceFromGoal - ConstantChaos.minDistance) + ConstantChaos.minPower;
 
-        double distanceFromGoal = (distanceFrom - ConstantChaos.minDistance);
-
-        if (distanceFromGoal < 0){
-            distanceFromGoal = 0;
-        }
-
-        return ( (distanceFromGoal / ratio) * 5 * 0.01 );
+        return desiredPower;
     }
 
     public double DistanceFromGoal(Pose Current){
@@ -272,7 +265,7 @@ class Drawing {
 
     /**
      * This draws everything that will be used in the Follower's telemetryDebug() method. This takes
-     * a Follower as an input, so an instance of the DashbaordDrawingHandler class is not needed.
+     * a Follower as an input, so an instance of the DashboardDrawingHandler class is not needed.
      *
      * @param follower Pedro Follower instance.
      */
