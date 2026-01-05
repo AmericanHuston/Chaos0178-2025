@@ -15,8 +15,8 @@ public class BlueOffTheLine extends OpMode {
     Robot3 robot = new Robot3();
     private Follower follower;
 
-    private final Pose StartingPose = new Pose(50,7, Math.toRadians(180));
-    private final Pose EndingPose = new Pose(28,7, Math.toRadians(180));
+    private final Pose StartingPose = new Pose(96,7, Math.toRadians(0));
+    private final Pose EndingPose = new Pose(110,7, Math.toRadians(0));
 
     private PathChain Forward;
 
@@ -30,6 +30,7 @@ public class BlueOffTheLine extends OpMode {
 
         Forward = follower.pathBuilder()
                 .addPath(new BezierLine(StartingPose, EndingPose))
+                .setLinearHeadingInterpolation(StartingPose.getHeading(), EndingPose.getHeading())
                 .build();
     }
 

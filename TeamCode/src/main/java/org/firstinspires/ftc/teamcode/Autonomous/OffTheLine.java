@@ -31,6 +31,7 @@ public class OffTheLine extends OpMode {
 
         Forward = follower.pathBuilder()
                 .addPath(new BezierLine(StartingPose, EndingPose))
+                .setLinearHeadingInterpolation(StartingPose.getHeading(), EndingPose.getHeading())
                 .build();
     }
 
