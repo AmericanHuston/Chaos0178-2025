@@ -3,14 +3,14 @@ package org.firstinspires.ftc.teamcode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.teamcode.Libs.ConstantChaos;
 import org.firstinspires.ftc.teamcode.Libs.Robot3;
 @Disabled
 @TeleOp(name = "TestMotors", group = "Tests")
 public class TestMotors extends LinearOpMode {
 
-    Robot3 robot = new Robot3();
+    Robot3 robot = new Robot3(ConstantChaos.Alliance.RED);
 
     @Override
     public void runOpMode() throws InterruptedException {

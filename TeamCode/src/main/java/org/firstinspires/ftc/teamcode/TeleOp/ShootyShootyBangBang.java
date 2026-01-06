@@ -1,18 +1,15 @@
 package org.firstinspires.ftc.teamcode.TeleOp;
 
-import static org.firstinspires.ftc.teamcode.pedroPathing.Tuning.follower;
+import android.annotation.SuppressLint;
 
 import com.bylazar.configurables.annotations.IgnoreConfigurable;
 import com.bylazar.telemetry.PanelsTelemetry;
 import com.bylazar.telemetry.TelemetryManager;
 import com.pedropathing.follower.Follower;
 
-import com.bylazar.panels.Panels;
-
 import org.firstinspires.ftc.teamcode.Libs.ConstantChaos;
 import org.firstinspires.ftc.teamcode.Libs.Robot3;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
-import org.firstinspires.ftc.teamcode.pedroPathing.Tuning;
 
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
@@ -34,17 +31,12 @@ public class ShootyShootyBangBang extends OpMode {
 
     private final TelemetryManager panelsTelemetry = PanelsTelemetry.INSTANCE.getTelemetry();
 
-    Robot3 robot = new Robot3();
-    Tuning Tuning = new Tuning();
-    public Pose startingPose = new Pose(8,56, 0);
-    public Pose fourPoint = new Pose(86, 60, 55);
-    public Pose Fire1 = new Pose(72, 24);
+    Robot3 robot = new Robot3(ConstantChaos.Alliance.RED);
     public double flyVel = 0.0;
     public double intakeVel = 0.0;
     public double transferVel = 0.5;
-    public double flywheelPower = 0.0;
+    public double desiredFlywheelVelocity = 0.0;
 
-    private PathChain pointFour;
     private PathChain goToShoot;
 
     @Override
@@ -52,15 +44,7 @@ public class ShootyShootyBangBang extends OpMode {
         robot.init(hardwareMap);
         follower = Constants.createFollower(hardwareMap);//new follower creator
         telemetry.addData("heading", robot.getLastPose().getHeading());
-//        follower.setStartingPose(robot.getLastPose());
         follower.setStartingPose(robot.getLastPose());
-        if(ConstantChaos.isRed){
-            robot.GoalArea = ConstantChaos.RedGoalArea;
-            Fire1 = ConstantChaos.Red1Fire;
-        }else{
-            robot.GoalArea = ConstantChaos.BlueGoalArea;
-            Fire1 = ConstantChaos.Blue1Fire;
-        }
         telemetry.addData("Current Pose", follower.getPose());
         telemetry.update();
         panelsTelemetry.update(telemetry);
@@ -71,6 +55,7 @@ public class ShootyShootyBangBang extends OpMode {
         follower.startTeleopDrive();
     }
 
+    @SuppressLint("DefaultLocale")
     @Override
     public void loop() {
         follower.update(); //MUST COME BEFORE SET TELE OP DRIVE
@@ -132,10 +117,9 @@ public class ShootyShootyBangBang extends OpMode {
 //        if (gamepad2.dpadLeftWasPressed()){
 //            robot.stopFlywheelVelocity();
 //        }
-
+        desiredFlywheelVelocity = robot.calcPowerForFlywheel(follower.getPose());
         if (gamepad2.right_trigger >= 0.01){
-            robot.spinFlywheel(robot.calcPowerForFlywheel(follower.getPose()));
-            flywheelPower = robot.calcPowerForFlywheel(follower.getPose());
+            robot.spinFlywheel(desiredFlywheelVelocity);
         }else{
             robot.spinFlywheel(flyVel);
         }
@@ -223,27 +207,16 @@ public class ShootyShootyBangBang extends OpMode {
 
         //Rewrite above----------
 
-        /* Telemetry Outputs of our Follower */
-        telemetry.addData("X", follower.getPose().getX());
-        telemetry.addData("Y", follower.getPose().getY());
-        telemetry.addData("Heading in Degrees", Math.toDegrees(follower.getPose().getHeading()));
-        telemetry.addData("flyVel", flyVel);
-        telemetry.addData("Flywheel Speed", robot.getFlywheelSpeedRPM());
-        telemetry.addData("Flywheel Power", flywheelPower);
-        telemetry.addData("Transfer is On", robot.getIsTransferOn());
-        telemetry.addData("Last Successful Shot Speed", robot.getLastSuccessfulSpeed());
-
-        /* Update Telemetry to the Driver Hub */
-        telemetry.update();
-
         //Panels Telemetry?
-        panelsTelemetry.addData("X", follower.getPose().getX());
-        panelsTelemetry.addData("Y", follower.getPose().getY());
-        panelsTelemetry.addData("Heading", Math.toDegrees(follower.getPose().getHeading()));
+        panelsTelemetry.addData("Current Position:", String.format("(X:%.2f, Y:%.2f, θ:%.2f)", follower.getPose().getX(), follower.getPose().getY(), Math.toDegrees(follower.getPose().getHeading())));
         panelsTelemetry.addData("Flywheel RPM", robot.getFlywheelSpeedRPM());
-        panelsTelemetry.addData("Distance to Goal", robot.DistanceFromGoal(follower.getPose()));
-        panelsTelemetry.addData("CalcPowerForFlywheel", flywheelPower);
+        panelsTelemetry.addData("Distance to Goal", String.format("%.2f", robot.DistanceFromGoal(follower.getPose())));
+        panelsTelemetry.addData("CalcPowerForFlywheel", String.format("%.2f", desiredFlywheelVelocity));
+        panelsTelemetry.addData("CalcHeadingToGoal", String.format("%.2f", Math.toDegrees(robot.calcHeadingToGoal(follower.getPose()))));
         panelsTelemetry.addData("Ticks Per Second", robot.getFlywheelVelocity());
+        panelsTelemetry.addData("flyVel", flyVel);
+        panelsTelemetry.addData("Transfer is On", robot.getIsTransferOn());
+        panelsTelemetry.addData("Last Successful Shot Speed", robot.getLastSuccessfulSpeed());
         panelsTelemetry.update(telemetry);
 
         robot.draw(follower);
@@ -259,9 +232,9 @@ public class ShootyShootyBangBang extends OpMode {
         goToShoot = follower
                 .pathBuilder()
                 .addPath(
-                        new BezierLine(follower.getPose(), Fire1)
+                        new BezierLine(follower.getPose(), robot.Fire1)
                 )
-                .setLinearHeadingInterpolation(follower.getHeading(), Fire1.getHeading())
+                .setLinearHeadingInterpolation(follower.getHeading(), robot.Fire1.getHeading())
                 .build();
     }
 }

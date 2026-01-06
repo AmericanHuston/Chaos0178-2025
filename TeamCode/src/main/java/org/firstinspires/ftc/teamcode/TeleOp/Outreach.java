@@ -6,6 +6,7 @@ import com.pedropathing.paths.PathChain;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.Libs.ConstantChaos;
 import org.firstinspires.ftc.teamcode.Libs.Robot3;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
@@ -14,7 +15,7 @@ public class Outreach extends OpMode {
 
     private Follower follower;
 
-    Robot3 robot = new Robot3();
+    Robot3 robot = new Robot3(ConstantChaos.Alliance.RED);
     public Pose startingPose = new Pose(8,56, 0);
     public Pose fourPoint = new Pose(86, 60, 55);
     public double flyVel = 0.0;

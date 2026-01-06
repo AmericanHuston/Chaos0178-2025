@@ -1,5 +1,5 @@
 package org.firstinspires.ftc.teamcode.Libs;
-
+import org.firstinspires.ftc.teamcode.Libs.ConstantChaos.Alliance;
 import com.bylazar.field.FieldManager;
 import com.bylazar.field.PanelsField;
 import com.bylazar.field.Style;
@@ -28,7 +28,8 @@ import org.firstinspires.ftc.vision.opencv.PredominantColorProcessor;
 import java.util.List;
 
 public class Robot3 {
-    
+
+    private final Alliance myAlliance;
     double desiredFrontRight;
     double desiredFrontLeft;
     double desiredBackRight;
@@ -43,12 +44,10 @@ public class Robot3 {
     private boolean isFeederROn = false;
 
     private static Pose lastPose = new Pose(24,24, Math.toRadians(0));
-    private static Pose startingPose1 = new Pose(0,0,0); //TODO Populate Data
-    private static Pose startingPose2 = new Pose(0,0,0); //TODO Populate Data
-    private static Pose startingPose3 = new Pose(0,0,0); //TODO Populate Data
-    private static Pose startingPose4 = new Pose(0,0,0); //TODO Populate Data
 
-    public static Pose GoalArea = new Pose(72, 72);
+    public Pose GoalArea = new Pose(72, 72);
+    public Pose Fire1 = new Pose(72, 24);
+
 
     IMU IMU;
     DcMotor FrontLeftMotor;
@@ -63,6 +62,18 @@ public class Robot3 {
     //GoBildaPinpointDriver Pinpoint;
     AprilTagProcessor AprilTag;
     VisionPortal visionPortal;
+
+    public Robot3(Alliance alliance) {
+        // Do good things with the alliance color
+        myAlliance = alliance;
+        if (alliance == Alliance.RED) {
+            GoalArea = ConstantChaos.RedGoalArea;
+            Fire1 = ConstantChaos.Red1Fire;
+        } else {
+            GoalArea = ConstantChaos.BlueGoalArea;
+            Fire1 = ConstantChaos.Blue1Fire;
+        }
+    }
 
     public void init(HardwareMap hardwareMap) {
         Drawing.init();
@@ -93,7 +104,6 @@ public class Robot3 {
                 RevHubOrientationOnRobot.LogoFacingDirection.LEFT,
                 RevHubOrientationOnRobot.UsbFacingDirection.UP));
         IMU.initialize(parameters);
-//        //Pinpoint.setOffsets(0, 155, DistanceUnit.MM);
         FlywheelMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         FlywheelMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         FeederR.setDirection(CRServo.Direction.REVERSE);
@@ -105,11 +115,11 @@ public class Robot3 {
         return getHeadingOfTag.getHeading(visionPortal, AprilTag);
     }
 
-    public static void setLastPose(Pose savePose){
+    public void setLastPose(Pose savePose){
         lastPose = savePose;
     }
 
-    public static Pose getLastPose(){
+    public Pose getLastPose(){
         return lastPose;
     }
 
@@ -120,6 +130,8 @@ public class Robot3 {
     public boolean isIntakeOn() {
         return isIntakeOn;
     }
+
+    public Alliance getAlliance() { return myAlliance; }
 
     public boolean isFeederLOn() { return isFeederLOn; }
 
@@ -219,31 +231,28 @@ public class Robot3 {
 //        Flywheel.setPower(desiredFlywheel);
     }
 
+    public double calcHeadingToGoal(Pose currentPosition) {
+        return Math.atan2(GoalArea.getY() - currentPosition.getY(), GoalArea.getX() - currentPosition.getX());
+    }
+
     public double calcPowerForFlywheel(Pose currentPosition){
-
-        double distanceFromGoal = GoalArea.distanceFrom(currentPosition);
-
         double slope = (ConstantChaos.maxVelocity - ConstantChaos.minVelocity) / (ConstantChaos.maxDistance - ConstantChaos.minDistance);
-
-        double desiredPower = slope * (distanceFromGoal - ConstantChaos.minDistance) + ConstantChaos.minVelocity;
-
-        return desiredPower;
+        return slope * (DistanceFromGoal(currentPosition) - ConstantChaos.minDistance) + ConstantChaos.minVelocity;
     }
 
-    public double DistanceFromGoal(Pose Current){
-        double DistanceFrom = 0.0;
-        return DistanceFrom = GoalArea.distanceFrom(Current);
+    public double DistanceFromGoal(Pose current){
+        return GoalArea.distanceFrom(current);
     }
-    public static void drawOnlyCurrent(Pose Current) {
+    public static void drawOnlyCurrent(Pose current) {
         try {
-            Drawing.drawRobot(Current);
+            Drawing.drawRobot(current);
             Drawing.sendPacket();
         } catch (Exception e) {
             throw new RuntimeException("Drawing failed " + e);
         }
     }
 
-    public static void draw(Follower follower) {
+    public void draw(Follower follower) {
         Drawing.drawDebug(follower);
     }
 

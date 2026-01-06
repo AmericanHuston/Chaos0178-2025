@@ -7,16 +7,17 @@ import com.pedropathing.paths.PathChain;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
+import org.firstinspires.ftc.teamcode.Libs.ConstantChaos;
 import org.firstinspires.ftc.teamcode.Libs.Robot3;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
-@Autonomous(name = "DiagonalOff", group = "Tests")
-public class DiagonalOff extends OpMode {
-    Robot3 robot = new Robot3();
+@Autonomous(name = "BlueDiagonalOff", group = "Tests")
+public class BlueDiagonalOff extends OpMode {
+    Robot3 robot = new Robot3(ConstantChaos.Alliance.BLUE);
     private Follower follower;
 
-    private final Pose StartingPose = new Pose(22,124, Math.toRadians(-37));
-    private final Pose EndingPose = new Pose(60,110, Math.toRadians(0));
+    private final Pose StartingPose = ConstantChaos.BlueStartingPoseOffTheLine;
+    private final Pose EndingPose = ConstantChaos.BlueEndingPoseOffTheLine;
 
     private PathChain Forward;
 
@@ -44,5 +45,6 @@ public class DiagonalOff extends OpMode {
                 x=x+1;
             }
         }
+        robot.draw(follower);
     }
 }
