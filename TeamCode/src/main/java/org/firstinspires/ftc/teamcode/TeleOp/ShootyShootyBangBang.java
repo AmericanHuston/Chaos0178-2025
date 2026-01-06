@@ -39,6 +39,7 @@ public class ShootyShootyBangBang extends OpMode {
     public double desiredFlywheelVelocity = 0.0;
 
     private PathChain goToShoot;
+    private PathChain turnToShoot;
 
     @Override
     public void init() {
@@ -94,9 +95,8 @@ public class ShootyShootyBangBang extends OpMode {
 
         //Wheel tests and auto points
         if(gamepad1.aWasReleased()){
-            Pose i_am_here = follower.getPose();
-            telemetry.addData("i_am_here", i_am_here);
-            follower.holdPoint(i_am_here);
+            Paths(follower);
+            follower.followPath(turnToShoot);
         }
         if (gamepad1.bWasReleased()){
             robot.resetIMU();
@@ -248,6 +248,10 @@ public class ShootyShootyBangBang extends OpMode {
                         new BezierLine(follower.getPose(), robot.Fire1)
                 )
                 .setLinearHeadingInterpolation(follower.getHeading(), robot.Fire1.getHeading())
+                .build();
+        turnToShoot = follower
+                .pathBuilder()
+                .setLinearHeadingInterpolation(follower.getHeading(), robot.calcHeadingToGoal(follower.getPose()))
                 .build();
     }
 }
