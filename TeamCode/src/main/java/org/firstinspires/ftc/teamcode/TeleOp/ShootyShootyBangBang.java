@@ -31,7 +31,8 @@ public class ShootyShootyBangBang extends OpMode {
 
     private final TelemetryManager panelsTelemetry = PanelsTelemetry.INSTANCE.getTelemetry();
 
-    Robot3 robot = new Robot3(ConstantChaos.Alliance.RED);
+    Robot3 robot = new Robot3(ConstantChaos.isRed);
+
     public double flyVel = 0.0;
     public double intakeVel = 0.0;
     public double transferVel = 0.5;
@@ -60,7 +61,11 @@ public class ShootyShootyBangBang extends OpMode {
     public void loop() {
         follower.update(); //MUST COME BEFORE SET TELE OP DRIVE
         //Okay, if something is reversed in the driving, try swapping the polarity here
-        follower.setTeleOpDrive(-gamepad1.left_stick_y/2, -gamepad1.left_stick_x/2, -gamepad1.right_stick_x/2, false);
+        if (ConstantChaos.isRed) {
+            follower.setTeleOpDrive(-gamepad1.left_stick_y/2, -gamepad1.left_stick_x/2, -gamepad1.right_stick_x/2, false);
+        } else {
+            follower.setTeleOpDrive(gamepad1.left_stick_y/2, gamepad1.left_stick_x/2, gamepad1.right_stick_x/2, false);
+        }
         follower.updateDrivetrain();
         //Driving------------------
 
@@ -69,12 +74,20 @@ public class ShootyShootyBangBang extends OpMode {
         }
 
         if (gamepad1.left_trigger > 0.01){ //Quarter speed
-            follower.setTeleOpDrive(-gamepad1.left_stick_y/4, -gamepad1.left_stick_x/4, -gamepad1.right_stick_x/4, false);
+            if (ConstantChaos.isRed) {
+                follower.setTeleOpDrive(-gamepad1.left_stick_y/4, -gamepad1.left_stick_x/4, -gamepad1.right_stick_x/4, false);
+            } else {
+                follower.setTeleOpDrive(gamepad1.left_stick_y/4, gamepad1.left_stick_x/4, gamepad1.right_stick_x/4, false);
+            }
             follower.update();
         }
 
         if (gamepad1.right_trigger > 0.01){ //Full speed
-            follower.setTeleOpDrive(-gamepad1.left_stick_y, -gamepad1.left_stick_x, -gamepad1.right_stick_x, false);
+            if (ConstantChaos.isRed) {
+                follower.setTeleOpDrive(-gamepad1.left_stick_y, -gamepad1.left_stick_x, -gamepad1.right_stick_x, false);
+            } else {
+                follower.setTeleOpDrive(gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, false);
+            }
             follower.update();
         }
         //Driving----------------

@@ -7,6 +7,7 @@ import org.firstinspires.ftc.teamcode.Libs.Robot3;
 
 @Autonomous(name = "RedOffTheLine", group = "Tests")
 public class RedOffTheLine extends OffTheLine {
+    boolean isRed = ConstantChaos.isRed = true;
     public RedOffTheLine() {
         super.robot = new Robot3(ConstantChaos.Alliance.RED);
         super.StartingPose = ConstantChaos.RedStartingPoseOffTheLine;

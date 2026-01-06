@@ -11,15 +11,15 @@ import org.firstinspires.ftc.teamcode.Libs.ConstantChaos;
 import org.firstinspires.ftc.teamcode.Libs.Robot3;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
-@Autonomous(name = "BlueDiagonalOff", group = "Tests")
-public class BlueDiagonalOff extends OpMode {
-    Robot3 robot = new Robot3(ConstantChaos.Alliance.BLUE);
+@Autonomous(name = "RedDiagonalOff", group = "Tests")
+public class RedDiagonalOff extends OpMode {
+    Robot3 robot = new Robot3(ConstantChaos.Alliance.RED);
     private Follower follower;
 
-    private final Pose StartingPose = ConstantChaos.BlueStartingPoseDiagonal;
-    private final Pose EndingPose = ConstantChaos.BlueEndingPoseDiagonal;
+    private final Pose StartingPose = ConstantChaos.RedStartingPoseDiagonal;
+    private final Pose EndingPose = ConstantChaos.RedEndingPoseDiagonal;
 
-    boolean isRed = ConstantChaos.isRed = false;
+    boolean isRed = ConstantChaos.isRed = true;
 
     private PathChain Forward;
 

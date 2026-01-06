@@ -19,6 +19,8 @@ public class BlueOffTheLine extends OpMode {
     private final Pose StartingPose = ConstantChaos.BlueStartingPoseOffTheLine;
     private final Pose EndingPose = ConstantChaos.BlueEndingPoseOffTheLine;
 
+    boolean isRed = ConstantChaos.isRed = false;
+
     private PathChain Forward;
 
     int x = 1;

@@ -75,6 +75,18 @@ public class Robot3 {
         }
     }
 
+    public Robot3(boolean isRed){
+        if(isRed){
+            GoalArea = ConstantChaos.RedGoalArea;
+            Fire1 = ConstantChaos.Red1Fire;
+            myAlliance = Alliance.RED;
+        } else {
+            GoalArea = ConstantChaos.BlueGoalArea;
+            Fire1 = ConstantChaos.Blue1Fire;
+            myAlliance = Alliance.BLUE;
+        }
+    }
+
     public void init(HardwareMap hardwareMap) {
         Drawing.init();
         //Pinpoint = hardwareMap.get(GoBildaPinpointDriver.class, "pinpoint");
