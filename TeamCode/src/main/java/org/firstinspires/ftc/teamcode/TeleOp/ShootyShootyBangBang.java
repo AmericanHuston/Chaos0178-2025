@@ -251,6 +251,7 @@ public class ShootyShootyBangBang extends OpMode {
                 .build();
         turnToShoot = follower
                 .pathBuilder()
+                .addPath(new BezierLine(follower.getPose(), robot.getTurn(follower.getPose())))
                 .setLinearHeadingInterpolation(follower.getHeading(), robot.calcHeadingToGoal(follower.getPose()))
                 .build();
     }

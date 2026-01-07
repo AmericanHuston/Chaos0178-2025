@@ -47,6 +47,8 @@ public class Robot3 {
 
     public Pose GoalArea = new Pose(72, 72);
     public Pose Fire1 = new Pose(72, 24);
+    public Pose Turn = new Pose(24, 24);
+    public Pose Add = new Pose(3,3);
 
 
     IMU IMU;
@@ -133,6 +135,11 @@ public class Robot3 {
 
     public Pose getLastPose(){
         return lastPose;
+    }
+
+    public Pose getTurn(Pose current){
+        Turn = current.plus(Add);
+        return Turn;
     }
 
     public boolean getIsTransferOn(){
@@ -244,7 +251,7 @@ public class Robot3 {
     }
 
     public double calcHeadingToGoal(Pose currentPosition) {
-        return Math.atan2(GoalArea.getY() - currentPosition.getY(), GoalArea.getX() - currentPosition.getX());
+        return Math.atan2(GoalArea.getY() - currentPosition.getY(), GoalArea.getX() - currentPosition.getX()) + Math.toRadians(180);
     }
 
     public double calcPowerForFlywheel(Pose currentPosition){
