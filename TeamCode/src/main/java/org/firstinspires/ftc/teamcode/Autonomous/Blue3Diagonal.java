@@ -12,17 +12,17 @@ import org.firstinspires.ftc.teamcode.Libs.ConstantChaos;
 import org.firstinspires.ftc.teamcode.Libs.Robot3;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
-@Autonomous(name = "Blue3OffTheLine", group = "Tests")
-public class Blue3OffTheLine extends OpMode {
+@Autonomous(name = "Blue3Diagonal", group = "Tests")
+public class Blue3Diagonal extends OpMode {
     Robot3 robot = new Robot3(ConstantChaos.Alliance.BLUE);
     private Follower follower;
     private Timer state_timer;
     private Timer Op_mode_timer;
     private int autoState = 0;
 
-    private final Pose StartingPose = ConstantChaos.BlueStartingPoseOffTheLine;
-    private final Pose ShootingPose = ConstantChaos.BlueShootingOffTheLine;
-    private final Pose EndingPose = ConstantChaos.BlueEndingPoseOffTheLine;
+    private final Pose StartingPose = ConstantChaos.BlueStartingPoseDiagonal;
+    private final Pose ShootingPose = ConstantChaos.BlueShootingPoseDiagonal;
+    private final Pose EndingPose = ConstantChaos.BlueEndingPoseDiagonal;
 
     boolean isRed = ConstantChaos.isRed = false;//This is very important do not mix up or remove
 
@@ -74,13 +74,14 @@ public class Blue3OffTheLine extends OpMode {
                 break;
             case 1://shoots
                 if (!follower.isBusy()){
-                    robot.spinFlywheel(1650);
+                    robot.spinFlywheel(1120);
                     robot.transfer(1.0);
                     robot.intake(1.0);
                     if (state_timer.getElapsedTimeSeconds() > 1) {
                         robot.feederL(1.0);
                         if(state_timer.getElapsedTimeSeconds() > 6){
                             robot.feederL(0.0);
+                            robot.spinFlywheel(1160);
                             if (state_timer.getElapsedTimeSeconds() > 6.5) {
                                 robot.feederR(1.0);
                                 if (state_timer.getElapsedTimeSeconds() > 9){

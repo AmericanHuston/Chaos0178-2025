@@ -105,49 +105,12 @@ public class ShootyShootyBangBang extends OpMode {
             Paths(follower);
             follower.followPath(goToShoot);
         }
-//        if(gamepad1.b){
-//            robot.setDesiredBackRight(1.0);
-//            robot.actMotors();
-//        }
-//        if(gamepad1.y){
-//            robot.setDesiredFrontLeft(1.0);
-//            robot.actMotors();
-//        }
-//        if(gamepad1.x){
-//            robot.setDesiredBackLeft(1.0);
-//            robot.actMotors();
-//        }
-        //Wheel tests
-
-//        if (gamepad2.a && robot.getIsFlywheelOn()){
-//            robot.stopFlywheel();
-//        } else if (gamepad2.a && !robot.getIsFlywheelOn()) {
-//            robot.stopFlywheel();
-//        }
-//        if(gamepad2.dpadUpWasReleased()){
-//            robot.setLastSuccessfulSpeed(robot.getFlywheelSpeed());
-//        }
-//        if (gamepad2.dpadLeftWasPressed()){
-//            robot.stopFlywheelVelocity();
-//        }
         desiredFlywheelVelocity = robot.calcPowerForFlywheel(follower.getPose());
         if (gamepad2.right_trigger >= 0.01){
             robot.spinFlywheel(desiredFlywheelVelocity);
         }else{
             robot.spinFlywheel(flyVel);
         }
-//        if (gamepad2.b) {
-//            List<AprilTagDetection> currentDetections = robot.getAprilTags();
-//            if (currentDetections.isEmpty()) {
-//                telemetry.addData("AprilTagDetections", "No tags detected");
-//            } else {
-//                telemetry.addData("AprilTagDetections", "Tags were detected");
-//                double headingOfTagFromRobot = robot.getHeading();
-//                Pose currentPose = follower.getPose();
-//                Path rotationPath = new Path(new BezierLine(currentPose, currentPose.setHeading(currentPose.getHeading() + headingOfTagFromRobot)));
-//                follower.followPath(rotationPath);
-//            }
-//        }
         if(gamepad2.rightBumperWasReleased()){ //intake on and off
             if(robot.isIntakeOn()){
                 robot.intake(0.0);
@@ -155,22 +118,6 @@ public class ShootyShootyBangBang extends OpMode {
                 robot.intake(1.0);
             }
         }
-//        if(gamepad2.yWasReleased()){ //Servo stop
-//            transferVel = 0.0;
-//            robot.transfer1(transferVel);
-//        }
-//        if(gamepad2.xWasReleased()){ //Servo start
-//            transferVel = -1.0;
-//            robot.transfer1(transferVel);
-//        }
-//        if(gamepad2.aWasReleased()){ //Servo stop
-//            transferVel = 0.0;
-//            robot.transfer(transferVel);
-//        }
-//        if(gamepad2.bWasReleased()){ //Servo start
-//            transferVel = 1.0;
-//            robot.transfer(transferVel);
-//        }
         if (gamepad2.aWasReleased()){ //This turns the transfer on/off
             if (robot.getIsTransferOn()){
                 robot.transfer(0.0);
@@ -193,11 +140,6 @@ public class ShootyShootyBangBang extends OpMode {
             }
         }
 
-//        if (gamepad2.right_trigger >= 0.01){
-//            robot.spinFlywheel(gamepad2.right_trigger);
-//        }else if (gamepad2.dpadDownWasPressed()){
-//            robot.setFlywheelVelocity(robot.getLastSuccessfulSpeed()); //NOTE TO SARAH/NATHAN: This should now work, please test
-//        }
         if (gamepad2.dpadUpWasPressed()){
             flyVel += 0.05;
         }
