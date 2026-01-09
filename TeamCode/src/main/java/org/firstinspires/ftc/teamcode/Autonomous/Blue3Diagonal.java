@@ -24,13 +24,12 @@ public class Blue3Diagonal extends OpMode {
     private final Pose ShootingPose = ConstantChaos.BlueShootingPoseDiagonal;
     private final Pose EndingPose = ConstantChaos.BlueEndingPoseDiagonal;
 
-    boolean isRed = ConstantChaos.isRed = false;//This is very important do not mix up or remove
-
     private PathChain Forward;
     private PathChain Park;
 
     @Override
     public void init() {
+        ConstantChaos.isRed = false;//This is very important do not mix up or remove
         robot.init(hardwareMap);
         follower = Constants.createFollower(hardwareMap);
         follower.setStartingPose(StartingPose);

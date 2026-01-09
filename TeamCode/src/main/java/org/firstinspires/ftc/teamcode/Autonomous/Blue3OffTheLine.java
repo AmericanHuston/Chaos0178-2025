@@ -24,13 +24,12 @@ public class Blue3OffTheLine extends OpMode {
     private final Pose ShootingPose = ConstantChaos.BlueShootingOffTheLine;
     private final Pose EndingPose = ConstantChaos.BlueEndingPoseOffTheLine;
 
-    boolean isRed = ConstantChaos.isRed = false;//This is very important do not mix up or remove
-
     private PathChain Forward;
     private PathChain Park;
 
     @Override
     public void init() {
+        ConstantChaos.isRed = false;//This is very important do not mix up or remove
         robot.init(hardwareMap);
         follower = Constants.createFollower(hardwareMap);
         follower.setStartingPose(StartingPose);

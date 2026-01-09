@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.Libs.ConstantChaos;
 import org.firstinspires.ftc.teamcode.Libs.Robot3;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
-@Autonomous(name = "Blue3OffTheLine", group = "Tests")
+@Autonomous(name = "Red3OffTheLine", group = "Tests")
 public class Red3OffTheLine extends OpMode {
     Robot3 robot = new Robot3(ConstantChaos.Alliance.BLUE);
     private Follower follower;
@@ -24,13 +24,12 @@ public class Red3OffTheLine extends OpMode {
     private final Pose ShootingPose = ConstantChaos.RedShootingPoseOffTheLine;
     private final Pose EndingPose = ConstantChaos.RedEndingPoseOffTheLine;
 
-    boolean isRed = ConstantChaos.isRed = true;//This is very important do not mix up or remove
-
     private PathChain Forward;
     private PathChain Park;
 
     @Override
     public void init() {
+        ConstantChaos.isRed = true;//This is very important do not mix up or remove
         robot.init(hardwareMap);
         follower = Constants.createFollower(hardwareMap);
         follower.setStartingPose(StartingPose);

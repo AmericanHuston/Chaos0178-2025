@@ -1,18 +1,19 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.Libs.ConstantChaos;
 import org.firstinspires.ftc.teamcode.Libs.Robot3;
 
-@Disabled
-@Autonomous(name = "RedOffTheLine", group = "Tests")
-public class RedOffTheLine extends OffTheLine {
-    public RedOffTheLine() {
-        ConstantChaos.isRed = true;
+@Autonomous(name = "RedOffTheLine3", group = "Tests")
+public class RedOffTheLine3 extends OffTheLine3 {
+    public RedOffTheLine3() {
+        ConstantChaos.isRed = true;//This is very important do not mix up or remove
         super.robot = new Robot3(ConstantChaos.Alliance.RED);
         super.StartingPose = ConstantChaos.RedStartingPoseOffTheLine;
+        super.ShootingPose = ConstantChaos.RedShootingPoseOffTheLine;
         super.EndingPose = ConstantChaos.RedEndingPoseOffTheLine;
+
     }
+
 }
