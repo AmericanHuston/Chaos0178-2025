@@ -98,8 +98,9 @@ public class ShootyShootyBangBang extends OpMode {
             Paths(follower);
             follower.followPath(turnToShoot);
         }
+
         if (gamepad1.bWasReleased()){
-            robot.resetIMU();
+            follower.holdPoint(follower.getPose());
         }
         if (gamepad1.rightBumperWasReleased()){
             Paths(follower);
