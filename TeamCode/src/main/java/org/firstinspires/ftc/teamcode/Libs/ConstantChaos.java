@@ -13,8 +13,8 @@ public class ConstantChaos {
     public static boolean isRed = true;
 
     public static double maxDistance = 144;
-    public static double minDistance = 45;
-    public static double maxVelocity = 1650;
+    public static double minDistance = 40;
+    public static double maxVelocity = 1600;
     public static double minVelocity =  1000;
 
     // Starting Areas
@@ -33,6 +33,6 @@ public class ConstantChaos {
     public static final Pose BlueStartingPoseDiagonal = new Pose(22, 124, Math.toRadians(323));
     public static final Pose BlueShootingPoseDiagonal = new Pose(60,100, Math.toRadians(323));
     public static final Pose BlueEndingPoseDiagonal = new Pose(60, 110, Math.toRadians(0));
-    public static final Pose BlueGoalArea = new Pose(4, 142);
+    public static final Pose BlueGoalArea = new Pose(14, 132);
     public static final Pose Blue1Fire = new Pose(50, 93, Math.toRadians(225));
 }
