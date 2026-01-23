@@ -16,6 +16,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
+import com.qualcomm.robotcore.hardware.LED;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -64,6 +65,10 @@ public class Robot3 {
     //GoBildaPinpointDriver Pinpoint;
     AprilTagProcessor AprilTag;
     VisionPortal visionPortal;
+    public LED rightLEDRed;
+    public LED rightLEDGreen;
+    public LED leftLEDRed;
+    public LED leftLEDGreen;
 
     public Robot3(Alliance alliance) {
         // Do good things with the alliance color
@@ -123,6 +128,14 @@ public class Robot3 {
         FeederR.setDirection(CRServo.Direction.REVERSE);
         AprilTag = AprilTagProcessor.easyCreateWithDefaults();
         visionPortal = VisionPortal.easyCreateWithDefaults(hardwareMap.get(WebcamName.class, "Webcam 1"), AprilTag);
+        rightLEDRed = hardwareMap.get(LED.class, "rightLEDRed");
+        rightLEDGreen = hardwareMap.get(LED.class, "rightLEDGreen");
+        leftLEDRed = hardwareMap.get(LED.class, "leftLEDRed");
+        leftLEDGreen = hardwareMap.get(LED.class, "leftLEDGreen");
+        rightLEDGreen.off();
+        rightLEDRed.on();
+        leftLEDGreen.off();
+        leftLEDRed.on();
     }
 
     public double getHeading(){
@@ -237,10 +250,24 @@ public class Robot3 {
     public void feederL(double power){
         FeederL.setPower(power);
         isFeederLOn = !isFeederLOn;
+        if (isFeederLOn) {
+            leftLEDGreen.on();
+            leftLEDRed.off();
+        } else {
+            leftLEDGreen.off();
+            leftLEDRed.on();
+        }
     }
     public void feederR(double power){
         FeederR.setPower(power);
         isFeederROn = !isFeederROn;
+        if (isFeederROn) {
+            rightLEDGreen.on();
+            rightLEDRed.off();
+        } else {
+            rightLEDGreen.off();
+            rightLEDRed.on();
+        }
     }
     public void actMotors(){
         FrontRightMotor.setPower(desiredFrontRight);
