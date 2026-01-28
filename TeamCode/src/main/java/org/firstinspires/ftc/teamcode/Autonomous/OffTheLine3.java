@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 
 import com.pedropathing.follower.Follower;
+import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.PathChain;
@@ -21,9 +22,13 @@ public class OffTheLine3 extends OpMode {
 
     public Pose StartingPose;
     public Pose ShootingPose;
+    public Pose FirstThree;
+    public Pose Control;
     public Pose EndingPose;
 
     private PathChain Forward;
+    private PathChain Collect;
+    private PathChain FireTwo;
     private PathChain Park;
 
     @Override
@@ -38,6 +43,14 @@ public class OffTheLine3 extends OpMode {
         Forward = follower.pathBuilder()
                 .addPath(new BezierLine(StartingPose, ShootingPose))
                 .setLinearHeadingInterpolation(StartingPose.getHeading(), ShootingPose.getHeading())
+                .build();
+        Collect = follower.pathBuilder()
+                .addPath(new BezierCurve(ShootingPose, FirstThree, Control))
+                .setLinearHeadingInterpolation(ShootingPose.getHeading(), FirstThree.getHeading())
+                .build();
+        FireTwo = follower.pathBuilder()
+                .addPath(new BezierLine(FirstThree, ShootingPose))
+                .setLinearHeadingInterpolation(FirstThree.getHeading(), ShootingPose.getHeading())
                 .build();
         Park = follower.pathBuilder()
                 .addPath(new BezierLine(ShootingPose, EndingPose))
@@ -71,9 +84,9 @@ public class OffTheLine3 extends OpMode {
                 break;
             case 1://shoots
                 if (!follower.isBusy()){
-                    robot.spinFlywheel(1650);
+                    robot.spinFlywheel(1600);
                     robot.transfer(1.0);
-                    robot.intake(1.0);
+                    robot.intake(0.6);
                     if (state_timer.getElapsedTimeSeconds() > 1) {
                         robot.feederL(1.0);
                         if(state_timer.getElapsedTimeSeconds() > 6){
@@ -86,9 +99,7 @@ public class OffTheLine3 extends OpMode {
                                         robot.feederR(1.0);
                                         if (state_timer.getElapsedTimeSeconds() > 16){
                                             robot.stopFlywheel();
-                                            robot.intake(0.0);
                                             robot.feederR(0.0);
-                                            robot.transfer(0.0);
                                             next_state();
                                         }
                                     }
@@ -98,10 +109,48 @@ public class OffTheLine3 extends OpMode {
                     }
                 }
                 break;
-            case 2://park
+            case 2://collect
+                follower.followPath(Collect);
+                next_state();
+                break;
+            case 3://aim
+                if (!follower.isBusy()) {
+                    follower.followPath(FireTwo);
+                }
+                next_state();
+                break;
+            case 4://fire
+                if (!follower.isBusy()){
+                    robot.spinFlywheel(1600);
+                    robot.transfer(1.0);
+                    robot.intake(0.6);
+                    if (state_timer.getElapsedTimeSeconds() > 1) {
+                        robot.feederL(1.0);
+                        if(state_timer.getElapsedTimeSeconds() > 6){
+                            robot.feederL(0.0);
+                            if (state_timer.getElapsedTimeSeconds() > 6.5) {
+                                robot.feederR(1.0);
+                                if (state_timer.getElapsedTimeSeconds() > 9){
+                                    robot.feederR(0.0);
+                                    if(state_timer.getElapsedTimeSeconds() > 10.5){
+                                        robot.feederR(1.0);
+                                        if (state_timer.getElapsedTimeSeconds() > 16){
+                                            robot.stopFlywheel();
+                                            robot.feederR(0.0);
+                                            next_state();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                break;
+            case 5://park
                 follower.followPath(Park);
                 next_state();
                 break;
+
         }
         robot.draw(follower);
     }

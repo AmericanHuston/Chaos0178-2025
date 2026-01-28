@@ -12,6 +12,8 @@ public class RedOffTheLine3 extends OffTheLine3 {
         super.robot = new Robot3(ConstantChaos.Alliance.RED);
         super.StartingPose = ConstantChaos.RedStartingPoseOffTheLine;
         super.ShootingPose = ConstantChaos.RedShootingPoseOffTheLine;
+        super.FirstThree = ConstantChaos.RedFirstThree;
+        super.Control = ConstantChaos.RedControl;
         super.EndingPose = ConstantChaos.RedEndingPoseOffTheLine;
 
     }
