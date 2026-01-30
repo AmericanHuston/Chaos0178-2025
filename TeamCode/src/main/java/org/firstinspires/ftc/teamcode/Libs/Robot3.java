@@ -50,6 +50,7 @@ public class Robot3 {
     public Pose Fire1 = new Pose(72, 24);
     public Pose Turn = new Pose(24, 24);
     public Pose Add = new Pose(3,3);
+    public Pose Park = new Pose(12,12);
 
 
     IMU IMU;
@@ -86,10 +87,12 @@ public class Robot3 {
         if(isRed){
             GoalArea = ConstantChaos.RedGoalArea;
             Fire1 = ConstantChaos.Red1Fire;
+            Park = ConstantChaos.RedParkArea;
             myAlliance = Alliance.RED;
         } else {
             GoalArea = ConstantChaos.BlueGoalArea;
             Fire1 = ConstantChaos.Blue1Fire;
+            Park = ConstantChaos.BlueParkArea;
             myAlliance = Alliance.BLUE;
         }
     }

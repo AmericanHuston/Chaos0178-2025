@@ -40,6 +40,7 @@ public class ShootyShootyBangBang extends OpMode {
 
     private PathChain goToShoot;
     private PathChain turnToShoot;
+    private PathChain Park;
 
     @Override
     public void init() {
@@ -106,6 +107,11 @@ public class ShootyShootyBangBang extends OpMode {
             Paths(follower);
             follower.followPath(goToShoot);
         }
+        if (gamepad1.yWasReleased()){
+            Paths(follower);
+            follower.followPath(Park);
+        }
+
         desiredFlywheelVelocity = robot.calcPowerForFlywheel(follower.getPose());
         if (gamepad2.right_trigger >= 0.01){
             robot.spinFlywheel(desiredFlywheelVelocity);
@@ -196,6 +202,12 @@ public class ShootyShootyBangBang extends OpMode {
                 .pathBuilder()
                 .addPath(new BezierLine(follower.getPose(), robot.getTurn(follower.getPose())))
                 .setLinearHeadingInterpolation(follower.getHeading(), robot.calcHeadingToGoal(follower.getPose()))
+                .build();
+        Park = follower
+                .pathBuilder()
+                .addPath(
+                        new BezierLine(follower.getPose(), robot.Park)
+                )
                 .build();
     }
 }

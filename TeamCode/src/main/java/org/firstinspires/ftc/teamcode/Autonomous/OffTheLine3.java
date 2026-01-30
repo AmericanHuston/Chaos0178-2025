@@ -93,16 +93,10 @@ public class OffTheLine3 extends OpMode {
                             robot.feederL(0.0);
                             if (state_timer.getElapsedTimeSeconds() > 6.5) {
                                 robot.feederR(1.0);
-                                if (state_timer.getElapsedTimeSeconds() > 9){
+                                if (state_timer.getElapsedTimeSeconds() > 16){
+                                    robot.stopFlywheel();
                                     robot.feederR(0.0);
-                                    if(state_timer.getElapsedTimeSeconds() > 10.5){
-                                        robot.feederR(1.0);
-                                        if (state_timer.getElapsedTimeSeconds() > 16){
-                                            robot.stopFlywheel();
-                                            robot.feederR(0.0);
-                                            next_state();
-                                        }
-                                    }
+                                    next_state();
                                 }
                             }
                         }
@@ -130,16 +124,10 @@ public class OffTheLine3 extends OpMode {
                             robot.feederL(0.0);
                             if (state_timer.getElapsedTimeSeconds() > 6.5) {
                                 robot.feederR(1.0);
-                                if (state_timer.getElapsedTimeSeconds() > 9){
+                                if (state_timer.getElapsedTimeSeconds() > 16){
+                                    robot.stopFlywheel();
                                     robot.feederR(0.0);
-                                    if(state_timer.getElapsedTimeSeconds() > 10.5){
-                                        robot.feederR(1.0);
-                                        if (state_timer.getElapsedTimeSeconds() > 16){
-                                            robot.stopFlywheel();
-                                            robot.feederR(0.0);
-                                            next_state();
-                                        }
-                                    }
+                                    next_state();
                                 }
                             }
                         }
