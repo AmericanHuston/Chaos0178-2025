@@ -33,7 +33,6 @@ public class ShootyShootyBangBang extends OpMode {
 
     Robot3 robot = new Robot3(ConstantChaos.isRed);
 
-    public double flyVel = 0.0;
     public double intakeVel = 0.0;
     public double transferVel = 0.5;
     public double desiredFlywheelVelocity = 0.0;
@@ -114,9 +113,11 @@ public class ShootyShootyBangBang extends OpMode {
 
         desiredFlywheelVelocity = robot.calcPowerForFlywheel(follower.getPose());
         if (gamepad2.right_trigger >= 0.01){
-            robot.spinFlywheel(desiredFlywheelVelocity);
-        }else{
-            robot.spinFlywheel(flyVel);
+            if (follower.getPose().getY() > 50) {
+                robot.spinFlywheel(desiredFlywheelVelocity);
+            }else{
+                robot.spinFlywheel(ConstantChaos.flyVel);
+            }
         }
         if(gamepad2.leftBumperWasReleased()){ //intake on and off
             if(robot.isIntakeOn()){
@@ -147,18 +148,7 @@ public class ShootyShootyBangBang extends OpMode {
             }
         }
 
-        if (gamepad2.dpadUpWasPressed()){
-            flyVel += 0.05;
-        }
-        if (gamepad2.dpadDownWasPressed()){
-            flyVel -= 0.05;
-        }
-        if (gamepad2.dpadLeftWasPressed()){
-            flyVel = 0;
-        }
-        if (gamepad2.dpadRightWasPressed()){
-            flyVel = 0.5;
-        }
+
 
 
         //Rewrite below----------
@@ -176,7 +166,7 @@ public class ShootyShootyBangBang extends OpMode {
         panelsTelemetry.addData("CalcPowerForFlywheel", String.format("%.2f", desiredFlywheelVelocity));
         panelsTelemetry.addData("CalcHeadingToGoal", String.format("%.2f", Math.toDegrees(robot.calcHeadingToGoal(follower.getPose()))));
         panelsTelemetry.addData("Ticks Per Second", robot.getFlywheelVelocity());
-        panelsTelemetry.addData("flyVel", flyVel);
+        panelsTelemetry.addData("flyVel", ConstantChaos.flyVel);
         panelsTelemetry.addData("Transfer is On", robot.getIsTransferOn());
         panelsTelemetry.addData("Last Successful Shot Speed", robot.getLastSuccessfulSpeed());
         panelsTelemetry.update(telemetry);

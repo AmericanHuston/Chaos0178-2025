@@ -17,6 +17,8 @@ public class ConstantChaos {
     public static double maxVelocity = 1600;
     public static double minVelocity =  1000;
 
+    public static double flyVel = 1550;
+
     // Starting Areas
     public static final Pose RedStartingPoseOffTheLine = new Pose(96,7, Math.toRadians(0));
     public static final Pose RedShootingPoseOffTheLine = new Pose(84, 14, Math.toRadians(249));
