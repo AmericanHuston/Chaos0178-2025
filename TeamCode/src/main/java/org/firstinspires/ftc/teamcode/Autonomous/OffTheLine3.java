@@ -23,7 +23,7 @@ public class OffTheLine3 extends OpMode {
     public Pose StartingPose;
     public Pose ShootingPose;
     public Pose FirstThree;
-    public Pose Control;
+    public Pose FirstThreePartOne;
     public Pose EndingPose;
 
     private PathChain Forward;
@@ -45,8 +45,10 @@ public class OffTheLine3 extends OpMode {
                 .setLinearHeadingInterpolation(StartingPose.getHeading(), ShootingPose.getHeading())
                 .build();
         Collect = follower.pathBuilder()
-                .addPath(new BezierCurve(ShootingPose, Control, FirstThree))
-                .setLinearHeadingInterpolation(ShootingPose.getHeading(), FirstThree.getHeading())
+                .addPath(new BezierLine(ShootingPose, FirstThreePartOne))
+                .setLinearHeadingInterpolation(ShootingPose.getHeading(), FirstThreePartOne.getHeading())
+                .addPath(new BezierLine(FirstThreePartOne, FirstThree))
+                .setLinearHeadingInterpolation(FirstThreePartOne.getHeading(), FirstThree.getHeading())
                 .build();
         FireTwo = follower.pathBuilder()
                 .addPath(new BezierLine(FirstThree, ShootingPose))

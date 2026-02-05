@@ -22,8 +22,8 @@ public class ConstantChaos {
     // Starting Areas
     public static final Pose RedStartingPoseOffTheLine = new Pose(96,7, Math.toRadians(0));
     public static final Pose RedShootingPoseOffTheLine = new Pose(84, 14, Math.toRadians(249));
-    public static final Pose RedFirstThree = new Pose(130,35, Math.toRadians(0));
-    public static final Pose RedControl = new Pose(88,38);
+    public static final Pose RedFirstThree = new Pose(130,36, Math.toRadians(0));
+    public static final Pose RedFirstThreePartOne = new Pose(103, 36, Math.toRadians(0));
     public static final Pose RedEndingPoseOffTheLine = new Pose(110,7, Math.toRadians(0));
     public static final Pose RedStartingPoseDiagonal = new Pose(124,124, Math.toRadians(217));
     public static final Pose RedShootingPoseDiagonal = new Pose(110, 100, Math.toRadians(217));
@@ -34,8 +34,8 @@ public class ConstantChaos {
 
     public static final Pose BlueStartingPoseOffTheLine = new Pose(48,7, Math.toRadians(180));
     public static final Pose BlueShootingOffTheLine = new Pose(52, 14, Math.toRadians(290));
+    public static final Pose BlueFirstThreePartOne = new Pose(42, 36, Math.toRadians(180));
     public static final Pose BlueFirstThree = new Pose(14,36,Math.toRadians(180));
-    public static final Pose BlueControl =  new Pose(50,40);
     public static final Pose BlueEndingPoseOffTheLine = new Pose(34,7, Math.toRadians(180));
     public static final Pose BlueStartingPoseDiagonal = new Pose(22, 124, Math.toRadians(323));
     public static final Pose BlueShootingPoseDiagonal = new Pose(60,100, Math.toRadians(323));

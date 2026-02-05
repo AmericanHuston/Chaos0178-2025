@@ -129,6 +129,7 @@ public class Robot3 {
         FlywheelMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         FlywheelMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         FeederR.setDirection(CRServo.Direction.REVERSE);
+        FeederL.setDirection(CRServo.Direction.REVERSE);
         AprilTag = AprilTagProcessor.easyCreateWithDefaults();
         visionPortal = VisionPortal.easyCreateWithDefaults(hardwareMap.get(WebcamName.class, "Webcam 1"), AprilTag);
         rightLEDRed = hardwareMap.get(LED.class, "rightLEDRed");

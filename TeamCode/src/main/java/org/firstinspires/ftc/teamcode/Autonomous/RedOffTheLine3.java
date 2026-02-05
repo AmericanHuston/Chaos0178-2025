@@ -13,7 +13,7 @@ public class RedOffTheLine3 extends OffTheLine3 {
         super.StartingPose = ConstantChaos.RedStartingPoseOffTheLine;
         super.ShootingPose = ConstantChaos.RedShootingPoseOffTheLine;
         super.FirstThree = ConstantChaos.RedFirstThree;
-        super.Control = ConstantChaos.RedControl;
+        super.FirstThreePartOne = ConstantChaos.RedFirstThreePartOne;
         super.EndingPose = ConstantChaos.RedEndingPoseOffTheLine;
 
     }
