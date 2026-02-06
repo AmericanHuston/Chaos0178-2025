@@ -93,7 +93,7 @@ public class ShootyShootyBangBang extends OpMode {
         }
         //Driving----------------
 
-        //Wheel tests and auto points
+        //Auto points
         if(gamepad1.aWasReleased()){
             Paths(follower);
             follower.followPath(turnToShoot);
@@ -195,9 +195,8 @@ public class ShootyShootyBangBang extends OpMode {
                 .build();
         Park = follower
                 .pathBuilder()
-                .addPath(
-                        new BezierLine(follower.getPose(), robot.Park)
-                )
+                .addPath(new BezierLine(follower.getPose(), robot.Park))
+                .setLinearHeadingInterpolation(follower.getHeading(), robot.Park.getHeading())
                 .build();
     }
 }

@@ -28,7 +28,6 @@ public class OffTheLine3 extends OpMode {
 
     private PathChain Forward;
     private PathChain Collect;
-    private PathChain FireTwo;
     private PathChain Park;
 
     @Override
@@ -49,8 +48,6 @@ public class OffTheLine3 extends OpMode {
                 .setLinearHeadingInterpolation(ShootingPose.getHeading(), FirstThreePartOne.getHeading())
                 .addPath(new BezierLine(FirstThreePartOne, FirstThree))
                 .setLinearHeadingInterpolation(FirstThreePartOne.getHeading(), FirstThree.getHeading())
-                .build();
-        FireTwo = follower.pathBuilder()
                 .addPath(new BezierLine(FirstThree, ShootingPose))
                 .setLinearHeadingInterpolation(FirstThree.getHeading(), ShootingPose.getHeading())
                 .build();
@@ -86,17 +83,16 @@ public class OffTheLine3 extends OpMode {
                 break;
             case 1://shoots
                 if (!follower.isBusy()){
-                    robot.spinFlywheel(1600);
+                    robot.spinFlywheel(1550);
                     robot.transfer(1.0);
-                    robot.intake(0.6);
-                    if (state_timer.getElapsedTimeSeconds() > 1) {
+                    robot.intake(1.0);
+                    if (state_timer.getElapsedTimeSeconds() > 5) {
                         robot.feederL(1.0);
-                        if(state_timer.getElapsedTimeSeconds() > 6){
+                        if(state_timer.getElapsedTimeSeconds() > 7){
                             robot.feederL(0.0);
-                            if (state_timer.getElapsedTimeSeconds() > 6.5) {
+                            if (state_timer.getElapsedTimeSeconds() > 7.5) {
                                 robot.feederR(1.0);
-                                if (state_timer.getElapsedTimeSeconds() > 16){
-                                    robot.stopFlywheel();
+                                if (state_timer.getElapsedTimeSeconds() > 13){
                                     robot.feederR(0.0);
                                     next_state();
                                 }
@@ -109,34 +105,26 @@ public class OffTheLine3 extends OpMode {
                 follower.followPath(Collect);
                 next_state();
                 break;
-            case 3://aim
-                if (!follower.isBusy()) {
-                    follower.followPath(FireTwo);
-                }
-                next_state();
-                break;
-            case 4://fire
+            case 3://fire
                 if (!follower.isBusy()){
-                    robot.spinFlywheel(1600);
                     robot.transfer(1.0);
-                    robot.intake(0.6);
-                    if (state_timer.getElapsedTimeSeconds() > 1) {
-                        robot.feederL(1.0);
-                        if(state_timer.getElapsedTimeSeconds() > 6){
-                            robot.feederL(0.0);
-                            if (state_timer.getElapsedTimeSeconds() > 6.5) {
-                                robot.feederR(1.0);
-                                if (state_timer.getElapsedTimeSeconds() > 16){
-                                    robot.stopFlywheel();
-                                    robot.feederR(0.0);
-                                    next_state();
-                                }
+                    robot.feederL(1.0);
+                    if(state_timer.getElapsedTimeSeconds() > 5){
+                        robot.feederL(0.0);
+                        if (state_timer.getElapsedTimeSeconds() > 5.5) {
+                            robot.feederR(1.0);
+                            if (state_timer.getElapsedTimeSeconds() > 12){
+                                robot.stopFlywheel();
+                                robot.transfer(0.0);
+                                robot.intake(0.0);
+                                robot.feederR(0.0);
+                                next_state();
                             }
                         }
                     }
                 }
                 break;
-            case 5://park
+            case 4://park
                 follower.followPath(Park);
                 next_state();
                 break;
