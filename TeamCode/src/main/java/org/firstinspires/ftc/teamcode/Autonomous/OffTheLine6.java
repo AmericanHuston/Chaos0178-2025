@@ -1,19 +1,16 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 
 import com.pedropathing.follower.Follower;
-import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.PathChain;
 import com.pedropathing.util.Timer;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import org.firstinspires.ftc.teamcode.Libs.ConstantChaos;
 import org.firstinspires.ftc.teamcode.Libs.Robot3;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
-public class OffTheLine3 extends OpMode {
+public class OffTheLine6 extends OpMode {
     Robot3 robot;
     private Follower follower;
     private Timer state_timer;
@@ -83,7 +80,7 @@ public class OffTheLine3 extends OpMode {
                 break;
             case 1://shoots
                 if (!follower.isBusy()){
-                    robot.spinFlywheel(1550);
+                    robot.spinFlywheel(1560);
                     robot.transfer(1.0);
                     robot.intake(1.0);
                     if (state_timer.getElapsedTimeSeconds() > 5) {

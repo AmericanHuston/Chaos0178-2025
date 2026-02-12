@@ -17,7 +17,10 @@ public class ConstantChaos {
     public static double maxVelocity = 1600;
     public static double minVelocity =  1000;
 
-    public static double flyVel = 1550;
+    public static double flyVel = 1560;
+
+    //reset Pose
+    public static final Pose resetPose = new Pose(72, 9, Math.toRadians(90));
 
     // Starting Areas
     public static final Pose RedStartingPoseOffTheLine = new Pose(96,7, Math.toRadians(0));
@@ -33,7 +36,7 @@ public class ConstantChaos {
     public static final Pose Red1Fire = new Pose(84, 93, Math.toRadians(225));
 
     public static final Pose BlueStartingPoseOffTheLine = new Pose(48,7, Math.toRadians(180));
-    public static final Pose BlueShootingOffTheLine = new Pose(52, 14, Math.toRadians(290));
+    public static final Pose BlueShootingOffTheLine = new Pose(52, 14, Math.toRadians(295));
     public static final Pose BlueFirstThreePartOne = new Pose(42, 36, Math.toRadians(180));
     public static final Pose BlueFirstThree = new Pose(14,36,Math.toRadians(180));
     public static final Pose BlueEndingPoseOffTheLine = new Pose(34,10, Math.toRadians(180));

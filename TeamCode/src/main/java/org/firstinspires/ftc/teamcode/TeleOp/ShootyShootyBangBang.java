@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.TeleOp;
 
+import static org.firstinspires.ftc.teamcode.Libs.ConstantChaos.resetPose;
+
 import android.annotation.SuppressLint;
 
 import com.bylazar.configurables.annotations.IgnoreConfigurable;
@@ -98,7 +100,6 @@ public class ShootyShootyBangBang extends OpMode {
             Paths(follower);
             follower.followPath(turnToShoot);
         }
-
         if (gamepad1.bWasReleased()){
             follower.holdPoint(follower.getPose());
         }
@@ -109,6 +110,11 @@ public class ShootyShootyBangBang extends OpMode {
         if (gamepad1.yWasReleased()){
             Paths(follower);
             follower.followPath(Park);
+        }
+
+        //Reset point
+        if (gamepad1.backWasReleased()){
+            follower.setPose(resetPose);
         }
 
         desiredFlywheelVelocity = robot.calcPowerForFlywheel(follower.getPose());
