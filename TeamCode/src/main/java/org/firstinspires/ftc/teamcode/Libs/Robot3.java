@@ -17,6 +17,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.LED;
+import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -51,6 +52,9 @@ public class Robot3 {
     public Pose Turn = new Pose(24, 24);
     public Pose Add = new Pose(3,3);
     public Pose Park = new Pose(12,12);
+
+    double P = 45.0;
+    double F = 16.5870;
 
 
     IMU IMU;
@@ -128,6 +132,8 @@ public class Robot3 {
         IMU.initialize(parameters);
         FlywheelMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         FlywheelMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        PIDFCoefficients pidfCoefficients = new PIDFCoefficients(P, 0, 0, F);
+        FlywheelMotor.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, pidfCoefficients);
         FeederR.setDirection(CRServo.Direction.FORWARD);
         FeederL.setDirection(CRServo.Direction.REVERSE);
         AprilTag = AprilTagProcessor.easyCreateWithDefaults();
