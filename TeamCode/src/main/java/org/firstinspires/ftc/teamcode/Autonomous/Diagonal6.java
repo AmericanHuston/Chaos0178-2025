@@ -5,33 +5,30 @@ import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.PathChain;
 import com.pedropathing.util.Timer;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import org.firstinspires.ftc.teamcode.Libs.ConstantChaos;
 import org.firstinspires.ftc.teamcode.Libs.Robot3;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
-@Disabled
-@Autonomous(name = "Red3OffTheLine", group = "Tests")
-public class Red3OffTheLine extends OpMode {
-    Robot3 robot = new Robot3(ConstantChaos.Alliance.BLUE);
+public class Diagonal6 extends OpMode {
+    Robot3 robot;
     private Follower follower;
     private Timer state_timer;
     private Timer Op_mode_timer;
     private int autoState = 0;
 
-    private final Pose StartingPose = ConstantChaos.RedStartingPoseOffTheLine;
-    private final Pose ShootingPose = ConstantChaos.RedShootingPoseOffTheLine;
-    private final Pose EndingPose = ConstantChaos.RedEndingPoseOffTheLine;
+    public Pose StartingPose;
+    public Pose ShootingPose;
+    public Pose PickUpPartOne;
+    public Pose PickUpPartTwo;
+    public Pose EndingPose;
 
     private PathChain Forward;
+    private PathChain Collect;
     private PathChain Park;
 
     @Override
     public void init() {
-        ConstantChaos.isRed = true;//This is very important do not mix up or remove
         robot.init(hardwareMap);
         follower = Constants.createFollower(hardwareMap);
         follower.setStartingPose(StartingPose);
@@ -46,6 +43,14 @@ public class Red3OffTheLine extends OpMode {
         Park = follower.pathBuilder()
                 .addPath(new BezierLine(ShootingPose, EndingPose))
                 .setLinearHeadingInterpolation(ShootingPose.getHeading(), EndingPose.getHeading())
+                .build();
+        Collect = follower.pathBuilder()
+                .addPath(new BezierLine(ShootingPose, PickUpPartOne))
+                .setLinearHeadingInterpolation(ShootingPose.getHeading(), PickUpPartOne.getHeading())
+                .addPath(new BezierLine(PickUpPartOne, PickUpPartTwo))
+                .setLinearHeadingInterpolation(PickUpPartOne.getHeading(), PickUpPartTwo.getHeading())
+                .addPath(new BezierLine(PickUpPartTwo, ShootingPose))
+                .setLinearHeadingInterpolation(PickUpPartTwo.getHeading(), ShootingPose.getHeading())
                 .build();
 
     }
@@ -75,37 +80,52 @@ public class Red3OffTheLine extends OpMode {
                 break;
             case 1://shoots
                 if (!follower.isBusy()){
-                    robot.spinFlywheel(1650);
+                    robot.spinFlywheel(1120);
                     robot.transfer(1.0);
                     robot.intake(1.0);
-                    if (state_timer.getElapsedTimeSeconds() > 1) {
-                        robot.feederR(1.0);
-                        if(state_timer.getElapsedTimeSeconds() > 6){
-                            robot.feederR(0.0);
-                            if (state_timer.getElapsedTimeSeconds() > 6.5) {
-                                robot.feederL(1.0);
-                                if (state_timer.getElapsedTimeSeconds() > 9){
-                                    robot.feederL(0.0);
-                                    if(state_timer.getElapsedTimeSeconds() > 10.5){
-                                        robot.feederL(1.0);
-                                        if (state_timer.getElapsedTimeSeconds() > 16){
-                                            robot.stopFlywheel();
-                                            robot.intake(0.0);
-                                            robot.feederR(0.0);
-                                            robot.transfer(0.0);
-                                            next_state();
-                                        }
-                                    }
+                    if (state_timer.getElapsedTimeSeconds() > 5) {
+                        robot.feederL(1.0);
+                        if(state_timer.getElapsedTimeSeconds() > 7){
+                            robot.feederL(0.0);
+                            if (state_timer.getElapsedTimeSeconds() > 7.5) {
+                                robot.feederR(1.0);
+                                if (state_timer.getElapsedTimeSeconds() > 13){
+                                    robot.feederR(0.0);
+                                    next_state();
                                 }
                             }
                         }
                     }
                 }
                 break;
-            case 2://park
+            case 2://collect
+                follower.followPath(Collect);
+                next_state();
+                break;
+            case 3://fire
+                if (!follower.isBusy()){
+                    robot.transfer(1.0);
+                    robot.feederL(1.0);
+                    if(state_timer.getElapsedTimeSeconds() > 5){
+                        robot.feederL(0.0);
+                        if (state_timer.getElapsedTimeSeconds() > 5.5) {
+                            robot.feederR(1.0);
+                            if (state_timer.getElapsedTimeSeconds() > 12){
+                                robot.stopFlywheel();
+                                robot.transfer(0.0);
+                                robot.intake(0.0);
+                                robot.feederR(0.0);
+                                next_state();
+                            }
+                        }
+                    }
+                }
+                break;
+            case 4://park
                 follower.followPath(Park);
                 next_state();
                 break;
+
         }
         robot.draw(follower);
     }
