@@ -80,7 +80,7 @@ public class OffTheLine6 extends OpMode {
                 break;
             case 1://shoots
                 if (!follower.isBusy()){
-                    robot.spinFlywheel(1560);
+                    robot.spinFlywheel(1525);
                     robot.transfer(1.0);
                     robot.intake(1.0);
                     if (state_timer.getElapsedTimeSeconds() > 5) {
