@@ -306,6 +306,9 @@ public class Robot3 {
         Drawing.drawDebug(follower);
     }
 
+    public double getOffsetForShooting(Pose currentPose){
+        return Math.toDegrees(Math.atan2(5.25, DistanceFromGoal(currentPose)));
+    }
 
 }
 

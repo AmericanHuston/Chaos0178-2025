@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.Tests;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.vision.VisionPortal;
@@ -10,7 +9,7 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 
 import java.util.List;
 
-@Autonomous()
+@Autonomous(name = "April Tags Test", group = "tests")
 public class AprilTagsTest extends OpMode {
     private AprilTagProcessor aprilTagProcessor;
 
@@ -31,6 +30,7 @@ public class AprilTagsTest extends OpMode {
         for (AprilTagDetection detection : currentDetections) {
             idsFound.append(detection.id);
             idsFound.append(' ');
+            stop();
         }
         telemetry.addData("April Tags", idsFound);
     }
