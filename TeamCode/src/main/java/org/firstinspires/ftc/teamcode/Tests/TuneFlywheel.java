@@ -7,11 +7,11 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
-@Disabled
+
 @TeleOp(group = "Tests", name = "Tune Flywheel PIDF")
 public class TuneFlywheel extends OpMode {
-    double P = 0.0;
-    double F = 17.2;
+    double P = 45.0;
+    double F = 16.0;
     DcMotorEx FlywheelMotor;
     double highVel = 1500;
     double lowVel = 900;
