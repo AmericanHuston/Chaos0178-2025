@@ -105,7 +105,6 @@ public class Diagonal6 extends OpMode {
                 break;
             case 3://fire
                 if (!follower.isBusy()){
-                    robot.transfer(1.0);
                     robot.feederR(1.0);
                     robot.feederL(1.0);
                     if (state_timer.getElapsedTimeSeconds() > 13){
