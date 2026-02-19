@@ -154,17 +154,6 @@ public class ShootyShootyBangBang extends OpMode {
             }
         }
 
-
-
-
-        //Rewrite below----------
-        if (gamepad1.back) {
-            follower.setPose(new Pose(8, 71, Math.toRadians(0)));
-            follower.update();
-        }
-
-        //Rewrite above----------
-
         //Panels Telemetry?
         panelsTelemetry.addData("Current Position:", String.format("(X:%.2f, Y:%.2f, θ:%.2f)", follower.getPose().getX(), follower.getPose().getY(), Math.toDegrees(follower.getPose().getHeading())));
         panelsTelemetry.addData("Flywheel RPM", robot.getFlywheelSpeedRPM());
