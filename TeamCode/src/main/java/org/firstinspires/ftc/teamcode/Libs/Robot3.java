@@ -259,24 +259,26 @@ public class Robot3 {
     }
     public void feederL(double power){
         FeederL.setPower(power);
-        isFeederLOn = !isFeederLOn;
-        if (isFeederLOn) {
+        if (power > 0.0) {
             leftLEDGreen.on();
             leftLEDRed.off();
+            isFeederLOn = true;
         } else {
             leftLEDGreen.off();
             leftLEDRed.on();
+            isFeederLOn = false;
         }
     }
     public void feederR(double power){
         FeederR.setPower(power);
-        isFeederROn = !isFeederROn;
-        if (isFeederROn) {
+        if (power > 0.0) {
+            isFeederROn = true;
             rightLEDGreen.on();
             rightLEDRed.off();
         } else {
             rightLEDGreen.off();
             rightLEDRed.on();
+            isFeederROn = false;
         }
     }
     public void actMotors(){
