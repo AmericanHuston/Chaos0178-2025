@@ -80,7 +80,7 @@ public class Diagonal6 extends OpMode {
                 break;
             case 1://shoots
                 if (!follower.isBusy()){
-                    robot.spinFlywheel(1140);
+                    robot.spinFlywheel(1320);
                     robot.transfer(1.0);
                     robot.intake(1.0);
                     if (state_timer.getElapsedTimeSeconds() > 6) {
