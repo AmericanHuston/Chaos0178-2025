@@ -12,7 +12,7 @@ public class ConstantChaos {
     }
     public static boolean isRed = true;
 
-    public static double maxDistance = 144;
+    public static double maxDistance = 100;
     public static double minDistance = 40;
     public static double maxVelocity = 1650;
     public static double minVelocity =  1100;

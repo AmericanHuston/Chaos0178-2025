@@ -7,6 +7,7 @@ import com.pedropathing.paths.PathChain;
 import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
+import org.firstinspires.ftc.teamcode.Libs.ConstantChaos;
 import org.firstinspires.ftc.teamcode.Libs.Robot3;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
@@ -80,7 +81,7 @@ public class OffTheLine6 extends OpMode {
                 break;
             case 1://shoots
                 if (!follower.isBusy()){
-                    robot.spinFlywheel(1525);
+                    robot.spinFlywheel(ConstantChaos.flyVel);
                     robot.transfer(1.0);
                     robot.intake(1.0);
                     if (state_timer.getElapsedTimeSeconds() > 5) {
@@ -104,7 +105,6 @@ public class OffTheLine6 extends OpMode {
                 break;
             case 3://fire
                 if (!follower.isBusy()){
-                    robot.transfer(1.0);
                     robot.feederL(1.0);
                     if(state_timer.getElapsedTimeSeconds() > 5){
                         robot.feederL(0.0);
