@@ -91,12 +91,12 @@ public class Robot3 {
     public Robot3(boolean isRed){
         if(isRed){
             GoalArea = ConstantChaos.RedGoalArea;
-            Fire1 = ConstantChaos.Red1Fire;
+            Fire1 = ConstantChaos.RedShootingPoseOffTheLine;
             Park = ConstantChaos.RedParkArea;
             myAlliance = Alliance.RED;
         } else {
             GoalArea = ConstantChaos.BlueGoalArea;
-            Fire1 = ConstantChaos.Blue1Fire;
+            Fire1 = ConstantChaos.BlueShootingOffTheLine;
             Park = ConstantChaos.BlueParkArea;
             myAlliance = Alliance.BLUE;
         }
