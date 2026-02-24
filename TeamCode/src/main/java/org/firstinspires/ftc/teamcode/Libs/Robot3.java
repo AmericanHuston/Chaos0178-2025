@@ -251,11 +251,19 @@ public class Robot3 {
     }
     public void intake(double power){
         IntakeMotor.setPower(power);
-        isIntakeOn = !isIntakeOn;
+        if(power > 0){
+            isIntakeOn = true;
+        }else{
+            isIntakeOn = false;
+        }
     } //runs the intake
     public void transfer(double power){
         ServoTransfer.setPower(power);
-        isTransferOn = !isTransferOn;
+        if(power > 0){
+            isTransferOn = true;
+        }else{
+            isTransferOn = false;
+        }
     }
     public void feederL(double power){
         FeederL.setPower(power);

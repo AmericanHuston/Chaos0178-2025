@@ -82,7 +82,7 @@ public class Diagonal6 extends OpMode {
                 if (!follower.isBusy()){
                     robot.spinFlywheel(1320);
                     robot.transfer(1.0);
-                    robot.intake(1.0);
+                    robot.intake(0.2);
                     if (state_timer.getElapsedTimeSeconds() > 6) {
                         robot.feederL(1.0);
                         if(state_timer.getElapsedTimeSeconds() > 8){
@@ -91,6 +91,7 @@ public class Diagonal6 extends OpMode {
                                 robot.feederR(1.0);
                                 if (state_timer.getElapsedTimeSeconds() > 13){
                                     robot.feederR(0.0);
+                                    robot.intake(1.0);
                                     next_state();
                                 }
                             }
@@ -105,6 +106,7 @@ public class Diagonal6 extends OpMode {
                 break;
             case 3://fire
                 if (!follower.isBusy()){
+                    robot.intake(0.2);
                     robot.feederR(1.0);
                     robot.feederL(1.0);
                     if (state_timer.getElapsedTimeSeconds() > 13){
