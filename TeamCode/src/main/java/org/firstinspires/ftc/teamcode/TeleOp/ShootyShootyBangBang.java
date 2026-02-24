@@ -126,14 +126,11 @@ public class ShootyShootyBangBang extends OpMode {
             robot.stopFlywheel();
         }
         if(gamepad2.leftBumperWasReleased()){ //intake on and off
-            if(robot.isIntakeOn()){
-                robot.intake(0.0);
+            if (!robot.isIntakeTwenty()) {
+                robot.intake(0.2);
             }else{
                 robot.intake(1.0);
             }
-        }
-        if(gamepad2.left_trigger>0.01){
-            robot.intake(0.2);
         }
         if (gamepad2.aWasReleased()){ //This turns the transfer on/off
             if (robot.getIsTransferOn()){

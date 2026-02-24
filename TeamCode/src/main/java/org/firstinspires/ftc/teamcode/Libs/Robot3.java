@@ -44,6 +44,7 @@ public class Robot3 {
     private boolean isTransferOn = false;
     private boolean isFeederLOn = false;
     private boolean isFeederROn = false;
+    private boolean isIntakeTwenty = false;
 
     private static Pose lastPose = new Pose(24,24, Math.toRadians(0));
 
@@ -173,6 +174,8 @@ public class Robot3 {
         return isIntakeOn;
     }
 
+    public boolean isIntakeTwenty(){return isIntakeTwenty;}
+
     public Alliance getAlliance() { return myAlliance; }
 
     public boolean isFeederLOn() { return isFeederLOn; }
@@ -251,10 +254,15 @@ public class Robot3 {
     }
     public void intake(double power){
         IntakeMotor.setPower(power);
-        if(power > 0){
+        if(power == 0.2){
             isIntakeOn = true;
+            isIntakeTwenty = true;
+        }else if(power > 0.0 && !(power == 0.2)){
+            isIntakeOn = true;
+            isIntakeTwenty = false;
         }else{
             isIntakeOn = false;
+            isIntakeTwenty = false;
         }
     } //runs the intake
     public void transfer(double power){
