@@ -88,7 +88,7 @@ public class Robot3 {
         }
     }
 
-    public Robot3(boolean isRed) {
+    public Robot3(boolean isRed) {//also an init, pretty important this year
         if (isRed) {
             GoalArea = ConstantChaos.RedGoalArea;
             Fire1 = ConstantChaos.RedShootingPoseOffTheLine;
@@ -102,7 +102,7 @@ public class Robot3 {
         }
     }
 
-    public void init(HardwareMap hardwareMap) {
+    public void init(HardwareMap hardwareMap) { //init, runs during the init phase of teleop
         Drawing.init();
         //Pinpoint = hardwareMap.get(GoBildaPinpointDriver.class, "pinpoint");
         PredominantColorProcessor colorSensor = new PredominantColorProcessor.Builder()
@@ -194,7 +194,7 @@ public class Robot3 {
         return isFlywheelOn;
     }
 
-    public double getFlywheelSpeed() {
+    public double getFlywheelSpeed() { //again, this is velocity. Ticks per second I think
         return FlywheelMotor.getVelocity(AngleUnit.RADIANS);
     }
 
@@ -210,17 +210,10 @@ public class Robot3 {
         FlywheelMotor.setVelocity(velocity, AngleUnit.RADIANS);
     }
 
-    public void stopFlywheelVelocity() {
-        FlywheelMotor.setVelocity(0.0);
-    }
-
-    public double getFlywheelSpeedRPM() {
+    public double getFlywheelSpeedRPM() {//yay math so I don't have to do it manually
         return (this.getFlywheelSpeed() * 17.6470588);
     }
 
-    public double getFlywheelPower() {
-        return FlywheelMotor.getPower();
-    }
 
     public double getFlywheelVelocity() {
         return FlywheelMotor.getVelocity();
@@ -228,7 +221,7 @@ public class Robot3 {
 
     public void resetIMU() {
         IMU.resetYaw();
-    }
+    }//this can be helpful
 
     public List<AprilTagDetection> getAprilTags() {
         return AprilTag.getDetections();
@@ -250,12 +243,12 @@ public class Robot3 {
         this.desiredFrontRight = desiredFrontRight;
     }
 
-    public void spinFlywheel(double power) {
+    public void spinFlywheel(double power) {//this really spins based on velocity, not power...
         FlywheelMotor.setVelocity(power);
         isFlywheelOn = true;
     }
 
-    public void stopFlywheel() {
+    public void stopFlywheel() {//stops the flywheel
         FlywheelMotor.setPower(0.0);
         isFlywheelOn = false;
     }
@@ -278,16 +271,12 @@ public class Robot3 {
         }
     } //runs the intake
 
-    public void transfer(double power) {
+    public void transfer(double power) {//runs the rubber band transfer
         ServoTransfer.setPower(power);
-        if (power > 0) {
-            isTransferOn = true;
-        } else {
-            isTransferOn = false;
-        }
+        isTransferOn = power > 0;
     }
 
-    public void feederL(double power) {
+    public void feederL(double power) {//runs the feeder on the left side
         FeederL.setPower(power);
         if (power > 0.0) {
             leftLEDGreen.on();
@@ -300,7 +289,7 @@ public class Robot3 {
         }
     }
 
-    public void feederR(double power) {
+    public void feederR(double power) { //runs the feeder on the right side
         FeederR.setPower(power);
         if (power > 0.0) {
             isFeederROn = true;
@@ -321,16 +310,16 @@ public class Robot3 {
 //        Flywheel.setPower(desiredFlywheel);
     }
 
-    public double calcHeadingToGoal(Pose currentPosition) {
+    public double calcHeadingToGoal(Pose currentPosition) { //calculates the theta to the goal
         return Math.atan2(GoalArea.getY() - currentPosition.getY(), GoalArea.getX() - currentPosition.getX()) + Math.toRadians(180);
     }
 
-    public double calcPowerForFlywheel(Pose currentPosition) {
+    public double calcPowerForFlywheel(Pose currentPosition) { // calculates the VELOCITY to spin the flywheel at to score
         double slope = (ConstantChaos.maxVelocity - ConstantChaos.minVelocity) / (ConstantChaos.maxDistance - ConstantChaos.minDistance);
         return slope * (DistanceFromGoal(currentPosition) - ConstantChaos.minDistance) + ConstantChaos.minVelocity;
     }
 
-    public double DistanceFromGoal(Pose current) {
+    public double DistanceFromGoal(Pose current) { //distance from the goal
         return GoalArea.distanceFrom(current);
     }
 
@@ -343,25 +332,19 @@ public class Robot3 {
         }
     }
 
-    public void draw(Follower follower) {
+    public void draw(Follower follower) { //for panels
         Drawing.drawDebug(follower);
     }
 
-    public double getOffsetForShooting(Pose currentPose) {
-        return Math.toDegrees(Math.atan2(5.25, DistanceFromGoal(currentPose)));
-    }
-
-    public boolean inScoringZone(Pose robotPose) {
+    public void inScoringZone(Pose robotPose) {//determines if the robot is in a scoring zone, then fires up the flywheel if it is
         double dY = robotPose.getY() - 71;
         double x = robotPose.getX();
         if (dY > 71) {
             if (x < 72 - dY && x > 72 + dY) {
                 double desiredFlywheelVelocity = calcPowerForFlywheel(robotPose);
                 spinFlywheel(desiredFlywheelVelocity);
-                return true;
             }
         }
-        return false;
     }
 }
 

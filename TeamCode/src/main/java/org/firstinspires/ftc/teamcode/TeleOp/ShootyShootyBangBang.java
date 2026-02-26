@@ -14,7 +14,6 @@ import org.firstinspires.ftc.teamcode.Libs.Robot3;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
 import com.pedropathing.geometry.BezierLine;
-import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.PathChain;
 import com.pedropathing.util.PoseHistory;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -35,8 +34,6 @@ public class ShootyShootyBangBang extends OpMode {
 
     Robot3 robot = new Robot3(ConstantChaos.isRed);
 
-    public double intakeVel = 0.0;
-    public double transferVel = 0.5;
     public double desiredFlywheelVelocity = 0.0;
 
     private PathChain goToShoot;
@@ -117,16 +114,16 @@ public class ShootyShootyBangBang extends OpMode {
             follower.setPose(resetPose);
         }
 
-        robot.inScoringZone(follower.getPose());
+        robot.inScoringZone(follower.getPose());//Runs flywheel automatically
         desiredFlywheelVelocity = robot.calcPowerForFlywheel(follower.getPose());
-        if (gamepad2.right_trigger >= 0.01 && follower.getPose().getY() > 50){
+        if (gamepad2.right_trigger >= 0.01 && follower.getPose().getY() > 50){//trigger flywheel button
             robot.spinFlywheel(desiredFlywheelVelocity);
         } else if (gamepad2.right_trigger >= 0.01 && follower.getPose().getY() < 50){
             robot.spinFlywheel(ConstantChaos.flyVel);
         } else{
             robot.stopFlywheel();
         }
-        if(gamepad2.leftBumperWasReleased()){ //intake on and off
+        if(gamepad2.leftBumperWasReleased()){ //intake twenty percent and off
             if (!robot.isIntakeTwenty()) {
                 robot.intake(0.2);
             }else{
