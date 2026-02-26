@@ -117,6 +117,7 @@ public class ShootyShootyBangBang extends OpMode {
             follower.setPose(resetPose);
         }
 
+        robot.inScoringZone(follower.getPose());
         desiredFlywheelVelocity = robot.calcPowerForFlywheel(follower.getPose());
         if (gamepad2.right_trigger >= 0.01 && follower.getPose().getY() > 50){
             robot.spinFlywheel(desiredFlywheelVelocity);

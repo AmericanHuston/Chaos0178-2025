@@ -46,13 +46,13 @@ public class Robot3 {
     private boolean isFeederROn = false;
     private boolean isIntakeTwenty = false;
 
-    private static Pose lastPose = new Pose(24,24, Math.toRadians(0));
+    private static Pose lastPose = new Pose(24, 24, Math.toRadians(0));
 
     public Pose GoalArea = new Pose(72, 72);
     public Pose Fire1 = new Pose(72, 24);
     public Pose Turn = new Pose(24, 24);
-    public Pose Add = new Pose(3,3);
-    public Pose Park = new Pose(12,12);
+    public Pose Add = new Pose(3, 3);
+    public Pose Park = new Pose(12, 12);
 
     double P = 45.0;
     double F = 16.5870;
@@ -88,8 +88,8 @@ public class Robot3 {
         }
     }
 
-    public Robot3(boolean isRed){
-        if(isRed){
+    public Robot3(boolean isRed) {
+        if (isRed) {
             GoalArea = ConstantChaos.RedGoalArea;
             Fire1 = ConstantChaos.RedShootingPoseOffTheLine;
             Park = ConstantChaos.RedParkArea;
@@ -106,16 +106,16 @@ public class Robot3 {
         Drawing.init();
         //Pinpoint = hardwareMap.get(GoBildaPinpointDriver.class, "pinpoint");
         PredominantColorProcessor colorSensor = new PredominantColorProcessor.Builder()
-            .setRoi(ImageRegion.asUnityCenterCoordinates(-0.1, 0.1, 0.1, -0.1))
-            .setSwatches(
-                PredominantColorProcessor.Swatch.ARTIFACT_GREEN,
-                PredominantColorProcessor.Swatch.ARTIFACT_PURPLE,
-                PredominantColorProcessor.Swatch.RED,
-                PredominantColorProcessor.Swatch.BLUE,
-                PredominantColorProcessor.Swatch.YELLOW,
-                PredominantColorProcessor.Swatch.BLACK,
-                PredominantColorProcessor.Swatch.WHITE)
-            .build();
+                .setRoi(ImageRegion.asUnityCenterCoordinates(-0.1, 0.1, 0.1, -0.1))
+                .setSwatches(
+                        PredominantColorProcessor.Swatch.ARTIFACT_GREEN,
+                        PredominantColorProcessor.Swatch.ARTIFACT_PURPLE,
+                        PredominantColorProcessor.Swatch.RED,
+                        PredominantColorProcessor.Swatch.BLUE,
+                        PredominantColorProcessor.Swatch.YELLOW,
+                        PredominantColorProcessor.Swatch.BLACK,
+                        PredominantColorProcessor.Swatch.WHITE)
+                .build();
 
         IMU = hardwareMap.get(IMU.class, "imu");
         FrontLeftMotor = hardwareMap.dcMotor.get("frontLeft");
@@ -149,24 +149,24 @@ public class Robot3 {
         leftLEDRed.on();
     }
 
-    public double getHeading(){
+    public double getHeading() {
         return getHeadingOfTag.getHeading(visionPortal, AprilTag);
     }
 
-    public void setLastPose(Pose savePose){
+    public void setLastPose(Pose savePose) {
         lastPose = savePose;
     }
 
-    public Pose getLastPose(){
+    public Pose getLastPose() {
         return lastPose;
     }
 
-    public Pose getTurn(Pose current){
+    public Pose getTurn(Pose current) {
         Turn = current.plus(Add);
         return Turn;
     }
 
-    public boolean getIsTransferOn(){
+    public boolean getIsTransferOn() {
         return isTransferOn;
     }
 
@@ -174,53 +174,63 @@ public class Robot3 {
         return isIntakeOn;
     }
 
-    public boolean isIntakeTwenty(){return isIntakeTwenty;}
+    public boolean isIntakeTwenty() {
+        return isIntakeTwenty;
+    }
 
-    public Alliance getAlliance() { return myAlliance; }
+    public Alliance getAlliance() {
+        return myAlliance;
+    }
 
-    public boolean isFeederLOn() { return isFeederLOn; }
+    public boolean isFeederLOn() {
+        return isFeederLOn;
+    }
 
-    public boolean isFeederROn() { return isFeederROn; }
+    public boolean isFeederROn() {
+        return isFeederROn;
+    }
 
-    public boolean getIsFlywheelOn(){
+    public boolean getIsFlywheelOn() {
         return isFlywheelOn;
     }
 
-    public double getFlywheelSpeed(){
+    public double getFlywheelSpeed() {
         return FlywheelMotor.getVelocity(AngleUnit.RADIANS);
     }
 
-    public void setLastSuccessfulSpeed(double speed){
+    public void setLastSuccessfulSpeed(double speed) {
         this.lastSuccessfulSpeed = speed;
     }
 
-    public double getLastSuccessfulSpeed(){
+    public double getLastSuccessfulSpeed() {
         return lastSuccessfulSpeed;
     }
 
-    public void setFlywheelVelocity(double velocity){
+    public void setFlywheelVelocity(double velocity) {
         FlywheelMotor.setVelocity(velocity, AngleUnit.RADIANS);
     }
 
-    public void stopFlywheelVelocity(){
+    public void stopFlywheelVelocity() {
         FlywheelMotor.setVelocity(0.0);
     }
 
-    public double getFlywheelSpeedRPM(){
+    public double getFlywheelSpeedRPM() {
         return (this.getFlywheelSpeed() * 17.6470588);
     }
 
-    public double getFlywheelPower(){
+    public double getFlywheelPower() {
         return FlywheelMotor.getPower();
     }
 
-    public double getFlywheelVelocity(){ return FlywheelMotor.getVelocity(); }
+    public double getFlywheelVelocity() {
+        return FlywheelMotor.getVelocity();
+    }
 
     public void resetIMU() {
         IMU.resetYaw();
     }
 
-    public List<AprilTagDetection> getAprilTags(){
+    public List<AprilTagDetection> getAprilTags() {
         return AprilTag.getDetections();
     }
 
@@ -240,40 +250,44 @@ public class Robot3 {
         this.desiredFrontRight = desiredFrontRight;
     }
 
-    public void spinFlywheel(double power){
+    public void spinFlywheel(double power) {
         FlywheelMotor.setVelocity(power);
         isFlywheelOn = true;
     }
 
-    public void stopFlywheel(){
+    public void stopFlywheel() {
         FlywheelMotor.setPower(0.0);
         isFlywheelOn = false;
     }
-    public void motorTest(DcMotor motor, double power){
+
+    public void motorTest(DcMotor motor, double power) {
         motor.setPower(power);
     }
-    public void intake(double power){
+
+    public void intake(double power) {
         IntakeMotor.setPower(power);
-        if(power == 0.2){
+        if (power == 0.2) {
             isIntakeOn = true;
             isIntakeTwenty = true;
-        }else if(power > 0.0 && !(power == 0.2)){
+        } else if (power > 0.0 && !(power == 0.2)) {
             isIntakeOn = true;
             isIntakeTwenty = false;
-        }else{
+        } else {
             isIntakeOn = false;
             isIntakeTwenty = false;
         }
     } //runs the intake
-    public void transfer(double power){
+
+    public void transfer(double power) {
         ServoTransfer.setPower(power);
-        if(power > 0){
+        if (power > 0) {
             isTransferOn = true;
-        }else{
+        } else {
             isTransferOn = false;
         }
     }
-    public void feederL(double power){
+
+    public void feederL(double power) {
         FeederL.setPower(power);
         if (power > 0.0) {
             leftLEDGreen.on();
@@ -285,7 +299,8 @@ public class Robot3 {
             isFeederLOn = false;
         }
     }
-    public void feederR(double power){
+
+    public void feederR(double power) {
         FeederR.setPower(power);
         if (power > 0.0) {
             isFeederROn = true;
@@ -297,7 +312,8 @@ public class Robot3 {
             isFeederROn = false;
         }
     }
-    public void actMotors(){
+
+    public void actMotors() {
         FrontRightMotor.setPower(desiredFrontRight);
         FrontLeftMotor.setPower(desiredFrontLeft);
         BackRightMotor.setPower(desiredBackRight);
@@ -309,14 +325,15 @@ public class Robot3 {
         return Math.atan2(GoalArea.getY() - currentPosition.getY(), GoalArea.getX() - currentPosition.getX()) + Math.toRadians(180);
     }
 
-    public double calcPowerForFlywheel(Pose currentPosition){
+    public double calcPowerForFlywheel(Pose currentPosition) {
         double slope = (ConstantChaos.maxVelocity - ConstantChaos.minVelocity) / (ConstantChaos.maxDistance - ConstantChaos.minDistance);
         return slope * (DistanceFromGoal(currentPosition) - ConstantChaos.minDistance) + ConstantChaos.minVelocity;
     }
 
-    public double DistanceFromGoal(Pose current){
+    public double DistanceFromGoal(Pose current) {
         return GoalArea.distanceFrom(current);
     }
+
     public static void drawOnlyCurrent(Pose current) {
         try {
             Drawing.drawRobot(current);
@@ -330,10 +347,22 @@ public class Robot3 {
         Drawing.drawDebug(follower);
     }
 
-    public double getOffsetForShooting(Pose currentPose){
+    public double getOffsetForShooting(Pose currentPose) {
         return Math.toDegrees(Math.atan2(5.25, DistanceFromGoal(currentPose)));
     }
 
+    public boolean inScoringZone(Pose robotPose) {
+        double dY = robotPose.getY() - 71;
+        double x = robotPose.getX();
+        if (dY > 71) {
+            if (x < 72 - dY && x > 72 + dY) {
+                double desiredFlywheelVelocity = calcPowerForFlywheel(robotPose);
+                spinFlywheel(desiredFlywheelVelocity);
+                return true;
+            }
+        }
+        return false;
+    }
 }
 
 
