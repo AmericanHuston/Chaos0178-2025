@@ -12,12 +12,17 @@ import com.pedropathing.follower.Follower;
 import org.firstinspires.ftc.teamcode.Libs.ConstantChaos;
 import org.firstinspires.ftc.teamcode.Libs.Robot3;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
+import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
+import org.firstinspires.ftc.vision.apriltag.AprilTagMetadata;
 
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.paths.PathChain;
 import com.pedropathing.util.PoseHistory;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @TeleOp(name = "ShootyShootyBangBang", group = "TeleOp")
 public class ShootyShootyBangBang extends OpMode {
@@ -59,6 +64,10 @@ public class ShootyShootyBangBang extends OpMode {
     @SuppressLint("DefaultLocale")
     @Override
     public void loop() {
+        List<AprilTagDetection> tags = robot.getAprilTags();
+        for (AprilTagDetection detection : tags){
+            telemetry.addData("Detections", detection.id);
+        }
         follower.update(); //MUST COME BEFORE SET TELE OP DRIVE
         //Okay, if something is reversed in the driving, try swapping the polarity here
         if (ConstantChaos.isRed) {

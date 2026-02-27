@@ -29,13 +29,12 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 import org.firstinspires.ftc.vision.opencv.ImageRegion;
 import org.firstinspires.ftc.vision.opencv.PredominantColorProcessor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Robot3 {
 
     private static final boolean USE_WEBCAM = true;  // true for webcam, false for phone camera
-
-    private AprilTagProcessor aprilTag;
 
     private final Alliance myAlliance;
     double desiredFrontRight;
@@ -144,7 +143,7 @@ public class Robot3 {
         FeederR.setDirection(CRServo.Direction.FORWARD);
         FeederL.setDirection(CRServo.Direction.REVERSE);
         initAprilTag(hardwareMap);
-        visionPortal = VisionPortal.easyCreateWithDefaults(hardwareMap.get(WebcamName.class, "Webcam 1"), AprilTag);
+//        visionPortal = VisionPortal.easyCreateWithDefaults(hardwareMap.get(WebcamName.class, "Webcam 1"), AprilTag);
         rightLEDRed = hardwareMap.get(LED.class, "rightLEDRed");
         rightLEDGreen = hardwareMap.get(LED.class, "rightLEDGreen");
         leftLEDRed = hardwareMap.get(LED.class, "leftLEDRed");
@@ -356,32 +355,33 @@ public class Robot3 {
     private void initAprilTag(HardwareMap hardwareMap) {
 
         // Create the AprilTag processor the easy way.
-        aprilTag = AprilTagProcessor.easyCreateWithDefaults();
+        AprilTag = AprilTagProcessor.easyCreateWithDefaults();
 
         // Create the vision portal the easy way.
         if (USE_WEBCAM) {
             visionPortal = VisionPortal.easyCreateWithDefaults(
-                    hardwareMap.get(WebcamName.class, "Webcam 1"), aprilTag);
+                    hardwareMap.get(WebcamName.class, "Webcam 1"), AprilTag);
         } else {
             visionPortal = VisionPortal.easyCreateWithDefaults(
-                    BuiltinCameraDirection.BACK, aprilTag);
+                    BuiltinCameraDirection.BACK, AprilTag);
         }
 
     }
 
-    private AprilTagMetadata telemetryAprilTag() {
+    private ArrayList<AprilTagDetection> telemetryAprilTag() {
+        return AprilTag.getDetections();
 
-        List<AprilTagDetection> currentDetections = aprilTag.getDetections();
+//        List<AprilTagDetection> currentDetections = aprilTag.getDetections();
 
         // Step through the list of detections and display info for each one.
-        for (AprilTagDetection detection : currentDetections) {
-            if (detection.metadata != null) {
-                return detection.metadata;
-            } else {
-                return null;
-            }
-        }
-        return null;
+//        for (AprilTagDetection detection : currentDetections) {
+//            if (detection.metadata != null) {
+//                return detection.metadata;
+//            } else {
+//                return null;
+//            }
+//        }
+//        return null;
     }
 }
 
