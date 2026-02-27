@@ -1,4 +1,5 @@
 package org.firstinspires.ftc.teamcode.Libs;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.BuiltinCameraDirection;
 import org.firstinspires.ftc.teamcode.Libs.ConstantChaos.Alliance;
 import com.bylazar.field.FieldManager;
 import com.bylazar.field.PanelsField;
@@ -23,6 +24,7 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
+import org.firstinspires.ftc.vision.apriltag.AprilTagMetadata;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 import org.firstinspires.ftc.vision.opencv.ImageRegion;
 import org.firstinspires.ftc.vision.opencv.PredominantColorProcessor;
@@ -30,6 +32,10 @@ import org.firstinspires.ftc.vision.opencv.PredominantColorProcessor;
 import java.util.List;
 
 public class Robot3 {
+
+    private static final boolean USE_WEBCAM = true;  // true for webcam, false for phone camera
+
+    private AprilTagProcessor aprilTag;
 
     private final Alliance myAlliance;
     double desiredFrontRight;
@@ -137,7 +143,7 @@ public class Robot3 {
         FlywheelMotor.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, pidfCoefficients);
         FeederR.setDirection(CRServo.Direction.FORWARD);
         FeederL.setDirection(CRServo.Direction.REVERSE);
-        AprilTag = AprilTagProcessor.easyCreateWithDefaults();
+        initAprilTag(hardwareMap);
         visionPortal = VisionPortal.easyCreateWithDefaults(hardwareMap.get(WebcamName.class, "Webcam 1"), AprilTag);
         rightLEDRed = hardwareMap.get(LED.class, "rightLEDRed");
         rightLEDGreen = hardwareMap.get(LED.class, "rightLEDGreen");
@@ -345,6 +351,37 @@ public class Robot3 {
             }
         }
         return false;
+    }
+
+    private void initAprilTag(HardwareMap hardwareMap) {
+
+        // Create the AprilTag processor the easy way.
+        aprilTag = AprilTagProcessor.easyCreateWithDefaults();
+
+        // Create the vision portal the easy way.
+        if (USE_WEBCAM) {
+            visionPortal = VisionPortal.easyCreateWithDefaults(
+                    hardwareMap.get(WebcamName.class, "Webcam 1"), aprilTag);
+        } else {
+            visionPortal = VisionPortal.easyCreateWithDefaults(
+                    BuiltinCameraDirection.BACK, aprilTag);
+        }
+
+    }
+
+    private AprilTagMetadata telemetryAprilTag() {
+
+        List<AprilTagDetection> currentDetections = aprilTag.getDetections();
+
+        // Step through the list of detections and display info for each one.
+        for (AprilTagDetection detection : currentDetections) {
+            if (detection.metadata != null) {
+                return detection.metadata;
+            } else {
+                return null;
+            }
+        }
+        return null;
     }
 }
 
