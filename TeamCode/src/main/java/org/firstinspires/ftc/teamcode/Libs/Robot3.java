@@ -336,15 +336,15 @@ public class Robot3 {
         Drawing.drawDebug(follower);
     }
 
-    public void inScoringZone(Pose robotPose) {//determines if the robot is in a scoring zone, then fires up the flywheel if it is
-        double dY = robotPose.getY() - 71;
+    public boolean inScoringZone(Pose robotPose) {//determines if the robot is in a scoring zone, then fires up the flywheel if it is
+        double dY = robotPose.getY() - 64;
         double x = robotPose.getX();
-        if (dY > 71) {
-            if (x < 72 - dY && x > 72 + dY) {
-                double desiredFlywheelVelocity = calcPowerForFlywheel(robotPose);
-                spinFlywheel(desiredFlywheelVelocity);
+        if (dY > 0) {
+            if (x > (72 - dY) && x < (72 + dY)) {
+                return true;
             }
         }
+        return false;
     }
 }
 

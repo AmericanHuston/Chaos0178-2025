@@ -114,15 +114,17 @@ public class ShootyShootyBangBang extends OpMode {
             follower.setPose(resetPose);
         }
 
-        robot.inScoringZone(follower.getPose());//Runs flywheel automatically
         desiredFlywheelVelocity = robot.calcPowerForFlywheel(follower.getPose());
         if (gamepad2.right_trigger >= 0.01 && follower.getPose().getY() > 50){//trigger flywheel button
             robot.spinFlywheel(desiredFlywheelVelocity);
         } else if (gamepad2.right_trigger >= 0.01 && follower.getPose().getY() < 50){
             robot.spinFlywheel(ConstantChaos.flyVel);
-        } else{
+        } else if (robot.inScoringZone(follower.getPose())){
+            robot.spinFlywheel(desiredFlywheelVelocity);
+        }else{
             robot.stopFlywheel();
         }
+
         if(gamepad2.leftBumperWasReleased()){ //intake twenty percent and off
             if (!robot.isIntakeTwenty()) {
                 robot.intake(0.2);
@@ -165,6 +167,7 @@ public class ShootyShootyBangBang extends OpMode {
         panelsTelemetry.addData("flyVel", ConstantChaos.flyVel);
         panelsTelemetry.addData("Transfer is On", robot.getIsTransferOn());
         panelsTelemetry.addData("Last Successful Shot Speed", robot.getLastSuccessfulSpeed());
+        panelsTelemetry.addData("In scoring zone", robot.inScoringZone(follower.getPose()));
         panelsTelemetry.update(telemetry);
 
         robot.draw(follower);
