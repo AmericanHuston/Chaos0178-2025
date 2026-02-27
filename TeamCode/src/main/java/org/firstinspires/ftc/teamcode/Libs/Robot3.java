@@ -352,6 +352,18 @@ public class Robot3 {
         return false;
     }
 
+    public boolean inSmallScoringZone(Pose robotPose){
+        double dY = robotPose.getY() - 33;
+        double x = robotPose.getX();
+
+        if (dY < 0){
+            if (x < (72 - dY) && x > (72 + dY)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void initAprilTag(HardwareMap hardwareMap) {
 
         // Create the AprilTag processor the easy way.

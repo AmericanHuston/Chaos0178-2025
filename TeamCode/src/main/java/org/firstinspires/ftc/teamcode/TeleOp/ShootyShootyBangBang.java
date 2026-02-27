@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.TeleOp;
 
+import static org.firstinspires.ftc.teamcode.Libs.ConstantChaos.flyVel;
 import static org.firstinspires.ftc.teamcode.Libs.ConstantChaos.resetPose;
 
 import android.annotation.SuppressLint;
@@ -130,7 +131,9 @@ public class ShootyShootyBangBang extends OpMode {
             robot.spinFlywheel(ConstantChaos.flyVel);
         } else if (robot.inScoringZone(follower.getPose())){
             robot.spinFlywheel(desiredFlywheelVelocity);
-        }else{
+        }else if (robot.inSmallScoringZone(follower.getPose())){
+            robot.spinFlywheel(flyVel);
+        } else {
             robot.stopFlywheel();
         }
 
