@@ -17,7 +17,7 @@ public class ConstantChaos {
     public static double maxVelocity = 1650;
     public static double minVelocity =  1300;
 
-    public static double flyVel = 1900;//short for flywheel velocity
+    public static double flyVel = 2000;//short for flywheel velocity
 
     //reset Pose
     public static final Pose resetPose = new Pose(72, 9, Math.toRadians(90));
