@@ -80,17 +80,17 @@ public class Diagonal6 extends OpMode {
                 break;
             case 1://shoots
                 if (!follower.isBusy()){
-                    robot.spinFlywheel(1320);
+                    robot.spinFlywheel(1340);
                     robot.transfer(1.0);
                     robot.intake(0.2);
                     if (state_timer.getElapsedTimeSeconds() > 3) {
                         robot.feederL(1.0);
-                        if (state_timer.getElapsedTimeSeconds() > 5.5) {
+                        if (state_timer.getElapsedTimeSeconds() > 4.5) {
                             robot.intake(1.0);
-                            if (state_timer.getElapsedTimeSeconds() > 6.5) {
+                            if (state_timer.getElapsedTimeSeconds() > 5.5) {
                                 robot.feederR(1.0);
                                 robot.intake(0.2);
-                                if (state_timer.getElapsedTimeSeconds() > 13){
+                                if (state_timer.getElapsedTimeSeconds() > 11){
                                     robot.feederL(0.0);
                                     robot.feederR(0.0);
                                     robot.intake(1.0);
@@ -108,16 +108,18 @@ public class Diagonal6 extends OpMode {
                 break;
             case 3://fire
                 if (!follower.isBusy()){
-                    robot.intake(0.2);
                     robot.feederR(1.0);
                     robot.feederL(1.0);
-                    if (state_timer.getElapsedTimeSeconds() > 13){
-                        robot.stopFlywheel();
-                        robot.transfer(0.0);
-                        robot.intake(0.0);
-                        robot.feederL(0.0);
-                        robot.feederR(0.0);
-                        next_state();
+                    if (state_timer.getElapsedTimeSeconds() > 4) {
+                        robot.intake(0.2);
+                        if (state_timer.getElapsedTimeSeconds() > 15){
+                            robot.stopFlywheel();
+                            robot.transfer(0.0);
+                            robot.intake(0.0);
+                            robot.feederL(0.0);
+                            robot.feederR(0.0);
+                            next_state();
+                        }
                     }
                 }
                 break;
