@@ -102,6 +102,7 @@ public class OffTheLine6 extends OpMode {
                 }
                 break;
             case 2://collect
+                follower.setMaxPower(0.8);
                 follower.followPath(Collect);
                 next_state();
                 break;
@@ -125,6 +126,7 @@ public class OffTheLine6 extends OpMode {
                 }
                 break;
             case 4://park
+                follower.setMaxPower(1.0);
                 follower.followPath(Park);
                 next_state();
                 break;
