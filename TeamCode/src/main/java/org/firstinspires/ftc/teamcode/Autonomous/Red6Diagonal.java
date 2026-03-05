@@ -14,6 +14,7 @@ public class Red6Diagonal extends Diagonal6 {
         super.ShootingPose = ConstantChaos.RedShootingPoseDiagonal;
         super.PickUpPartOne = ConstantChaos.RedPickUpPartOne;
         super.PickUpPartTwo = ConstantChaos.RedPickUpPartTwo;
+        super.PickUpThree = ConstantChaos.RedPickUpThree;
         super.EndingPose = ConstantChaos.RedEndingPoseDiagonal;
     }
 }

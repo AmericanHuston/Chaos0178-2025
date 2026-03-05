@@ -21,6 +21,7 @@ public class Diagonal6 extends OpMode {
     public Pose ShootingPose;
     public Pose PickUpPartOne;
     public Pose PickUpPartTwo;
+    public Pose PickUpThree;
     public Pose EndingPose;
 
     private PathChain Forward;
@@ -41,8 +42,10 @@ public class Diagonal6 extends OpMode {
                 .setLinearHeadingInterpolation(StartingPose.getHeading(), ShootingPose.getHeading())
                 .build();
         Park = follower.pathBuilder()
-                .addPath(new BezierLine(ShootingPose, EndingPose))
-                .setLinearHeadingInterpolation(ShootingPose.getHeading(), EndingPose.getHeading())
+                .addPath(new BezierLine(ShootingPose, PickUpThree))
+                .setLinearHeadingInterpolation(ShootingPose.getHeading(), PickUpThree.getHeading())
+                .addPath(new BezierLine(PickUpThree, EndingPose))
+                .setLinearHeadingInterpolation(PickUpThree.getHeading(), EndingPose.getHeading())
                 .build();
         Collect = follower.pathBuilder()
                 .addPath(new BezierLine(ShootingPose, PickUpPartOne))
@@ -83,7 +86,7 @@ public class Diagonal6 extends OpMode {
                     robot.spinFlywheel(1340);
                     robot.transfer(1.0);
                     robot.intake(0.2);
-                    if (state_timer.getElapsedTimeSeconds() > 3) {
+                    if (state_timer.getElapsedTimeSeconds() > 3.5) {
                         robot.feederL(1.0);
                         if (state_timer.getElapsedTimeSeconds() > 4.5) {
                             robot.intake(1.0);
@@ -112,10 +115,9 @@ public class Diagonal6 extends OpMode {
                     robot.feederL(1.0);
                     if (state_timer.getElapsedTimeSeconds() > 4) {
                         robot.intake(0.2);
-                        if (state_timer.getElapsedTimeSeconds() > 15){
+                        if (state_timer.getElapsedTimeSeconds() > 12){
                             robot.stopFlywheel();
-                            robot.transfer(0.0);
-                            robot.intake(0.0);
+                            robot.intake(1.0);
                             robot.feederL(0.0);
                             robot.feederR(0.0);
                             next_state();
@@ -124,7 +126,7 @@ public class Diagonal6 extends OpMode {
                 }
                 break;
             case 4://park
-                follower.setMaxPower(1.0);
+                follower.setMaxPower(0.8);
                 follower.followPath(Park);
                 next_state();
                 break;

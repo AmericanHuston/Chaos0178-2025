@@ -32,7 +32,8 @@ public class ConstantChaos {
     public static final Pose RedShootingPoseDiagonal = new Pose(100, 100, Math.toRadians(217));
     public static final Pose RedPickUpPartOne = new Pose(100, 90, Math.toRadians(0));
     public static final Pose RedPickUpPartTwo = new Pose(129, 80, Math.toRadians(0));
-    public static final Pose RedEndingPoseDiagonal = new Pose(85,110, Math.toRadians(0));
+    public static final Pose RedPickUpThree = new Pose(90, 65, Math.toRadians(0));
+    public static final Pose RedEndingPoseDiagonal = new Pose(130,55, Math.toRadians(0));
     public static final Pose RedGoalArea = new Pose(130, 132);
     public static final Pose RedParkArea = new Pose(38,33);
     public static final Pose Red1Fire = new Pose(84, 93, Math.toRadians(225));
@@ -47,7 +48,8 @@ public class ConstantChaos {
     public static final Pose BlueShootingPoseDiagonal = new Pose(45,100, Math.toRadians(323));
     public static final Pose BluePickUpPartOne = new Pose(50, 90, Math.toRadians(180));
     public static final Pose BluePickUpPartTwo = new Pose(14, 80, Math.toRadians(180));
-    public static final Pose BlueEndingPoseDiagonal = new Pose(60, 110, Math.toRadians(0));
+    public static final Pose BluePickThree = new Pose (60, 65, Math.toRadians(180));
+    public static final Pose BlueEndingPoseDiagonal = new Pose(14, 55, Math.toRadians(180));
     public static final Pose BlueGoalArea = new Pose(14, 132);
     public static final Pose BlueParkArea = new Pose(105,33);
     public static final Pose Blue1Fire = new Pose(50, 93, Math.toRadians(225));
