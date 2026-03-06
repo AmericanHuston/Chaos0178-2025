@@ -15,7 +15,7 @@ public class ConstantChaos {
     public static double maxDistance = 100;
     public static double minDistance = 40;
     public static double maxVelocity = 1650;
-    public static double minVelocity =  1300;
+    public static double minVelocity =  1350;
 
     public static double flyVel = 2000;//short for flywheel velocity
 

@@ -86,9 +86,9 @@ public class Diagonal6 extends OpMode {
                     robot.spinFlywheel(1340);
                     robot.transfer(1.0);
                     robot.intake(0.2);
-                    if (state_timer.getElapsedTimeSeconds() > 3.5) {
+                    if (state_timer.getElapsedTimeSeconds() > 4.5) {
                         robot.feederL(1.0);
-                        if (state_timer.getElapsedTimeSeconds() > 4.5) {
+                        if (state_timer.getElapsedTimeSeconds() > 5) {
                             robot.intake(1.0);
                             if (state_timer.getElapsedTimeSeconds() > 5.5) {
                                 robot.feederR(1.0);

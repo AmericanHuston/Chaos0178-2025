@@ -120,7 +120,6 @@ public class OffTheLine6 extends OpMode {
                             if (state_timer.getElapsedTimeSeconds() > 12){
                                 robot.stopFlywheel();
                                 robot.transfer(0.0);
-                                robot.intake(1.0);
                                 robot.feederR(0.0);
                                 next_state();
                             }
@@ -129,6 +128,8 @@ public class OffTheLine6 extends OpMode {
                 }
                 break;
             case 4://park
+                robot.intake(1.0);
+                follower.setMaxPower(0.8);
                 follower.followPath(Park);
                 next_state();
                 break;
