@@ -41,7 +41,7 @@ public class ConstantChaos {
 
     //Blue Poses
     public static final Pose BlueStartingPoseOffTheLine = new Pose(48,7, Math.toRadians(180));
-    public static final Pose BlueShootingOffTheLine = new Pose(52, 14, Math.toRadians(300));
+    public static final Pose BlueShootingOffTheLine = new Pose(52, 14, Math.toRadians(290));
     public static final Pose BlueFirstThreePartOne = new Pose(42, 32, Math.toRadians(180));
     public static final Pose BlueFirstThree = new Pose(14,28,Math.toRadians(180));
     public static final Pose BlueEndingPoseOffTheLine = new Pose(14,55, Math.toRadians(180));
