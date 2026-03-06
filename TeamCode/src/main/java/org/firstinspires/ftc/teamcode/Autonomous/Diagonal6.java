@@ -126,7 +126,6 @@ public class Diagonal6 extends OpMode {
                 }
                 break;
             case 4://park
-                follower.setMaxPower(0.8);
                 follower.followPath(Park);
                 next_state();
                 break;

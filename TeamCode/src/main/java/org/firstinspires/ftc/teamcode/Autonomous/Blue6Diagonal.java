@@ -14,7 +14,7 @@ public class Blue6Diagonal extends Diagonal6 {
         super.ShootingPose = ConstantChaos.BlueShootingPoseDiagonal;
         super.PickUpPartOne = ConstantChaos.BluePickUpPartOne;
         super.PickUpPartTwo = ConstantChaos.BluePickUpPartTwo;
-        super.PickUpThree = ConstantChaos.BluePickThree;
+        super.PickUpThree = ConstantChaos.BluePickUpThree;
         super.EndingPose = ConstantChaos.BlueEndingPoseDiagonal;
     }
 }

@@ -14,6 +14,7 @@ public class BlueOffTheLine6 extends OffTheLine6 {
         super.ShootingPose = ConstantChaos.BlueShootingOffTheLine;
         super.FirstThree = ConstantChaos.BlueFirstThree;
         super.FirstThreePartOne = ConstantChaos.BlueFirstThreePartOne;
+        super.PickUpThree = ConstantChaos.BluePickUpThree;
         super.EndingPose = ConstantChaos.BlueEndingPoseOffTheLine;
 
     }

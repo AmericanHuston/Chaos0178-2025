@@ -27,7 +27,7 @@ public class ConstantChaos {
     public static final Pose RedShootingPoseOffTheLine = new Pose(84, 14, Math.toRadians(245));
     public static final Pose RedFirstThree = new Pose(130,28, Math.toRadians(0));
     public static final Pose RedFirstThreePartOne = new Pose(103, 32, Math.toRadians(0));
-    public static final Pose RedEndingPoseOffTheLine = new Pose(110,10, Math.toRadians(0));
+    public static final Pose RedEndingPoseOffTheLine = new Pose(130,55, Math.toRadians(0));
     public static final Pose RedStartingPoseDiagonal = new Pose(126,120, Math.toRadians(216));
     public static final Pose RedShootingPoseDiagonal = new Pose(100, 100, Math.toRadians(217));
     public static final Pose RedPickUpPartOne = new Pose(100, 90, Math.toRadians(0));
@@ -43,12 +43,12 @@ public class ConstantChaos {
     public static final Pose BlueShootingOffTheLine = new Pose(52, 14, Math.toRadians(300));
     public static final Pose BlueFirstThreePartOne = new Pose(42, 32, Math.toRadians(180));
     public static final Pose BlueFirstThree = new Pose(14,28,Math.toRadians(180));
-    public static final Pose BlueEndingPoseOffTheLine = new Pose(34,10, Math.toRadians(180));
+    public static final Pose BlueEndingPoseOffTheLine = new Pose(14,55, Math.toRadians(180));
     public static final Pose BlueStartingPoseDiagonal = new Pose(18, 120, Math.toRadians(324));
     public static final Pose BlueShootingPoseDiagonal = new Pose(45,100, Math.toRadians(323));
     public static final Pose BluePickUpPartOne = new Pose(50, 90, Math.toRadians(180));
     public static final Pose BluePickUpPartTwo = new Pose(14, 80, Math.toRadians(180));
-    public static final Pose BluePickThree = new Pose (60, 65, Math.toRadians(180));
+    public static final Pose BluePickUpThree = new Pose (60, 65, Math.toRadians(180));
     public static final Pose BlueEndingPoseDiagonal = new Pose(14, 55, Math.toRadians(180));
     public static final Pose BlueGoalArea = new Pose(14, 132);
     public static final Pose BlueParkArea = new Pose(105,33);
