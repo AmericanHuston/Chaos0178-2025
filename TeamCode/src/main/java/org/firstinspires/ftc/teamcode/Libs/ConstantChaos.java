@@ -12,10 +12,10 @@ public class ConstantChaos {
     }
     public static boolean isRed = true;
 
-    public static double maxDistance = 100;
-    public static double minDistance = 40;
-    public static double maxVelocity = 1650;
-    public static double minVelocity =  1350;
+    public static double maxDistance = 110;
+    public static double minDistance = 50;
+    public static double maxVelocity = 1550;
+    public static double minVelocity =  1250;
 
     public static double flyVel = 2000;//short for flywheel velocity
 
@@ -35,7 +35,7 @@ public class ConstantChaos {
     //the same for both off the line and diagonal \/
     public static final Pose RedPickUpThree = new Pose(90, 65, Math.toRadians(0));
     public static final Pose RedEndingPoseDiagonal = new Pose(130,55, Math.toRadians(0));
-    public static final Pose RedGoalArea = new Pose(130, 132);
+    public static final Pose RedGoalArea = new Pose(138, 139);
     public static final Pose RedParkArea = new Pose(38,33);
     public static final Pose Red1Fire = new Pose(84, 93, Math.toRadians(225));
 
@@ -52,7 +52,7 @@ public class ConstantChaos {
     //the same for both off the line and diagonal \/
     public static final Pose BluePickUpThree = new Pose (60, 65, Math.toRadians(180));
     public static final Pose BlueEndingPoseDiagonal = new Pose(14, 55, Math.toRadians(180));
-    public static final Pose BlueGoalArea = new Pose(14, 132);
+    public static final Pose BlueGoalArea = new Pose(8, 139);
     public static final Pose BlueParkArea = new Pose(105,33);
     public static final Pose Blue1Fire = new Pose(50, 93, Math.toRadians(225));
 }
