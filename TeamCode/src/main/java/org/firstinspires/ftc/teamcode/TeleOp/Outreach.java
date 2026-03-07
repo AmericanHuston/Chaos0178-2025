@@ -43,7 +43,7 @@ public class Outreach extends OpMode {
     public void loop() {
         follower.update(); //MUST COME BEFORE SET TELE OP DRIVE
         //Okay, if something is reversed in the driving, try swapping the polarity here
-        follower.setTeleOpDrive(-gamepad1.left_stick_y/4, -gamepad1.left_stick_x/4, -gamepad1.right_stick_x/4, false);
+        follower.setTeleOpDrive(-gamepad1.left_stick_y/4, -gamepad1.left_stick_x/4, -gamepad1.right_stick_x/4, true);
         follower.updateDrivetrain();
         //Driving------------------
 
@@ -52,21 +52,20 @@ public class Outreach extends OpMode {
         }
 
         if (gamepad1.left_trigger > 0.01){ //Slow mode
-            follower.setTeleOpDrive(-gamepad1.left_stick_y/8, -gamepad1.left_stick_x/8, -gamepad1.right_stick_x/8, false);
+            follower.setTeleOpDrive(-gamepad1.left_stick_y/8, -gamepad1.left_stick_x/8, -gamepad1.right_stick_x/8, true);
             follower.update();
         }
 
         if (gamepad1.right_trigger > 0.01){ //Full speed, for outreach
-            follower.setTeleOpDrive(-gamepad1.left_stick_y/2, -gamepad1.left_stick_x/2, -gamepad1.right_stick_x/2, false);
+            follower.setTeleOpDrive(-gamepad1.left_stick_y/2, -gamepad1.left_stick_x/2, -gamepad1.right_stick_x/2, true);
             follower.update();
         }
         //Driving----------------
 
-        if(gamepad2.dpad_right){
+        if(gamepad2.left_trigger > 0.01){
             flyVel = 0.5;
             robot.spinFlywheel(flyVel);
-        }
-        if(gamepad2.dpad_left){
+        } else {
             flyVel = 0.0;
             robot.spinFlywheel(flyVel);
         }

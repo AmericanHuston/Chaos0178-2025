@@ -59,8 +59,8 @@ public class Robot3 {
     public Pose Add = new Pose(3, 3);
     public Pose Park = new Pose(12, 12);
 
-    double P = 45.0;
-    double F = 16.5870;
+    double P = 115.0;
+    double F = 17;
 
 
     IMU IMU;
